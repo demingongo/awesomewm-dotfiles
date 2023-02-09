@@ -11,10 +11,10 @@ local dpi = xresources.apply_dpi
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 
-local wallpaper = os.getenv("HOME") .. "/Pictures/Wallpapers/small-rice-wallpaper-light-greyish.png" 
-
 local theme = {}
 theme.dir           = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name
+
+theme.wallpaper = theme.dir .. "/small-rice-wallpaper-light-greyish.png"
 
 theme.font          = "Terminus 9"
 
@@ -110,8 +110,6 @@ theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/
 theme.titlebar_maximized_button_focus_inactive  = theme.dir .. "/icons/titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_active = theme.dir .. "/icons/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = theme.dir .. "/icons/titlebar/maximized_focus_active.png"
-
-theme.wallpaper = wallpaper
 
 -- You can use your own layout icons like this:
 theme.layout_fairv = theme.dir .. "/icons/fairv.png"
