@@ -15,8 +15,6 @@ local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
 local volume_widget = require('awesome-wm-widgets.pactl-widget.volume')
 local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
--- brightness_widget does not work well. Widget displays beyond 100% of brightness
---local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
@@ -255,7 +253,7 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytasklist = awful.widget.tasklist {
         screen  = s,
         filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons
+        buttons = tasklist_buttons	
     }
 
     -- Create the wibox
@@ -279,7 +277,9 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
+	    spr,
+	    spr,
+	    wibox.widget.systray(),
 	    spr,
 	    arrl_ld,
 	    wibox.container.background(cpu_widget({
@@ -347,6 +347,9 @@ globalkeys = gears.table.join(
     awful.key({}, "XF86AudioRaiseVolume", function () volume_widget:inc(5) end, {description = "volume +5%", group = "hotkeys"}),
     awful.key({}, "XF86AudioLowerVolume", function () volume_widget:dec(5) end, {description = "volume -5%", group = "hotkeys"}),
     awful.key({}, "XF86AudioMute", function () volume_widget:toggle() end, {description = "toggle mute", group = "hotkeys"}),
+    awful.key({}, "XF86AudioPlay", function () os.execute("playerctl play-pause") end, {description = "player pause/play", group = "hotkeys"}),
+    awful.key({}, "XF86AudioNext", function () os.execute("playerctl next") end, {description = "player next", group = "hotkeys"}),
+    awful.key({}, "XF86AudioPrev", function () os.execute("playerctl previous") end, {description = "player previous", group = "hotkeys"}),
 
     -- shygyver brightness
     awful.key({}, "XF86MonBrightnessDown", function() os.execute("brightnessctl set 5%-") end,
