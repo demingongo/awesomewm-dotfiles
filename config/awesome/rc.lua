@@ -55,7 +55,6 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
---beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 -- shygyver
 local theme_name = "ricework"; 
 beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), theme_name))
@@ -344,31 +343,16 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
--- shygyver audio
---[[
-    awful.key({}, "XF86AudioRaiseVolume", function() os.execute("pactl set-sink-volume 0 +5%") end,
-    {description = "volume +5%", group = "hotkeys"}),
-awful.key({}, "XF86AudioLowerVolume", function() os.execute("pactl set-sink-volume 0 -5%") end,
-{description = "volume -5%", group = "hotkeys"}),
-awful.key({}, "XF86AudioMute", function() os.execute("pactl set-sink-mute 0 toggle") end,
-{description = "toggle mute", group = "hotkeys"}),
---]]
-awful.key({}, "XF86AudioRaiseVolume", function () volume_widget:inc(5) end, {description = "volume +5%", group = "hotkeys"}),
-awful.key({}, "XF86AudioLowerVolume", function () volume_widget:dec(5) end, {description = "volume -5%", group = "hotkeys"}),
-awful.key({}, "XF86AudioMute", function () volume_widget:toggle() end, {description = "toggle mute", group = "hotkeys"}),
+    -- shygyver audio
+    awful.key({}, "XF86AudioRaiseVolume", function () volume_widget:inc(5) end, {description = "volume +5%", group = "hotkeys"}),
+    awful.key({}, "XF86AudioLowerVolume", function () volume_widget:dec(5) end, {description = "volume -5%", group = "hotkeys"}),
+    awful.key({}, "XF86AudioMute", function () volume_widget:toggle() end, {description = "toggle mute", group = "hotkeys"}),
 
--- shygyver brightness
-
-awful.key({}, "XF86MonBrightnessDown", function() os.execute("brightnessctl set 5%-") end,
-{description = "brightness -5%", group = "hotkeys"}),
-awful.key({}, "XF86MonBrightnessUp", function() os.execute("brightnessctl set 5%+") end,
-{description = "brightness +5%", group = "hotkeys"}),
---[[
-awful.key({}, "XF86MonBrightnessDown", function() brightness_widget:dec() end,
-{description = "brightness -5%", group = "hotkeys"}),
-awful.key({}, "XF86MonBrightnessUp", function() brightness_widget:inc() end,
-{description = "brightness +5%", group = "hotkeys"}),
---]]
+    -- shygyver brightness
+    awful.key({}, "XF86MonBrightnessDown", function() os.execute("brightnessctl set 5%-") end,
+	{description = "brightness -5%", group = "hotkeys"}),
+    awful.key({}, "XF86MonBrightnessUp", function() os.execute("brightnessctl set 5%+") end,
+	{description = "brightness +5%", group = "hotkeys"}),
 
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
