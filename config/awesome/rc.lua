@@ -54,7 +54,8 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 -- shygyver
-local theme_name = "ricework"; 
+local themes = { "ricework", "spywork" }
+local theme_name = themes[1]; 
 beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), theme_name))
 
 -- This is used later as the default terminal and editor to run.
@@ -185,7 +186,13 @@ local function set_wallpaper(s)
         if type(wallpaper) == "function" then
             wallpaper = wallpaper(s)
         end
-        gears.wallpaper.maximized(wallpaper, s, true)
+	-- If starts with "#", it is a hex color
+	-- otherwise it is the path to the wallpaper
+	if string.sub(wallpaper, 1, 1) == "#" then
+	    gears.wallpaper.set(wallpaper)
+	else
+	    gears.wallpaper.maximized(wallpaper, s, true)
+	end
     end
 end
 
@@ -217,37 +224,17 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
 
 
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist {
+    local taglist_args = {
         screen  = s,
         filter  = awful.widget.taglist.filter.all,
         buttons = taglist_buttons,
-    	widget_template = {
-            {
-            	{
-		    layout = wibox.layout.fixed.horizontal,
-		    {
-			{
-                            {
-                                id     = 'index_role',
-                                widget = wibox.widget.textbox,
-                            },
-                            margins = 2,
-                            widget  = wibox.container.margin,
-                        },
-                        bg     = '#dddddd',
-                        shape  = gears.shape.circle,
-                        widget = wibox.container.background,
-                    },
-                },
-                left  = 8,
-                right = 8,
-                widget = wibox.container.margin
-            },
-            id     = 'background_role',
-            widget = wibox.container.background,
-        },
     }
+    if beautiful.taglist_template then
+	taglist_args.widget_template = beautiful.taglist_template
+    end
+    
+    -- Create a taglist widget
+    s.mytaglist = awful.widget.taglist(taglist_args) 
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
@@ -703,8 +690,10 @@ client.connect_signal("manage", function (c)
     -- if not awesome.startup then awful.client.setslave(c) end
 
     -- shygyver shape border radius
-    c.shape = function(cr,w,h)
-        gears.shape.rounded_rect(cr,w,h,6)
+    if type(beautiful.border_radius) == "number" then
+      c.shape = function(cr,w,h)
+          gears.shape.rounded_rect(cr,w,h,beautiful.border_radius)
+      end
     end
 
     if awesome.startup

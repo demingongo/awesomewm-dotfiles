@@ -7,6 +7,8 @@ local theme_name = "ricework"
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
+local gears = require("gears")
+local wibox = require("wibox")
 
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
@@ -30,6 +32,7 @@ theme.fg_urgent     = "#CC9393"
 theme.fg_minimize   = "#999999"
 
 theme.useless_gap   = dpi(6)
+theme.border_radius = 6
 theme.border_width  = dpi(1)
 theme.border_normal = "#3F3F3F"
 theme.border_focus  = "#767EA2"
@@ -137,6 +140,33 @@ theme.awesome_icon = theme_assets.awesome_icon(
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = nil
+
+-- Taglist widget template
+theme.taglist_template = {
+    {
+        {
+	    layout = wibox.layout.fixed.horizontal,
+	    {
+		{
+                    {
+                        id     = 'index_role',
+                        widget = wibox.widget.textbox,
+                    },
+                    margins = 2,
+                    widget  = wibox.container.margin,
+                },
+                bg     = '#dddddd',
+                shape  = gears.shape.circle,
+                widget = wibox.container.background,
+            },
+        },
+        left  = 8,
+        right = 8,
+        widget = wibox.container.margin
+    },
+    id     = 'background_role',
+    widget = wibox.container.background,
+}
 
 
 return theme
