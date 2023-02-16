@@ -51,7 +51,7 @@ theme.border_marked = "#CC9393"
 -- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
-theme.tasklist_disable_icon = false
+theme.tasklist_disable_icon = true
 theme.tasklist_disable_task_name = false
 theme.tasklist_bg_focus  = "#1A1A1A"
 theme.titlebar_bg_focus  = theme.bg_focus
@@ -143,11 +143,12 @@ theme.awesome_icon = theme_assets.awesome_icon(
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = nil
 
--- Wibox
+-- Wibar
 --
 
-theme.wibox_expand = "none"
-
+-- wibar props
+theme.wibar_expand = "none"
+theme.wibar_bg = "#00000000" -- transparent
 
 -- Taglist widget template
 theme.taglist_template = {
@@ -177,6 +178,7 @@ theme.taglist_template = {
 }
 
 -- Tasklist
+theme.tasklist_max_width = 600 
 local function create_tasklist(args, s)
 
     args.style = {
@@ -216,8 +218,8 @@ local function create_tasklist(args, s)
                 },
                 layout = wibox.layout.fixed.horizontal
             },
-            left = 30,
-            right = 30,
+            left = 15,
+            right = 15,
             widget = wibox.container.margin
         },
         id = "background_role",

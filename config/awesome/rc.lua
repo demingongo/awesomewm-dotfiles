@@ -262,18 +262,24 @@ awful.screen.connect_for_each_screen(function(s)
         buttons = tasklist_buttons	
     }
     --]]
+    
+    local wibar_args = {
+	screen = s,
+      	position = beautiful.wibar_position,
+      	height = beautiful.wibar_height
+    }
+
+    if beautiful.wibar_bg then
+	wibar_args.bg = beautiful.wibar_bg
+    end
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ 
-      screen = s,
-      position = beautiful.wibar_position,
-      height = beautiful.wibar_height 
-    })
+    s.mywibox = awful.wibar(wibar_args)
 
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
-	expand = beautiful.wibox_expand,
+	expand = beautiful.wibar_expand,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             mylauncher,
@@ -282,7 +288,7 @@ awful.screen.connect_for_each_screen(function(s)
             s.mypromptbox,
 	    spr,
         },
-        s.mytasklist, -- Middle widget
+        beautiful.wibar_expand == "none" and wibox.container.constraint(s.mytasklist,"max",beautiful.tasklist_max_width or 750) or s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
 	    spr,
