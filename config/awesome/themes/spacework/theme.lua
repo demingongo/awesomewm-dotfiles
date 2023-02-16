@@ -1,14 +1,15 @@
 ---------------------------
--- ricework awesome theme --
+-- spacework awesome theme --
 ---------------------------
 
-local theme_name = "ricework"
+local theme_name = "spacework"
 
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local gears = require("gears")
 local wibox = require("wibox")
+local awful = require("awful")
 
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
@@ -51,6 +52,7 @@ theme.border_marked = "#CC9393"
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
 theme.tasklist_disable_icon = false
+theme.tasklist_disable_task_name = false
 theme.tasklist_bg_focus  = "#1A1A1A"
 theme.titlebar_bg_focus  = theme.bg_focus
 theme.titlebar_bg_normal = theme.bg_normal
@@ -141,6 +143,12 @@ theme.awesome_icon = theme_assets.awesome_icon(
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = nil
 
+-- Wibox
+--
+
+theme.wibox_expand = "none"
+
+
 -- Taglist widget template
 theme.taglist_template = {
     {
@@ -167,6 +175,60 @@ theme.taglist_template = {
     id     = 'background_role',
     widget = wibox.container.background,
 }
+
+-- Tasklist
+local function create_tasklist(args, s)
+
+    args.style = {
+        shape_border_width = 1,
+        shape = gears.shape.rounded_bar
+    }
+
+    args.layout = {
+        spacing = 20,
+        spacing_widget = {
+            {
+                forced_width = 5,
+                shape = gears.shape.circle,
+                widget = wibox.widget.separator
+            },
+            valign = "center",
+            halign = "center",
+            widget = wibox.container.place
+        },
+        layout = wibox.layout.fixed.horizontal
+    }
+
+    args.widget_template = {
+        {   
+            {
+                {
+                    {
+                        id = "icon_role",
+                        widget = wibox.widget.imagebox
+                    },
+                    margins = 2,
+                    widget = wibox.container.margin
+                },
+                {
+                    id = "text_role",
+                    widget = wibox.widget.textbox
+                },
+                layout = wibox.layout.fixed.horizontal
+            },
+            left = 30,
+            right = 30,
+            widget = wibox.container.margin
+        },
+        id = "background_role",
+        widget = wibox.container.background
+    }
+
+    return awful.widget.tasklist(args)
+end
+
+
+theme.create_tasklist = create_tasklist
 
 
 return theme

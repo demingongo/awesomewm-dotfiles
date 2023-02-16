@@ -1,14 +1,15 @@
 ---------------------------
--- ricework awesome theme --
+-- spywork awesome theme --
 ---------------------------
 
-local theme_name = "ricework"
+local theme_name = "spywork"
 
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local gears = require("gears")
 local wibox = require("wibox")
+local awful = require("awful")
 
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
@@ -16,27 +17,28 @@ local themes_path = gfs.get_themes_dir()
 local theme = {}
 theme.dir           = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name
 
-theme.wallpaper = theme.dir .. "/small-rice-wallpaper-light-greyish.png"
+theme.terminal = "kitty --config " .. os.getenv("HOME") .. "/.config/kitty/kitty_spy.conf"
 
-theme.font          = "Terminus 9"
+theme.wallpaper = "#101010"
 
-theme.bg_normal     = "#1A1A1A"
-theme.bg_focus      = "#303446"
-theme.bg_urgent     = "#313131"
-theme.bg_minimize   = "#313131"
+theme.font          = "Terminus 10"
+
+theme.bg_normal     = "#101010"
+theme.bg_focus      = "#101010"
+theme.bg_urgent     = "#FDC407"
+theme.bg_minimize   = "#101010"
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = "#959CB7"
-theme.fg_focus      = "#DDDDFF"
-theme.fg_urgent     = "#CC9393"
-theme.fg_minimize   = "#999999"
+theme.fg_normal     = "#009900"
+theme.fg_focus      = "#00FF00"
+theme.fg_urgent     = "#FF0000"
+theme.fg_minimize   = "#FDC407"
 
-theme.useless_gap   = dpi(6)
-theme.border_radius = 6
+theme.useless_gap   = dpi(0)
 theme.border_width  = dpi(1)
-theme.border_normal = "#3F3F3F"
-theme.border_focus  = "#767EA2"
-theme.border_marked = "#CC9393"
+theme.border_normal = "#101010"
+theme.border_focus  = "#101010"
+theme.border_marked = "#FF0000"
 
 -- There are other variable sets
 -- overriding the default one when
@@ -50,14 +52,15 @@ theme.border_marked = "#CC9393"
 -- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
-theme.tasklist_disable_icon = false
-theme.tasklist_bg_focus  = "#1A1A1A"
+theme.tasklist_disable_task_name = false
+theme.tasklist_disable_icon = true
+theme.tasklist_bg_focus  = "#101010"
 theme.titlebar_bg_focus  = theme.bg_focus
 theme.titlebar_bg_normal = theme.bg_normal
 theme.titlebar_fg_focus  = theme.fg_focus
 
 -- awful wibar properties
-theme.wibar_position = "top"
+theme.wibar_position = "bottom"
 theme.wibar_height = dpi(25)
 
 -- Generate taglist squares:
@@ -141,8 +144,47 @@ theme.awesome_icon = theme_assets.awesome_icon(
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = nil
 
--- Taglist widget template
-theme.taglist_template = {
+
+-- Widgets
+--
+--
+
+theme.textclock_format = "%R"
+theme.calendar_theme = "naughty"
+theme.calendar_position = "bottom_right"
+theme.calendar_radius = 0
+theme.calendar_start_sunday = false
+
+theme.batteryarc_notification_position = "bottom_right"
+theme.batteryarc_main_color = theme.fg_normal
+
+theme.volume_widget_type = "horizontal_bar"
+
+local function create_taglist(args, s)
+    --[[
+    args.widget_template = {
+      id = "background_role",
+      forced_width = 10,
+      widget = wibox.container.background,
+      create_callback = function(widget, tag, _, _)
+        widget:connect_signal("mouse::enter", function()
+          widget.shape_border_color = "#FF0000"
+        end)
+        widget:connect_signal("mouse::leave", function()
+          widget.shape_border_color = "#FFFFFF"
+        end)
+        -- optional bonus tooltip showing the tag name
+        -- awful.tooltip({
+        --   objects = { widget },
+        --   mode = "outside",
+        --   text = tag.name,
+        -- })
+      end,
+    }
+    --]]
+
+    --[[
+    args.widget_template = {
     {
         {
 	    layout = wibox.layout.fixed.horizontal,
@@ -155,7 +197,7 @@ theme.taglist_template = {
                     margins = 2,
                     widget  = wibox.container.margin,
                 },
-                bg     = theme.fg_focus,
+                bg     = '#00FF00',
                 shape  = gears.shape.circle,
                 widget = wibox.container.background,
             },
@@ -166,8 +208,13 @@ theme.taglist_template = {
     },
     id     = 'background_role',
     widget = wibox.container.background,
-}
+    }
+    --]]
 
+    return awful.widget.taglist(args)
+end
+
+theme.create_taglist = create_taglist
 
 return theme
 

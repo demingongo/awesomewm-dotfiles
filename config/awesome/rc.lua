@@ -54,12 +54,12 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 -- shygyver
-local themes = { "ricework", "spywork" }
+local themes = { "ricework", "spacework", "spywork" }
 local theme_name = themes[1]; 
 beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), theme_name))
 
 -- This is used later as the default terminal and editor to run.
-terminal = "kitty"
+terminal = beautiful.terminal or "kitty"
 editor = "nvim" or os.getenv("EDITOR") or "vi"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -123,13 +123,13 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+mytextclock = wibox.widget.textclock(beautiful.textclock_format or '%a %b %d, %R')
 -- Calendar widget
 local cw = calendar_widget({
-    theme = 'nord',
-    placement = 'top_right',
-    start_sunday = true,
-    radius = 8,
+    theme = beautiful.calendar_theme or 'nord',
+    placement = beautiful.calendar_position or 'top_right',
+    start_sunday = (type(beautiful.calendar_start_sunday) ~= 'boolean') and true or beautiful.calendar_start_sunday,
+    radius = beautiful.calendar_radius or 8,
     previous_month_button = 5,
     next_month_button = 4,
 })
@@ -234,14 +234,34 @@ awful.screen.connect_for_each_screen(function(s)
     end
     
     -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(taglist_args) 
+    if type(beautiful.create_taglist) == "function" then
+	s.mytaglist = beautiful.create_taglist(taglist_args, s)
+    else
+	s.mytaglist = awful.widget.taglist(taglist_args)  
+    end
 
+
+    local tasklist_args = {
+        screen  = s,
+        filter  = awful.widget.tasklist.filter.currenttags,
+        buttons = tasklist_buttons	
+    };
+
+    -- Create a tasklist widget
+    if type(beautiful.create_tasklist) == "function" then
+	s.mytasklist = beautiful.create_tasklist(tasklist_args, s)
+    else
+	s.mytasklist = awful.widget.tasklist(tasklist_args)  
+    end
+    
+    --[[
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
         screen  = s,
         filter  = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons	
     }
+    --]]
 
     -- Create the wibox
     s.mywibox = awful.wibar({ 
@@ -253,6 +273,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
+	expand = beautiful.wibox_expand,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             mylauncher,
@@ -273,7 +294,7 @@ awful.screen.connect_for_each_screen(function(s)
     		width = 40,
     		step_width = 2,
     		step_spacing = 1,
-    		color = '#009900'
+    		color = beautiful.cpu_widget_color or '#009900'
 	    })
 		, beautiful.bg_focus),
 	    arrl_dl,
@@ -286,7 +307,8 @@ awful.screen.connect_for_each_screen(function(s)
 		beautiful.bg_focus),
 	    wibox.container.background(
 	    	volume_widget{
-        	  widget_type = 'arc'
+        	  widget_type = beautiful.volume_widget_type or 'arc',
+		  shape = 'hexagon',
             	}, beautiful.bg_focus),
 	    wibox.container.background(
 	    	padding,
@@ -296,13 +318,13 @@ awful.screen.connect_for_each_screen(function(s)
 	    batteryarc_widget({
             	show_current_level = true,
 		show_notification_mode = 'on_hover',
-		notification_position = 'top_right',
+		notification_position = beautiful.batteryarc_notification_position or 'top_right',
             	arc_thickness = 2,
 		show_current_level = true,
 		size = 18,
 		enable_battery_warning = true,
 		timeout = 10,
-		main_color = '#756321'
+		main_color = beautiful.batteryarc_main_color or '#756321'
             }),
 	    padding,
 	    arrl_ld,
