@@ -9,7 +9,7 @@ echo "Select a theme:"
 
 theme=$(echo """ricework
 spywork
-yumework""" | gum choose)
+yumework""" | gum choose --item.faint)
 
 if [[ -n "$theme" ]] then
 	gum spin --spinner line --title "$theme" -- sleep 1
