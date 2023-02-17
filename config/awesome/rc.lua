@@ -254,19 +254,11 @@ awful.screen.connect_for_each_screen(function(s)
 	s.mytasklist = awful.widget.tasklist(tasklist_args)  
     end
     
-    --[[
-    -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist {
-        screen  = s,
-        filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons	
-    }
-    --]]
-    
     local wibar_args = {
 	screen = s,
       	position = beautiful.wibar_position,
-      	height = beautiful.wibar_height
+      	height = beautiful.wibar_height,
+	opacity = beautiful.wibar_opacity or 1
     }
 
     if beautiful.wibar_bg then
@@ -283,10 +275,8 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             mylauncher,
-	    spr,
             s.mytaglist,
             s.mypromptbox,
-	    spr,
         },
         beautiful.wibar_expand == "none" and wibox.container.constraint(s.mytasklist,"max",beautiful.tasklist_max_width or 750) or s.mytasklist, -- Middle widget
         { -- Right widgets

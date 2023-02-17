@@ -17,7 +17,8 @@ local themes_path = gfs.get_themes_dir()
 local theme = {}
 theme.dir           = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name
 
-theme.wallpaper = theme.dir .. "/small-rice-wallpaper-light-greyish.png"
+--theme.wallpaper = theme.dir .. "/small-rice-wallpaper-light-greyish.png"
+theme.wallpaper = os.getenv("HOME") .. "/Pictures/Wallpapers/16447966_v960-ning-05.jpg"
 
 theme.font          = "Terminus 9"
 
@@ -149,6 +150,7 @@ theme.icon_theme = nil
 -- wibar props
 theme.wibar_expand = "none"
 theme.wibar_bg = "#00000000" -- transparent
+theme.wibar_opacity = 0.5
 
 -- Taglist widget template
 theme.taglist_template = {
