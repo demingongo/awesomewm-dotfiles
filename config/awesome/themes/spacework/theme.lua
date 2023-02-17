@@ -33,7 +33,7 @@ theme.fg_focus      = "#DDDDFF"
 theme.fg_urgent     = "#CC9393"
 theme.fg_minimize   = "#999999"
 
-theme.useless_gap   = dpi(6)
+theme.useless_gap   = dpi(4)
 theme.border_radius = 6
 theme.border_width  = dpi(1)
 theme.border_normal = "#3F3F3F"
@@ -144,43 +144,27 @@ theme.awesome_icon = theme_assets.awesome_icon(
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = nil
 
+-- Widgets
+--
+-- 
+
+theme.textclock_format = "%R"
+theme.calendar_theme = "naughty"
+theme.calendar_start_sunday = false
+
 -- Wibar
 --
+--
 
--- wibar props
+-- Wibar props
+--
 theme.wibar_expand = "none"
 theme.wibar_bg = "#00000000" -- transparent
 --theme.wibar_opacity = 0.5
 theme.wibar_border_width = dpi(12)
 
--- Taglist widget template
-theme.taglist_template = {
-    {
-        {
-	    layout = wibox.layout.fixed.horizontal,
-	    {
-		{
-                    {
-                        id     = 'index_role',
-                        widget = wibox.widget.textbox,
-                    },
-                    margins = 2,
-                    widget  = wibox.container.margin,
-                },
-                bg     = theme.fg_focus,
-                shape  = gears.shape.circle,
-                widget = wibox.container.background,
-            },
-        },
-        left  = 8,
-        right = 8,
-        widget = wibox.container.margin
-    },
-    id     = 'background_role',
-    widget = wibox.container.background,
-}
-
 -- Tasklist
+--
 theme.tasklist_max_width = 600 
 local function create_tasklist(args, s)
 
@@ -234,6 +218,67 @@ end
 
 theme.create_tasklist = create_tasklist
 
+
+-- Left widgets
+--
+
+-- Taglist widget template
+theme.taglist_template = {
+    {
+        {
+	    layout = wibox.layout.fixed.horizontal,
+	    {
+		{
+                    {
+                        id     = 'index_role',
+                        widget = wibox.widget.textbox,
+                    },
+                    margins = 2,
+                    widget  = wibox.container.margin,
+                },
+                bg     = theme.fg_focus,
+                shape  = gears.shape.circle,
+                widget = wibox.container.background,
+            },
+        },
+        left  = 8,
+        right = 8,
+        widget = wibox.container.margin
+    },
+    id     = 'background_role',
+    widget = wibox.container.background,
+}
+
+local function create_left_widgets(w_launcher, w_taglist, w_promptbox)
+    return {
+        layout = wibox.layout.fixed.horizontal,
+        {
+            {
+                {
+                    layout = wibox.layout.fixed.horizontal,
+                    w_taglist,
+                    w_promptbox
+                },
+                left = 15,
+                right = 15,
+                widget = wibox.container.margin
+            },
+            shape_border_width = 1,
+            shape = gears.shape.rounded_bar,
+            bg = theme.bg_normal,
+            id = "background_role",
+            widget = wibox.container.background
+        }
+    }
+end
+
+theme.create_left_widgets = create_left_widgets
+
+
+
+-- Right widgets
+--
+
 local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, w_layout)
     return {
         layout = wibox.layout.fixed.horizontal,
@@ -242,7 +287,7 @@ local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, 
             {
                 {
                     layout = wibox.layout.fixed.horizontal,
-
+                    spacing = 20,
                     wibox.widget.systray(),
                     w_cpu,
                     w_ram,

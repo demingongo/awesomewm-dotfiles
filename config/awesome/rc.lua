@@ -55,7 +55,7 @@ end
 -- Themes define colours, icons, font and wallpapers.
 -- shygyver
 local themes = { "ricework", "spacework", "spywork" }
-local theme_name = themes[1]; 
+local theme_name = themes[2]; 
 beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), theme_name))
 
 -- This is used later as the default terminal and editor to run.
@@ -273,14 +273,21 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
 	expand = beautiful.wibar_expand,
-        { -- Left widgets
+	-- Left widgets
+	type(beautiful.create_left_widgets) == "function" and beautiful.create_left_widgets(
+	    mylauncher,
+	    s.mytaglist,
+	    s.mypromptbox
+	) or { -- Left widgets default
             layout = wibox.layout.fixed.horizontal,
             mylauncher,
             s.mytaglist,
             s.mypromptbox,
         },
-        beautiful.wibar_expand == "none" and wibox.container.constraint(s.mytasklist,"max",beautiful.tasklist_max_width or 750) or s.mytasklist, -- Middle widget
-        type(beautiful.create_right_widgets) == "function" and beautiful.create_right_widgets(
+	-- Middle widget
+        beautiful.wibar_expand == "none" and wibox.container.constraint(s.mytasklist,"max",beautiful.tasklist_max_width or 750) or s.mytasklist,
+        -- Right widgets
+	type(beautiful.create_right_widgets) == "function" and beautiful.create_right_widgets(
 	    cpu_widget({
     		width = 40,
     		step_width = 2,
@@ -308,7 +315,7 @@ awful.screen.connect_for_each_screen(function(s)
 	    mykeyboardlayout,
 	    mytextclock,
 	    s.mylayoutbox
-	) or { -- Right widgets
+	) or { -- Right widgets default
             layout = wibox.layout.fixed.horizontal,
 	    spr,
 	    spr,
