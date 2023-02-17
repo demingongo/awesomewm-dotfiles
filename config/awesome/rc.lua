@@ -54,8 +54,8 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 -- shygyver
-local themes = { "ricework", "spacework", "spywork" }
-local theme_name = themes[2]; 
+local themes = { "ricework", "spywork", "yumework" }
+local theme_name = themes[3]; 
 beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), theme_name))
 
 -- This is used later as the default terminal and editor to run.

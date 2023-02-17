@@ -1,8 +1,8 @@
 ---------------------------
--- spacework awesome theme --
+-- yumework awesome theme --
 ---------------------------
 
-local theme_name = "spacework"
+local theme_name = "yumework"
 
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
@@ -17,8 +17,7 @@ local themes_path = gfs.get_themes_dir()
 local theme = {}
 theme.dir           = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name
 
---theme.wallpaper = theme.dir .. "/small-rice-wallpaper-light-greyish.png"
-theme.wallpaper = os.getenv("HOME") .. "/Pictures/Wallpapers/16447966_v960-ning-05.jpg"
+theme.wallpaper = theme.dir .. "/yumework.jpg"
 
 theme.font          = "Terminus 9"
 
@@ -33,7 +32,7 @@ theme.fg_focus      = "#DDDDFF"
 theme.fg_urgent     = "#CC9393"
 theme.fg_minimize   = "#999999"
 
-theme.useless_gap   = dpi(4)
+theme.useless_gap   = dpi(6)
 theme.border_radius = 6
 theme.border_width  = dpi(1)
 theme.border_normal = "#3F3F3F"
