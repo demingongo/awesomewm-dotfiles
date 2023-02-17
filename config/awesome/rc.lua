@@ -258,7 +258,8 @@ awful.screen.connect_for_each_screen(function(s)
 	screen = s,
       	position = beautiful.wibar_position,
       	height = beautiful.wibar_height,
-	opacity = beautiful.wibar_opacity or 1
+	opacity = beautiful.wibar_opacity or 1,
+	border_width = beautiful.wibar_border_width or 0
     }
 
     if beautiful.wibar_bg then
@@ -279,7 +280,35 @@ awful.screen.connect_for_each_screen(function(s)
             s.mypromptbox,
         },
         beautiful.wibar_expand == "none" and wibox.container.constraint(s.mytasklist,"max",beautiful.tasklist_max_width or 750) or s.mytasklist, -- Middle widget
-        { -- Right widgets
+        type(beautiful.create_right_widgets) == "function" and beautiful.create_right_widgets(
+	    cpu_widget({
+    		width = 40,
+    		step_width = 2,
+    		step_spacing = 1,
+    		color = beautiful.cpu_widget_color or '#009900'
+	    }),
+	    ram_widget({
+		    widget_width
+	    }),
+	    volume_widget{
+        	  widget_type = beautiful.volume_widget_type or 'arc',
+		  shape = 'hexagon',
+            },
+	    batteryarc_widget({
+            	show_current_level = true,
+		show_notification_mode = 'on_hover',
+		notification_position = beautiful.batteryarc_notification_position or 'top_right',
+            	arc_thickness = 2,
+		show_current_level = true,
+		size = 18,
+		enable_battery_warning = true,
+		timeout = 10,
+		main_color = beautiful.batteryarc_main_color or '#756321'
+            }),
+	    mykeyboardlayout,
+	    mytextclock,
+	    s.mylayoutbox
+	) or { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
 	    spr,
 	    spr,

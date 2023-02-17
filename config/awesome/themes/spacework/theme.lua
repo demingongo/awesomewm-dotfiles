@@ -150,7 +150,8 @@ theme.icon_theme = nil
 -- wibar props
 theme.wibar_expand = "none"
 theme.wibar_bg = "#00000000" -- transparent
-theme.wibar_opacity = 0.5
+--theme.wibar_opacity = 0.5
+theme.wibar_border_width = dpi(12)
 
 -- Taglist widget template
 theme.taglist_template = {
@@ -231,9 +232,40 @@ local function create_tasklist(args, s)
     return awful.widget.tasklist(args)
 end
 
-
 theme.create_tasklist = create_tasklist
 
+local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, w_layout)
+    return {
+        layout = wibox.layout.fixed.horizontal,
+        
+        {
+            {
+                {
+                    layout = wibox.layout.fixed.horizontal,
+
+                    wibox.widget.systray(),
+                    w_cpu,
+                    w_ram,
+                    w_vol,
+                    w_batt,
+                    w_kb,
+                    w_clock,
+                    w_layout
+                },
+                left = 15,
+                right = 10,
+                widget = wibox.container.margin
+            },
+            shape_border_width = 1,
+            shape = gears.shape.rounded_bar,
+            bg = theme.bg_normal,
+            id = "background_role",
+            widget = wibox.container.background
+        }
+    }
+end
+
+theme.create_right_widgets = create_right_widgets
 
 return theme
 
