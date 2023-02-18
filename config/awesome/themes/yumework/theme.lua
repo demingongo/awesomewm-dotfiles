@@ -29,7 +29,7 @@ theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = "#959CB7"
 theme.fg_focus      = "#DDDDFF"
-theme.fg_urgent     = "#CC9393"
+theme.fg_urgent     = "#ED7A78"
 theme.fg_minimize   = "#999999"
 
 theme.useless_gap   = dpi(6)
@@ -51,25 +51,20 @@ theme.border_marked = "#CC9393"
 -- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
+theme.taglist_fg_focus    = "#3EA0C1"
+theme.taglist_fg_occupied = "#2c7087"
+theme.taglist_fg_urgent   = theme.fg_urgent
+theme.taglist_fg_empty    = theme.fg_normal
+theme.taglist_bg_focus    = theme.bg_focus .. "11"
+theme.taglist_font        = "Hack Nerd Font Bold 12"
+
 theme.tasklist_disable_icon = true
 theme.tasklist_disable_task_name = false
 theme.tasklist_bg_focus  = "#1A1A1A"
+
 theme.titlebar_bg_focus  = theme.bg_focus
 theme.titlebar_bg_normal = theme.bg_normal
 theme.titlebar_fg_focus  = theme.fg_focus
-
--- awful wibar properties
-theme.wibar_position = "top"
-theme.wibar_height = dpi(25)
-
--- Generate taglist squares:
-local taglist_square_size = dpi(4)
-theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
-    taglist_square_size, theme.fg_normal
-)
-theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
-    taglist_square_size, theme.fg_normal
-)
 
 -- Variables set for theming notifications:
 -- notification_font
@@ -83,11 +78,6 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 theme.menu_submenu_icon = theme.dir .. "/icons/submenu.png"
 theme.menu_height = dpi(22)
 theme.menu_width  = dpi(140)
-
--- You can add as many variables as
--- you wish and access them by using
--- beautiful.variable in your rc.lua
---theme.bg_widget = "#cc0000"
 
 -- Define the image to load
 theme.titlebar_close_button_normal = theme.dir .. "/icons/titlebar/close_normal.png"
@@ -151,15 +141,19 @@ theme.textclock_format = "%R"
 theme.calendar_theme = "naughty"
 theme.calendar_start_sunday = false
 
+theme.batteryarc_main_color = theme.fg_normal
+
 -- Wibar
 --
 --
 
--- Wibar props
+-- Wibar properties
 --
+theme.wibar_position = "top"
+theme.wibar_height = dpi(25)
 theme.wibar_expand = "none"
 theme.wibar_bg = "#00000000" -- transparent
---theme.wibar_opacity = 0.5
+theme.wibar_opacity = 0.85
 theme.wibar_border_width = dpi(12)
 
 -- Tasklist
@@ -221,32 +215,32 @@ theme.create_tasklist = create_tasklist
 -- Left widgets
 --
 
+-- Taglist
+-- nf-weather-moon_alt
+theme.taglist_tags = { " ", " ", " ", " ", " ", " ", " " } -- tags 8 and 9: " ", " " 
+
 -- Taglist widget template
 theme.taglist_template = {
     {
         {
 	    layout = wibox.layout.fixed.horizontal,
-	    {
-		{
-                    {
-                        id     = 'index_role',
-                        widget = wibox.widget.textbox,
-                    },
-                    margins = 2,
-                    widget  = wibox.container.margin,
+            {
+                {
+                    id = "text_role",
+                    widget = wibox.widget.textbox
                 },
-                bg     = theme.fg_focus,
-                shape  = gears.shape.circle,
-                widget = wibox.container.background,
+                margins = 1,
+                widget = wibox.container.margin
             },
         },
         left  = 8,
-        right = 8,
+        right = 0,
         widget = wibox.container.margin
     },
     id     = 'background_role',
     widget = wibox.container.background,
 }
+
 
 local function create_left_widgets(w_launcher, w_taglist, w_promptbox)
     return {
