@@ -10,6 +10,7 @@ local dpi = xresources.apply_dpi
 local gears = require("gears")
 local wibox = require("wibox")
 local awful = require("awful")
+local escape_f  = require("awful.util").escape
 
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
@@ -52,7 +53,6 @@ theme.border_marked = "#CC9393"
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
 theme.taglist_fg_focus    = "#3EA0C1"
-theme.taglist_fg_occupied = "#2c7087"
 theme.taglist_fg_urgent   = theme.fg_urgent
 theme.taglist_fg_empty    = theme.fg_normal
 theme.taglist_bg_focus    = theme.bg_focus .. "11"
@@ -211,14 +211,88 @@ end
 
 theme.create_tasklist = create_tasklist
 
+-- Custom widgets
+--
+
+local function ellipsize(text, length)
+    return (text:len() > length and length > 0)
+        and text:sub(0, length - 3) .. '...'
+        or text
+end
+
+-- mpris widget
+-- based on https://github.com/acrisci/playerctl
+local mpris, mpris_timer = awful.widget.watch(
+    -- format 'playerctl metadata' command result
+    { awful.util.shell, "-c", "playerctl -f '{{status}};{{xesam:artist}};{{xesam:title}};{{mpris:artUrl}}{{xesam:album}}{{xesam:albumArtist}}' metadata" },
+    2,
+    function(widget, stdout)
+        -- Declare/init vars
+        local states = {
+            Playing = "󰝚 ",
+            Paused = " "
+        }
+        local mpris_now = {
+            state        = "N/A",
+            artist       = "N/A",
+            title        = "N/A",
+            art_url      = "N/A",
+            album        = "N/A",
+            album_artist = "N/A"
+        }
+        local link = {
+            'state',
+            'artist',
+            'title',
+            'art_url',
+            'album',
+            'album_artist'
+        }
+
+        -- Fill mpris_now
+        local i = 1
+        for v in string.gmatch(stdout, "([^;]+)") 
+        do
+            if link[i] then
+                if link[i] ~= 'art_url' then
+                    mpris_now[link[i]] = escape_f(v) or "N/A"
+                else
+                    mpris_now[link[i]] = v or "N/A"
+                end
+            end
+            i = i + 1
+        end
+        
+        if states[mpris_now.state] then
+            mpris_now.state = states[mpris_now.state]
+        else
+            mpris_now.state = mpris_now.state .. " -"
+        end
+
+        -- Display
+        if mpris_now.state ~= "N/A" then
+            widget:set_text(ellipsize(mpris_now.state .. " " .. mpris_now.artist .. " - " .. mpris_now.title, 31))
+        else
+            widget:set_text('')
+        end
+    end
+)
+
 
 -- Left widgets
 --
 
 -- Taglist
 -- nf-weather-moon_alt
-theme.taglist_tags = { " ", " ", " ", " ", " ", " ", " " } -- tags 8 and 9: " ", " " 
+theme.taglist_tags = { " ", " ", " ", " ", " ", " ", " " } -- tags 8 and 9: " ", " " 
 
+local function taglist_update_callback(widget, t, idx)
+    if t.activated and #t:clients() > 0 then
+        t.name = " "
+    elseif t.name ~= theme.taglist_tags[idx] then 
+        t.name = theme.taglist_tags[idx];
+    end
+end
 -- Taglist widget template
 theme.taglist_template = {
     {
@@ -239,6 +313,8 @@ theme.taglist_template = {
     },
     id     = 'background_role',
     widget = wibox.container.background,
+    create_callback = taglist_update_callback,
+    update_callback = taglist_update_callback
 }
 
 
@@ -250,6 +326,7 @@ local function create_left_widgets(w_launcher, w_taglist, w_promptbox)
                 {
                     layout = wibox.layout.fixed.horizontal,
                     w_taglist,
+                    mpris,
                     w_promptbox
                 },
                 left = 15,
