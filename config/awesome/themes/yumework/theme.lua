@@ -14,6 +14,7 @@ local awful = require("awful")
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 
+
 local theme = {}
 theme.dir           = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name
 
@@ -231,13 +232,14 @@ local mpris, mpris_timer = awful.widget.watch(
             Playing = "󰝚 ",
             Paused = " "
         }
+        local state_separator = " "
         local mpris_now = {
-            state        = "N/A",
-            artist       = "N/A",
-            title        = "N/A",
-            art_url      = "N/A",
-            album        = "N/A",
-            album_artist = "N/A"
+            state           = "N/A",
+            artist          = "N/A",
+            title           = "N/A",
+            art_url         = "N/A",
+            album           = "N/A",
+            album_artist    = "N/A"
         }
         local link = {
             'state',
@@ -261,17 +263,26 @@ local mpris, mpris_timer = awful.widget.watch(
         if states[mpris_now.state] then
             mpris_now.state = states[mpris_now.state]
         else
-            mpris_now.state = mpris_now.state .. " -"
+            state_separator = " - "
         end
 
         -- Display
         if mpris_now.state ~= "N/A" then
-            widget:set_text(ellipsize(mpris_now.state .. " " .. mpris_now.artist .. " - " .. mpris_now.title, 36))
+            widget:set_text(ellipsize(mpris_now.state ..state_separator .. mpris_now.artist .. " - " .. mpris_now.title, 36))
         else
             widget:set_text('')
         end
     end
 )
+mpris:connect_signal("button::release", function(self, _, _, button)
+    if button == 1 then
+        -- play/pause
+        awful.spawn("playerctl play-pause", false)
+    elseif button == 3 then
+        -- display details
+    end
+end)
+-- mpris:connect_signal("mouse::enter", function(c) c:set_bg("#00000066") end)
 
 
 -- Left widgets
