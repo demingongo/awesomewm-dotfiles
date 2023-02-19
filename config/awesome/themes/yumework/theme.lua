@@ -10,7 +10,6 @@ local dpi = xresources.apply_dpi
 local gears = require("gears")
 local wibox = require("wibox")
 local awful = require("awful")
-local escape_f  = require("awful.util").escape
 
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
@@ -254,11 +253,7 @@ local mpris, mpris_timer = awful.widget.watch(
         for v in string.gmatch(stdout, "([^;]+)") 
         do
             if link[i] then
-                if link[i] ~= 'art_url' then
-                    mpris_now[link[i]] = escape_f(v) or "N/A"
-                else
-                    mpris_now[link[i]] = v or "N/A"
-                end
+                mpris_now[link[i]] = v or "N/A"
             end
             i = i + 1
         end
@@ -271,7 +266,7 @@ local mpris, mpris_timer = awful.widget.watch(
 
         -- Display
         if mpris_now.state ~= "N/A" then
-            widget:set_text(ellipsize(mpris_now.state .. " " .. mpris_now.artist .. " - " .. mpris_now.title, 31))
+            widget:set_text(ellipsize(mpris_now.state .. " " .. mpris_now.artist .. " - " .. mpris_now.title, 36))
         else
             widget:set_text('')
         end
