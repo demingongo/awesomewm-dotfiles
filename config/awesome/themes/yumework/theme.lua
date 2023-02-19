@@ -10,6 +10,7 @@ local dpi = xresources.apply_dpi
 local gears = require("gears")
 local wibox = require("wibox")
 local awful = require("awful")
+local escape_f = require("awful.util").escape;
 
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
@@ -214,17 +215,34 @@ theme.create_tasklist = create_tasklist
 -- Custom widgets
 --
 
+-- {{{ mpris widget
+
+-- TODO: case of multiple players ("playerctl -l") to display in the popup
+-- TODO: Find a way to display artUrl (download it and cache it maybe?)
+
 local function ellipsize(text, length)
     return (text:len() > length and length > 0)
         and text:sub(0, length - 3) .. '...'
         or text
 end
 
--- mpris widget
+local mpris_popup = awful.popup {
+    ontop = true,
+    visible = false, -- should be hidden when created
+    shape = function(cr, width, height)
+        gears.shape.rounded_rect(cr, width, height, 4)
+    end,
+    border_width = 1,
+    border_color = theme.bg_focus,
+    maximum_width = 400,
+    offset = { y = 5 },
+    widget = {}
+}
+
 -- based on https://github.com/acrisci/playerctl
 local mpris, mpris_timer = awful.widget.watch(
     -- format 'playerctl metadata' command result
-    { awful.util.shell, "-c", "playerctl -f '{{status}};{{xesam:artist}};{{xesam:title}};{{mpris:artUrl}}{{xesam:album}}{{xesam:albumArtist}}' metadata" },
+    { awful.util.shell, "-c", "playerctl -f '{{status}} ;{{xesam:artist}} ;{{xesam:title}} ;{{mpris:artUrl}} ;{{xesam:album}} ;{{xesam:albumArtist}}' metadata" },
     2,
     function(widget, stdout)
         -- Declare/init vars
@@ -249,13 +267,14 @@ local mpris, mpris_timer = awful.widget.watch(
             'album',
             'album_artist'
         }
+        local mpris_popup_rows = { layout = wibox.layout.fixed.vertical }
 
         -- Fill mpris_now
         local i = 1
         for v in string.gmatch(stdout, "([^;]+)") 
         do
             if link[i] then
-                mpris_now[link[i]] = v or "N/A"
+                mpris_now[link[i]] = v:match "^%s*(.-)%s*$" or "N/A"
             end
             i = i + 1
         end
@@ -268,22 +287,70 @@ local mpris, mpris_timer = awful.widget.watch(
 
         -- Display
         if mpris_now.state ~= "N/A" then
+            -- widget's content
             widget:set_text(ellipsize(mpris_now.state ..state_separator .. mpris_now.artist .. " - " .. mpris_now.title, 36))
+            -- popup content
+            table.insert(mpris_popup_rows, wibox.widget {
+                {
+                    {
+                        {
+                            image = theme.dir .. "/icons/juk.svg", -- TODO: find a way to display "mpris_now.art_url",
+                            forced_width = 48,
+                            forced_height = 48,
+                            widget = wibox.widget.imagebox
+                        },
+                        {
+                            {
+                                markup = "<b>" .. escape_f(mpris_now.title) .. "</b>",
+                                widget = wibox.widget.textbox
+                            },
+                            {
+                                text = mpris_now.artist,
+                                widget = wibox.widget.textbox
+                            },
+                            {
+                                markup = "<i>" .. escape_f(mpris_now.album) .. "</i>",
+                                widget = wibox.widget.textbox
+                            },
+                            layout = wibox.layout.fixed.vertical
+                        },
+                        spacing = 12,
+                        layout = wibox.layout.fixed.horizontal
+                    },
+                    margins = 8,
+                    widget = wibox.container.margin
+                },
+                fg = theme.fg_normal,
+                bg = theme.bg_normal,
+                widget = wibox.container.background
+            })
         else
             widget:set_text('')
+            if mpris_popup.visible then
+                mpris_popup.visible = not mpris_popup.visible
+            end
         end
+        mpris_popup:setup(mpris_popup_rows)
     end
 )
-mpris:connect_signal("button::release", function(self, _, _, button)
+mpris:connect_signal("button::release", function(self, _, _, button, _, find_widgets_result)
     if button == 1 then
         -- play/pause
         awful.spawn("playerctl play-pause", false)
     elseif button == 3 then
         -- display details
+        if mpris_popup.visible then
+            -- hide details
+            mpris_popup.visible = not mpris_popup.visible
+        else
+            -- display details next to { x=, y=, width=, height= }
+            mpris_popup:move_next_to(
+                find_widgets_result
+            )
+        end
     end
 end)
--- mpris:connect_signal("mouse::enter", function(c) c:set_bg("#00000066") end)
-
+-- }}}
 
 -- Left widgets
 --
