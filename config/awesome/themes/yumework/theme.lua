@@ -228,150 +228,6 @@ local function ellipsize(text, length)
         or text
 end
 
---[[
-
-local mpris_popup = awful.popup {
-    ontop = true,
-    visible = false, -- should be hidden when created
-    shape = function(cr, width, height)
-        gears.shape.rounded_rect(cr, width, height, 4)
-    end,
-    border_width = 1,
-    border_color = theme.bg_focus,
-    maximum_width = 400,
-    offset = { y = 5 },
-    widget = {}
-}
-
--- based on https://github.com/acrisci/playerctl
-local mpris, mpris_timer = awful.widget.watch(
-    -- format 'playerctl metadata' command result
-    { awful.util.shell, "-c", "playerctl -f '{{status}} ;{{xesam:artist}} ;{{xesam:title}} ;{{mpris:artUrl}} ;{{xesam:album}} ;{{xesam:albumArtist}} ;{{playerName}}' metadata" },
-    5,
-    function(widget, stdout)
-        -- Declare/init vars
-        local states = {
-            Playing = "󰝚 ",
-            Paused = " "
-        }
-        local state_separator = " "
-        local mpris_now = {
-            state           = "N/A",
-            artist          = "N/A",
-            title           = "N/A",
-            art_url         = "N/A",
-            album           = "N/A",
-            album_artist    = "N/A",
-            player_name     = "N/A"
-        }
-        local link = {
-            'state',
-            'artist',
-            'title',
-            'art_url',
-            'album',
-            'album_artist',
-            'player_name'
-        }
-        local mpris_popup_rows = { layout = wibox.layout.fixed.vertical }
-
-        -- Fill mpris_now
-        local i = 1
-        for v in string.gmatch(stdout, "([^;]+)") 
-        do
-            if link[i] then
-                -- trim value
-                local trimmed_v = v:match "^%s*(.-)%s*$"  
-                -- trimmed value or "N/A"
-                mpris_now[ link[i] ] = trimmed_v ~= "" and trimmed_v or "N/A"
-            end
-            i = i + 1
-        end
-        
-        if states[mpris_now.state] then
-            mpris_now.state = states[mpris_now.state]
-        else
-            state_separator = " - "
-        end
-
-        -- Display
-        if mpris_now.state ~= "N/A" then
-            -- widget's content
-            local content_w = mpris_now.artist .. " - " .. mpris_now.title
-            if mpris_now.artist == "N/A" and  mpris_now.title == "N/A" then
-                content_w = mpris_now.player_name
-            elseif mpris_now.artist == "N/A" then
-                content_w = mpris_now.title
-            elseif mpris_now.title == "N/A" then
-                content_w = mpris_now.artist
-            end
-            widget:set_text(ellipsize(mpris_now.state ..state_separator .. content_w, 36))
-            -- popup content    
-            table.insert(mpris_popup_rows, wibox.widget {
-                {
-                    {
-                        {
-                            image = theme.dir .. "/icons/juk.svg", -- TODO: find a way to display "mpris_now.art_url",
-                            forced_width = 48,
-                            forced_height = 48,
-                            widget = wibox.widget.imagebox
-                        },
-                        {
-                            {
-                                markup = "<b>" .. escape_f(mpris_now.title) .. "</b>",
-                                widget = wibox.widget.textbox
-                            },
-                            {
-                                text = mpris_now.artist,
-                                widget = wibox.widget.textbox
-                            },
-                            {
-                                markup = "<i>" .. escape_f(mpris_now.album) .. "</i>",
-                                widget = wibox.widget.textbox
-                            },
-                            layout = wibox.layout.fixed.vertical
-                        },
-                        spacing = 12,
-                        layout = wibox.layout.fixed.horizontal
-                    },
-                    margins = 8,
-                    widget = wibox.container.margin
-                },
-                fg = theme.fg_normal,
-                bg = theme.bg_normal,
-                widget = wibox.container.background
-            })
-        else
-            widget:set_text('')
-            if mpris_popup.visible then
-                mpris_popup.visible = not mpris_popup.visible
-            end
-        end
-        mpris_popup:setup(mpris_popup_rows)
-    end
-)
-mpris:connect_signal("button::release", function(self, _, _, button, _, find_widgets_result)
-    if button == 1 then
-        -- play/pause
-        awful.spawn("playerctl play-pause", false)
-    elseif button == 3 then
-        -- display details
-        if mpris_popup.visible then
-            -- hide details
-            mpris_popup.visible = not mpris_popup.visible
-        else
-            -- display details next to { x=, y=, width=, height= }
-            mpris_popup:move_next_to(
-                find_widgets_result
-            )
-        end
-    end
-end)
---]]
--- }}}
-
--- {{{ mpris_pro widget
-
 local mpris_popup_pro = awful.popup {
     ontop = true,
     visible = false, -- should be hidden when created
@@ -385,14 +241,13 @@ local mpris_popup_pro = awful.popup {
     widget = {}
 }
 
-
 local mpris_pro, mpris_pro_timer = awful.widget.watch(
     -- format 'playerctl metadata' command result
     { awful.util.shell, "-c", os.getenv("HOME") .. "/.local/bin/get_players_metadata.sh" },
     5,
     function(widget, stdout)
         if stdout == '' then
-            widget:set_text('MPRIS PRO')
+            widget:set_text('')
             if mpris_popup_pro.visible then
                 mpris_popup_pro.visible = not mpris_popup_pro.visible
             end
@@ -454,16 +309,18 @@ local mpris_pro, mpris_pro_timer = awful.widget.watch(
                     state_separator = " - "
                 end
 
-                if string.find(mpris_now.player_name, 'spotify') then
-                    player_icon = theme.dir .. "/icons/spotify-client.svg"
-                elseif string.find(mpris_now.player_name, 'firefox') then
-                    player_icon = theme.dir .. "/icons/firefox.svg"
-                end
-
                 -- Display
                 if mpris_now.state ~= "N/A" then
                     -- widget's content
                     local content_w = mpris_now.artist .. " - " .. mpris_now.title
+                    
+                    if string.find(mpris_now.player_name, 'spotify') then
+                        player_icon = theme.dir .. "/icons/spotify-client.svg"
+                    elseif string.find(mpris_now.player_name, 'firefox') then
+                        player_icon = theme.dir .. "/icons/firefox.svg"
+                        content_w = mpris_now.title .. " - " .. mpris_now.artist
+                    end
+
                     if mpris_now.artist == "N/A" and  mpris_now.title == "N/A" then
                         content_w = mpris_now.player_name
                     elseif mpris_now.artist == "N/A" then
