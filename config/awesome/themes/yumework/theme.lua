@@ -268,6 +268,7 @@ local function create_left_widgets(w_launcher, w_taglist, w_promptbox)
                     w_taglist,
                     mpris_widget({
                         --ignore_player="totem,firefox"
+                        widget_dir = os.getenv("HOME") .. "/.config/awesome/awesomewm-mpris-widget" 
                     }),
                     w_promptbox
                 },

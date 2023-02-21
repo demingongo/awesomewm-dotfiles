@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# get_players_metadata.sh
+# list_players_metadata
 #
 # Description: get info from each MPRIS client
 # Author: demingongo
@@ -13,7 +13,7 @@ Help()
    # Display Help
    echo "Add description of the script functions here."
    echo
-   echo "Syntax: get_players_metadata.sh [options]"
+   echo "Syntax: list_players_metadata [options]"
    echo
    echo "options:"
    echo "	--h			Print help."
