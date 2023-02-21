@@ -11,8 +11,8 @@ local gears = require("gears")
 local wibox = require("wibox")
 local awful = require("awful")
 local escape_f = require("awful.util").escape;
--- Notification library
-local naughty = require("naughty")
+
+local mpris_widget = require("awesomewm-mpris-widget")
 
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
@@ -217,182 +217,7 @@ theme.create_tasklist = create_tasklist
 -- Custom widgets
 --
 
--- {{{ mpris widget
 
--- TODO: case of multiple players ("playerctl -l") to display in the popup
--- TODO: Find a way to display artUrl (download it and cache it maybe?)
-
-local function ellipsize(text, length)
-    return (text:len() > length and length > 0)
-        and text:sub(0, length - 3) .. '...'
-        or text
-end
-
-local mpris_popup_pro = awful.popup {
-    ontop = true,
-    visible = false, -- should be hidden when created
-    shape = function(cr, width, height)
-        gears.shape.rounded_rect(cr, width, height, 4)
-    end,
-    border_width = 1,
-    border_color = theme.bg_focus,
-    maximum_width = 400,
-    offset = { y = 5 },
-    widget = {}
-}
-
-local mpris_pro, mpris_pro_timer = awful.widget.watch(
-    -- format 'playerctl metadata' command result
-    { awful.util.shell, "-c", os.getenv("HOME") .. "/.local/bin/get_players_metadata.sh" },
-    5,
-    function(widget, stdout)
-        if stdout == '' then
-            widget:set_text('')
-            if mpris_popup_pro.visible then
-                mpris_popup_pro.visible = not mpris_popup_pro.visible
-            end
-            return
-        end
-
-        local content_text = ""
-        local mpris_popup_rows = { layout = wibox.layout.fixed.vertical }
-        local players_info = {}
-        for v in string.gmatch(stdout, "([^\r\n]+)") 
-        do
-            table.insert(players_info, v:match "^%s*(.-)%s*$")
-        end
-
-
-        for k, player_metadata in ipairs(players_info) do
-                -- Declare/init vars
-                local player_icon = theme.dir .. "/icons/juk.svg"
-                local states = {
-                    Playing = "󰝚 ",
-                    Paused = " "
-                }
-                local state_separator = " "
-                local mpris_now = {
-                    state           = "N/A",
-                    artist          = "N/A",
-                    title           = "N/A",
-                    art_url         = "N/A",
-                    album           = "N/A",
-                    album_artist    = "N/A",
-                    player_name     = "N/A"
-                }
-                local link = {
-                    'state',
-                    'artist',
-                    'title',
-                    'art_url',
-                    'album',
-                    'album_artist',
-                    'player_name'
-                } 
-    
-                -- Fill mpris_now
-                local i = 1
-                for v in string.gmatch(player_metadata, "([^;]+)") 
-                do
-                    if link[i] then
-                        -- trim value
-                        local trimmed_v = v:match "^%s*(.-)%s*$"  
-                        -- trimmed value or "N/A"
-                        mpris_now[ link[i] ] = trimmed_v ~= "" and trimmed_v or "N/A"
-                    end
-                    i = i + 1
-                end
-            
-                if states[mpris_now.state] then
-                    mpris_now.state = states[mpris_now.state]
-                else
-                    state_separator = " - "
-                end
-
-                -- Display
-                if mpris_now.state ~= "N/A" then
-                    -- widget's content
-                    local content_w = mpris_now.artist .. " - " .. mpris_now.title
-                    
-                    if string.find(mpris_now.player_name, 'spotify') then
-                        player_icon = theme.dir .. "/icons/spotify-client.svg"
-                    elseif string.find(mpris_now.player_name, 'firefox') then
-                        player_icon = theme.dir .. "/icons/firefox.svg"
-                        content_w = mpris_now.title .. " - " .. mpris_now.artist
-                    end
-
-                    if mpris_now.artist == "N/A" and  mpris_now.title == "N/A" then
-                        content_w = mpris_now.player_name
-                    elseif mpris_now.artist == "N/A" then
-                        content_w = mpris_now.title
-                    elseif mpris_now.title == "N/A" then
-                        content_w = mpris_now.artist
-                    end
-                    if content_text == "" then
-                        content_text = ellipsize(mpris_now.state ..state_separator .. content_w, 36)
-                    end
-
-                    -- popup content    
-                    table.insert(mpris_popup_rows, wibox.widget {
-                        {
-                            {
-                                {
-                                    image = player_icon, -- TODO: find a way to display "mpris_now.art_url",
-                                    forced_width = 48,
-                                    forced_height = 48,
-                                    widget = wibox.widget.imagebox
-                                },
-                                {
-                                    {
-                                        markup = "<b>" .. escape_f(mpris_now.title) .. "</b>",
-                                        widget = wibox.widget.textbox
-                                    },
-                                    {
-                                        text = mpris_now.artist,
-                                        widget = wibox.widget.textbox
-                                    },
-                                    {
-                                        markup = "<i>" .. escape_f(mpris_now.album) .. "</i>",
-                                        widget = wibox.widget.textbox
-                                    },
-                                    layout = wibox.layout.fixed.vertical
-                                },
-                                spacing = 12,
-                                layout = wibox.layout.fixed.horizontal
-                            },
-                            margins = 8,
-                            widget = wibox.container.margin
-                        },
-                        fg = theme.fg_normal,
-                        bg = theme.bg_normal,
-                        widget = wibox.container.background
-                    })
-                end
-        end
-
-        widget:set_text(content_text)
-        mpris_popup_pro:setup(mpris_popup_rows)
-    end
-)
-
-mpris_pro:connect_signal("button::release", function(self, _, _, button, _, find_widgets_result)
-    if button == 1 then
-        -- play/pause
-        awful.spawn("playerctl play-pause", false)
-    elseif button == 3 then
-        -- display details
-        if mpris_popup_pro.visible then
-            -- hide details
-            mpris_popup_pro.visible = not mpris_popup_pro.visible
-        else
-            -- display details next to { x=, y=, width=, height= }
-            mpris_popup_pro:move_next_to(
-                find_widgets_result
-            )
-        end
-    end
-end)
--- }}}
 
 -- Left widgets
 --
@@ -441,7 +266,9 @@ local function create_left_widgets(w_launcher, w_taglist, w_promptbox)
                 {
                     layout = wibox.layout.fixed.horizontal,
                     w_taglist,
-                    mpris_pro,
+                    mpris_widget({
+                        --ignore_player="totem,firefox"
+                    }),
                     w_promptbox
                 },
                 left = 15,
