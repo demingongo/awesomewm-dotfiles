@@ -268,6 +268,10 @@ local function create_left_widgets(w_launcher, w_taglist, w_promptbox)
                     w_taglist,
                     mpris_widget({
                         --ignore_player="totem,firefox"
+                        empty_text = " - - - - - ",
+                        popup_maximum_width = 400,
+                        bgimage = gears.surface.load_uncached(os.getenv("HOME") 
+                            .. "/Pictures/Wallpapers/Portraits/starry-night-comet-scenery-anime-girl-phone-wallpaper-400.jpg"),
                         widget_dir = os.getenv("HOME") .. "/.config/awesome/awesomewm-mpris-widget" 
                     }),
                     w_promptbox
