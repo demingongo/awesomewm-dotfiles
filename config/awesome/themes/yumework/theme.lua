@@ -276,15 +276,15 @@ local function create_left_widgets(w_launcher, w_taglist, w_promptbox)
                             rhythmbox = os.getenv("HOME") .. "/.icons/candy-icons/apps/scalable/juk.svg",
                         },
                         --]]
-                        timeout = 5,
+                        --timeout = 5,
                         --max_chars = 35,
                         max_chars = -1,
                         scroll = {
                             enabled = true,
  		            --max_size = 170,
  		            -- step_function = wibox.container.scroll.step_functions.linear_increase,
- 		            --speed = 20,
- 		            --fps = 50
+ 		            speed = 20,
+ 		            fps = 10
                         },
                         popup_maximum_width = 400,
                         bgimage = gears.surface.load_uncached(os.getenv("HOME") 
