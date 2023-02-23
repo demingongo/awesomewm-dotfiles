@@ -11,6 +11,8 @@ local gears = require("gears")
 local wibox = require("wibox")
 local awful = require("awful")
 
+local mpris_widget = require("awesomewm-mpris-widget")
+
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 
@@ -217,6 +219,54 @@ local function create_taglist(args, s)
 end
 
 theme.create_taglist = create_taglist
+
+local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, w_layout)
+    return {
+        layout = wibox.layout.fixed.horizontal,
+        
+        {
+            {
+                {
+                    layout = wibox.layout.fixed.horizontal,
+                    spacing = 15,
+                    wibox.widget.systray(),
+                    mpris_widget({
+                        bg = "#000000",
+                        max_chars = -1,
+                        scroll = {
+                            enabled = true,
+                            max_size = 100
+                        },
+                        media_icons = {
+                            default = theme.dir .. "/icons/mpris/default.png",
+                            firefox = theme.dir .. "/icons/mpris/firefox.png",
+                            totem = theme.dir .. "/icons/mpris/totem.png",
+                            rhythmbox = theme.dir .. "/icons/mpris/rhythmbox.png",
+                            spotify = theme.dir .. "/icons/mpris/spotify.png",
+                        }
+                    }),
+                    w_cpu,
+                    w_ram,
+                    w_vol,
+                    w_batt,
+                    w_kb,
+                    w_clock,
+                    w_layout
+                },
+                left = 15,
+                right = 10,
+                widget = wibox.container.margin
+            },
+            --shape_border_width = 1,
+            --shape = gears.shape.rounded_bar,
+            --bg = theme.bg_normal,
+            id = "background_role",
+            widget = wibox.container.background
+        }
+    }
+end
+
+theme.create_right_widgets = create_right_widgets
 
 return theme
 
