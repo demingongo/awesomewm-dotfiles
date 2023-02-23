@@ -17,7 +17,9 @@ local themes_path = gfs.get_themes_dir()
 local theme = {}
 theme.dir           = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name
 
-theme.terminal = "kitty --config " .. os.getenv("HOME") .. "/.config/kitty/kitty_spy.conf"
+--theme.terminal = "kitty --config " .. os.getenv("HOME") .. "/.config/kitty/kitty_spy.conf"
+
+theme.terminal = "cool-retro-term"
 
 theme.wallpaper = "#101010"
 
