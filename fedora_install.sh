@@ -48,7 +48,7 @@ if [[ "$c_answer_dep" == "y" ]]; then
     #
     # Install
     #
-    sudo dnf install xset xinput numlockx brightnessctl pavucontrol acpi network-manager-applet blueman picom kitty
+    sudo dnf install xset xinput numlockx brightnessctl pavucontrol acpi network-manager-applet blueman picom kitty cool-retro-term
     
     ## Fun tools
     #
