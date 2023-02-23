@@ -257,9 +257,6 @@ local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, 
                 right = 10,
                 widget = wibox.container.margin
             },
-            --shape_border_width = 1,
-            --shape = gears.shape.rounded_bar,
-            --bg = theme.bg_normal,
             id = "background_role",
             widget = wibox.container.background
         }
