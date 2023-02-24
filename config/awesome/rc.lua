@@ -267,14 +267,18 @@ awful.screen.connect_for_each_screen(function(s)
     local wibar_args = {
 	screen = s,
       	position = beautiful.wibar_position,
-      	height = beautiful.wibar_height,
-	opacity = beautiful.wibar_opacity or 1,
-	border_width = beautiful.wibar_border_width or 0
-    }
+      	--height = beautiful.wibar_height,
+	--opacity = beautiful.wibar_opacity or 1,
+	--border_width = beautiful.wibar_border_width or 0,
 
+	-- visible = true
+    }
+    
+    --[[
     if beautiful.wibar_bg then
 	wibar_args.bg = beautiful.wibar_bg
     end
+    --]]
 
     -- Create the wibox
     s.mywibox = awful.wibar(wibar_args)
