@@ -10,7 +10,6 @@ local dpi = xresources.apply_dpi
 local gears = require("gears")
 local wibox = require("wibox")
 local awful = require("awful")
-local escape_f = require("awful.util").escape;
 
 local mpris_widget = require("awesomewm-mpris-widget")
 
@@ -268,7 +267,7 @@ local function create_left_widgets(w_launcher, w_taglist, w_promptbox)
                     layout = wibox.layout.fixed.horizontal,
                     w_taglist,
                     mpris_widget({
-                        --ignore_player="totem,firefox"
+                        --ignore_player="totem,firefox,spotify",
                         --empty_text = " - - - ",
                         --ignore_player = "rhythmbox,spotify",
                         --state_paused = "... ",
