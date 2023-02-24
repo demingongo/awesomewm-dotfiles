@@ -154,11 +154,11 @@ theme.batteryarc_main_color = theme.fg_normal
 -- Wibar properties
 --
 theme.wibar_position = "top"
-theme.wibar_height = dpi(25)
+theme.wibar_height = dpi(28)--dpi(25)
 theme.wibar_expand = "none"
 theme.wibar_bg = "#00000000" -- transparent
 theme.wibar_opacity = 0.85
-theme.wibar_border_width = dpi(12)
+theme.wibar_border_width = dpi(9)--dpi(12)
 
 -- Tasklist
 --
@@ -288,8 +288,8 @@ local function create_left_widgets(w_launcher, w_taglist, w_promptbox)
                             -- speed = 8, -- vertical speed
                             -- fps = 10,
                             position = "vertical",
-                            -- margin_top = 4, -- if position vertical
-                            -- margin_bottom = 4, -- if position vertical
+                            -- margin_top = 5, -- if position vertical
+                            -- margin_bottom = 5, -- if position vertical
                         },
                         popup_maximum_width = 400,
                         bgimage = gears.surface.load_uncached(os.getenv("HOME") 
