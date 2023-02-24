@@ -42,6 +42,7 @@ theme.border_width  = dpi(1)
 theme.border_normal = "#3F3F3F"
 theme.border_focus  = "#767EA2"
 theme.border_marked = "#CC9393"
+theme.systray_icon_spacing = dpi(10)
 
 -- There are other variable sets
 -- overriding the default one when
@@ -318,15 +319,26 @@ theme.create_left_widgets = create_left_widgets
 --
 
 local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, w_layout)
+    local systray = wibox.widget.systray(false)
+    systray:set_base_size(13)
     return {
         layout = wibox.layout.fixed.horizontal,
-        
         {
             {
                 {
                     layout = wibox.layout.fixed.horizontal,
                     spacing = 20,
-                    wibox.widget.systray(),
+                    wibox.widget {
+                        {
+                            -- vertical align center
+                            systray,
+                            widget = wibox.container.place
+                        },
+                        top = 2, -- fine tuning for better vertical align center
+                        right = 10,
+                        widget = wibox.container.margin
+                    },
+                    --systray,
                     w_cpu,
                     w_ram,
                     w_vol,
