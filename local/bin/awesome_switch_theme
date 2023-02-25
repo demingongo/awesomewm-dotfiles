@@ -1,15 +1,30 @@
 #!/usr/bin/env bash
 
-gum style \
-	--foreground 212 --border-foreground 212 --border double \
-	--align center --width 50 --margin "1 2" --padding "2 4" \
-	'AWESOME WM DOTFILES' 'by demingongo'
+ALL_THEMES=("ricework" "spywork" "yumework")
 
-echo "Select a theme:"
+if [ $# -eq 0 ]; then
+	gum style \
+		--foreground 212 --border-foreground 212 --border double \
+		--align center --width 50 --margin "1 2" --padding "2 4" \
+		'AWESOME WM DOTFILES' 'by demingongo'
 
-theme=$(echo """ricework
-spywork
-yumework""" | gum choose --item.faint)
+	echo "Select a theme:"
+	
+	choices=""
+	for i in ${!ALL_THEMES[@]}; do
+  		if [ $i -eq 0 ]; then
+			choices="${ALL_THEMES[$i]}"
+		else
+			choices="""$choices
+${ALL_THEMES[$i]}"""
+  		fi
+	done
+
+	theme=$(echo "$choices" | gum choose --item.faint)
+
+else
+	[[ " ${ALL_THEMES[*]} " =~ " $1 " ]] && theme=$1 || exit 1	
+fi
 
 if [[ -n "$theme" ]] then
 	gum spin --spinner line --title "$theme" -- sleep 1
