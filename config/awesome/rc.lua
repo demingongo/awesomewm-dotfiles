@@ -17,6 +17,7 @@ local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batterya
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 -- Theme handling library
 local beautiful = require("beautiful")
+local list_themes = require("utils.list-themes")
 local get_current_theme_name = require('utils.get-current-theme-name')
 -- Notification library
 local naughty = require("naughty")
@@ -55,7 +56,7 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 -- shygyver
-local themes = { "ricework", "spywork", "yumework" }
+local themes = list_themes()-- { "ricework", "spywork", "yumework" }
 local function has_theme (val)
     for index, value in ipairs(themes) do
         if value == val then
