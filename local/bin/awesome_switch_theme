@@ -2,7 +2,10 @@
 
 ALL_THEMES=("ricework" "spywork" "yumework")
 
+is_interactive=false
+
 if [ $# -eq 0 ]; then
+	is_interactive=true
 	gum style \
 		--foreground 212 --border-foreground 212 --border double \
 		--align center --width 50 --margin "1 2" --padding "2 4" \
@@ -27,9 +30,9 @@ else
 fi
 
 if [[ -n "$theme" ]] then
-	gum spin --spinner line --title "$theme" -- sleep 1
+	[ "$is_interactive" = true ] && gum spin --spinner line --title "$theme" -- sleep 1
 	echo "$theme" > "$HOME/.config/awesome/theme.txt"
 	awesome-client 'awesome.restart()' > /dev/null 2>&1 &
-	echo "  $theme"
+	[ "$is_interactive" = true ] && echo "  $theme"
 fi
 
