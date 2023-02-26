@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
-ALL_THEMES=("ricework" "spywork" "yumework")
+ALL_THEMES=()
+
+THEMES_FILE="$HOME/.config/awesome/themes/themes.txt" 
+
+while read -r line
+do
+	[[ -z "$line" ]] && break || ALL_THEMES=(${ALL_THEMES[@]} "$line")
+done < "$THEMES_FILE"
 
 is_interactive=false
 
