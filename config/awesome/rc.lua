@@ -112,11 +112,21 @@ myawesomemenu = {
    { "Quit", function() awesome.quit() end },
 }
 
+mythemesmenu = {}
+
+for idx, name in ipairs(themes) do
+    table.insert(mythemesmenu, {
+	name, 
+	function() os.execute(os.getenv("HOME") .. "/.local/bin/awesome_switch_theme " .. name) end
+    })
+end
+
 mymainmenu = freedesktop.menu.build { 
 	before = { 
 		{ "Awesome", myawesomemenu, beautiful.awesome_icon },
 	},
 	after = {
+		{ "Change theme", mythemesmenu },
 		{ "Open terminal", terminal }
 	}
 }
@@ -271,7 +281,7 @@ awful.screen.connect_for_each_screen(function(s)
 	--opacity = beautiful.wibar_opacity or 1,
 	--border_width = beautiful.wibar_border_width or 0,
 
-	-- visible = true
+	--visible = false
     }
     
     --[[
