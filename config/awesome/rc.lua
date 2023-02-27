@@ -67,7 +67,7 @@ local function has_theme (val)
 end
 local tmp_theme_name = get_current_theme_name()
 local theme_name = has_theme(tmp_theme_name) and tmp_theme_name or themes[1]; 
-beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), theme_name))
+beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"),theme_name))
 
 -- This is used later as the default terminal and editor to run.
 terminal = beautiful.terminal or "kitty"
@@ -172,7 +172,7 @@ local taglist_buttons = gears.table.join(
                                               if client.focus then
                                                   client.focus:toggle_tag(t)
                                               end
-                                          end),
+     end),
                     awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
                     awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
                 )
@@ -295,7 +295,114 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox = awful.wibar(wibar_args)
 
     -- Add widgets to the wibox
-    s.mywibox:setup {
+    if type(beautiful.setup_wibar) == "function" then
+	s.mywibox:setup(
+		beautiful.setup_wibar(
+			s,
+			{
+				layout = wibox.layout.align.horizontal,
+				expand = beautiful.wibar_expand
+			},
+			type(beautiful.create_left_widgets) == "function" and beautiful.create_left_widgets(
+			    mylauncher,
+			    s.mytaglist,
+			    s.mypromptbox
+			) or { -- Left widgets default
+		            layout = wibox.layout.fixed.horizontal,
+		            mylauncher,
+		            s.mytaglist,
+		            s.mypromptbox,
+		        },
+			-- Middle widget
+		        beautiful.wibar_expand == "none" and wibox.container.constraint(s.mytasklist,"max",beautiful.tasklist_max_width or 750) or s.mytasklist,
+		        -- Right widgets
+			type(beautiful.create_right_widgets) == "function" and beautiful.create_right_widgets(
+			    cpu_widget({
+		    		width = 40,
+		    		step_width = 2,
+		    		step_spacing = 1,
+		    		color = beautiful.cpu_widget_color or '#009900'
+			    }),
+			    ram_widget({
+				    widget_width
+			    }),
+			    volume_widget{
+		        	  widget_type = beautiful.volume_widget_type or 'arc',
+				  shape = 'hexagon',
+		            },
+			    batteryarc_widget({
+		            	show_current_level = true,
+				show_notification_mode = 'on_hover',
+				notification_position = beautiful.batteryarc_notification_position or 'top_right',
+		            	arc_thickness = 2,
+				show_current_level = true,
+				size = 18,
+				enable_battery_warning = true,
+				timeout = 10,
+				main_color = beautiful.batteryarc_main_color or '#756321'
+		            }),
+			    mykeyboardlayout,
+			    mytextclock,
+			    s.mylayoutbox
+			) or { -- Right widgets default
+		            layout = wibox.layout.fixed.horizontal,
+			    spr,
+			    spr,
+			    wibox.widget.systray(),
+			    spr,
+			    arrl_ld,
+			    wibox.container.background(cpu_widget({
+		    		width = 40,
+		    		step_width = 2,
+		    		step_spacing = 1,
+		    		color = beautiful.cpu_widget_color or '#009900'
+			    })
+				, beautiful.bg_focus),
+			    arrl_dl,
+			    ram_widget({
+				widget_width = 40
+			    }),
+			    arrl_ld,
+			    wibox.container.background(
+			    	padding,
+				beautiful.bg_focus),
+			    wibox.container.background(
+			    	volume_widget{
+		        	  widget_type = beautiful.volume_widget_type or 'arc',
+				  shape = 'hexagon',
+		            	}, beautiful.bg_focus),
+			    wibox.container.background(
+			    	padding,
+				beautiful.bg_focus),
+			    arrl_dl,
+			    padding,
+			    batteryarc_widget({
+		            	show_current_level = true,
+				show_notification_mode = 'on_hover',
+				notification_position = beautiful.batteryarc_notification_position or 'top_right',
+		            	arc_thickness = 2,
+				show_current_level = true,
+				size = 18,
+				enable_battery_warning = true,
+				timeout = 10,
+				main_color = beautiful.batteryarc_main_color or '#756321'
+		            }),
+			    padding,
+			    arrl_ld,
+			    wibox.container.background(
+			    	mykeyboardlayout, 
+				beautiful.bg_focus),
+			    arrl_dl,
+		            mytextclock,
+			    arrl_ld,
+			    wibox.container.background(
+		            	s.mylayoutbox,
+				beautiful.bg_focus),
+		        }
+		)
+	)
+    else
+	s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
 	expand = beautiful.wibar_expand,
 	-- Left widgets
@@ -396,6 +503,9 @@ awful.screen.connect_for_each_screen(function(s)
 		beautiful.bg_focus),
         },
     }
+
+    end
+
 end)
 -- }}}
 
@@ -845,4 +955,8 @@ awful.spawn.once("numlockx on")
 awful.spawn.once('xinput disable "ETPS/2 Elantech Touchpad"')
 -- disable built-in PC speaker (or beeper)
 awful.spawn.once("xset -b")
+
+if type(beautiful.run_once) == "function" then
+	beautiful.run_once()
+end
 

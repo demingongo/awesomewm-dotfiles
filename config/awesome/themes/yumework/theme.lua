@@ -266,16 +266,14 @@ local function create_left_widgets(w_launcher, w_taglist, w_promptbox)
                 {
                     layout = wibox.layout.fixed.horizontal,
                     w_taglist,
-                    mpris_widget({
+                    mpris_widget {
                         --ignore_player="totem,firefox,spotify",
-                        --empty_text = " - - - ",
+                        --empty_text = "Nothing's playing",
                         --ignore_player = "rhythmbox,spotify",
                         --state_paused = "... ",
-                        --[[
-                        media_icons = {
-                            rhythmbox = os.getenv("HOME") .. "/.icons/candy-icons/apps/scalable/juk.svg",
-                        },
-                        --]]
+                        --media_icons = {
+                        --    rhythmbox = os.getenv("HOME") .. "/.icons/candy-icons/apps/scalable/juk.svg",
+                        --},
                         --timeout = 3,
                         --max_chars = 34,
                         max_chars = -1,
@@ -294,7 +292,7 @@ local function create_left_widgets(w_launcher, w_taglist, w_promptbox)
                         bgimage = gears.surface.load_uncached(os.getenv("HOME") 
                             .. "/Pictures/Wallpapers/Portraits/starry-night-comet-scenery-anime-girl-phone-wallpaper-400.jpg"),
                         widget_dir = os.getenv("HOME") .. "/.config/awesome/awesomewm-mpris-widget" 
-                    }),
+                    },
                     w_promptbox
                 },
                 left = 15,
@@ -320,6 +318,13 @@ theme.create_left_widgets = create_left_widgets
 local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, w_layout)
     local systray = wibox.widget.systray(false)
     systray:set_base_size(13)
+
+    --local mprisw = mpris_widget({
+    --                    ignore_player = "spotify"
+    --                })
+    --mprisw:play_pause()
+    --mprisw:previous()
+    --mprisw:next()
     return {
         layout = wibox.layout.fixed.horizontal,
         {
@@ -327,6 +332,7 @@ local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, 
                 {
                     layout = wibox.layout.fixed.horizontal,
                     spacing = 20,
+                    --mprisw,
                     wibox.widget {
                         {
                             -- vertical align center
@@ -360,6 +366,17 @@ local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, 
 end
 
 theme.create_right_widgets = create_right_widgets
+
+-- Comment it when developing
+theme.run_once = function ()
+    awful.spawn.easy_async_with_shell(
+        os.getenv("HOME") .. "/.local/bin/spice_on_rice Ziro rose-pine-moon",
+        function (stdout, stderr)
+            -- naughty.notify({text = "spiced out"})
+            -- naughty.notify({text = stderr})
+        end
+        )
+end
 
 return theme
 
