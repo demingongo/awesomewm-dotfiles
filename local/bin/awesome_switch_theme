@@ -38,7 +38,27 @@ fi
 
 if [[ -n "$theme" ]] then
 	[ "$is_interactive" = true ] && gum spin --spinner line --title "$theme" -- sleep 1
+
+	# load theme
 	echo "$theme" > "$HOME/.config/awesome/theme.txt"
+	
+	# load config
+	CONFIG_DIR="$HOME/.config/awesome/config"
+	mkdir -p "$CONFIG_DIR"
+
+	# load zsh config
+	ZSH_THEME_CONF="$HOME/.config/awesome/themes/$theme/config/zshrc.conf"
+	ZSH_CONF="$CONFIG_DIR/zshrc.conf"
+	if [ -f "$ZSH_THEME_CONF" ]; then
+		ln -s -b "$ZSH_THEME_CONF" "$ZSH_CONF"		
+	else
+		if [ -f "$ZSH_CONF" ]; then
+			cp "$ZSH_CONF" "$ZSH_CONF~"
+		fi
+		echo "# User configuration" > "$ZSH_CONF"
+	fi
+
+	# restart wm
 	awesome-client 'awesome.restart()' > /dev/null 2>&1 &
 	[ "$is_interactive" = true ] && echo "  $theme"
 fi
