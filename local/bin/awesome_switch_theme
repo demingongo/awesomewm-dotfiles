@@ -55,6 +55,7 @@ if [[ -n "$theme" ]] then
 		if [ -f "$ZSH_CONF" ]; then
 			cp "$ZSH_CONF" "$ZSH_CONF~"
 		fi
+		rm -f "$ZSH_CONF"
 		echo "# User configuration" > "$ZSH_CONF"
 	fi
 
