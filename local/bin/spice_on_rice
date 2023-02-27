@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [[ $# -eq 0 ]]; then
+	echo "no args"
+	exit
+fi
+
+if [[ -z "$1" ]]; then
+	exit
+fi
+
+CMD="$HOME/.spicetify/spicetify"
+
+$CMD config current_theme "$1"
+
+if [[ -n "$2" ]]; then
+	$CMD config color_scheme "$2"
+fi
+
+$CMD apply
+
