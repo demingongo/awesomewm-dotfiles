@@ -1,7 +1,7 @@
 """ Load plugins setup
 
-"
-source $HOME/.config/nvim/plugins/catppuccin.lua.vim
+" load theme
+source $HOME/.config/nvim/theme.vim
 
 "
 source $HOME/.config/nvim/plugins/nvim-tree.lua.vim
@@ -22,3 +22,4 @@ source $HOME/.config/nvim/plugins/image.lua.vim
 
 "
 source $HOME/.config/nvim/plugins/nvim-lspconfig.lua.vim
+

@@ -1,7 +1,11 @@
 call plug#begin()
 
+" https://github.com/luisiacc/the-matrix.nvim
+Plug '~/Programs/nvim/thematrix'
 " https://github.com/catppuccin/nvim
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+" https://github.com/shaunsingh/solarized.nvim
+Plug 'shaunsingh/solarized.nvim'
 
 " https://github.com/nvim-treesitter/nvim-treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -35,3 +39,5 @@ call plug#end()
 
 " Load setup
 source $HOME/.config/nvim/setup.vim
+
+set number
