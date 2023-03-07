@@ -73,6 +73,8 @@ theme.titlebar_bg_focus  = theme.bg_focus
 theme.titlebar_bg_normal = theme.bg_normal
 theme.titlebar_fg_focus  = theme.fg_focus
 
+theme.hotkeys_modifiers_fg = "#828000"
+
 -- Variables set for theming notifications:
 -- notification_font
 -- notification_[bg|fg]
@@ -412,7 +414,7 @@ theme.create_right_widgets = create_right_widgets
 
 
 -- Comment it when developing
-theme.run_once = function ()
+theme.autostart = function ()
     awful.spawn.easy_async_with_shell(
         os.getenv("HOME") .. "/.local/bin/spice_on_rice Onepunch Light",
         function (stdout, stderr)
