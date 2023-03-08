@@ -3,6 +3,10 @@ local awful = require("awful")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local volume_widget = require('awesome-wm-widgets.pactl-widget.volume')
+local values = require('my.variables')
+local terminal = values.terminal
+local modkey = values.modkey
+local mymainmenu = require('my.main-menu')
 
 local globalkeys = gears.table.join(
 -- shygyver audio

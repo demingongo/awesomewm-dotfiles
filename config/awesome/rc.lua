@@ -17,13 +17,8 @@ local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batterya
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 -- Theme handling library
 local beautiful = require("beautiful")
-local list_themes = require("utils.list-themes")
-local get_current_theme_name = require('utils.get-current-theme-name')
 -- Notification library
 local naughty = require("naughty")
-local menubar = require("menubar")
-local freedesktop = require("freedesktop")
-local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -58,32 +53,8 @@ end
 -- }}}
 
 -- {{{ Variable definitions
--- Themes define colours, icons, font and wallpapers.
--- shygyver
-local themes = list_themes() -- { "ricework", "spywork", "yumework" }
-local function has_theme(val)
-    for index, value in ipairs(themes) do
-        if value == val then
-            return true
-        end
-    end
-    return false
-end
-local tmp_theme_name = get_current_theme_name()
-local theme_name = has_theme(tmp_theme_name) and tmp_theme_name or themes[1] or "ricework";
-beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), theme_name))
-
--- This is used later as the default terminal and editor to run.
-terminal = beautiful.terminal or "kitty"
-editor = "nvim"
-editor_cmd = terminal .. " -e " .. editor
-
--- Default modkey.
--- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
+local current_theme = require('my.static').current_theme
+beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), current_theme))
 
 -- shygyver layouts
 -- Table of layouts to cover with awful.layout.inc, order matters.
@@ -107,50 +78,19 @@ awful.layout.layouts = {
 }
 -- }}}
 
--- {{{ Menu
--- Create a launcher widget and a main menu
-myawesomemenu = {
-    { "Hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-    --{ "Manual", terminal .. " -e man awesome" },
-    --{ "Edit config", editor_cmd .. " " .. awesome.conffile },
-    { "Restart", awesome.restart },
-    { "Quit",    function() awesome.quit() end },
-}
+local mymainmenu = require('my.main-menu')
 
-mythemesmenu = {}
-
-for idx, name in ipairs(themes) do
-    table.insert(mythemesmenu, {
-        name,
-        function() os.execute(os.getenv("HOME") .. "/.local/bin/awesome_switch_theme " .. name) end
-    })
-end
-
-mymainmenu = freedesktop.menu.build {
-    before = {
-        { "Awesome", myawesomemenu, beautiful.awesome_icon },
-    },
-    after = {
-        { "Change theme",  mythemesmenu },
-        { "Open terminal", terminal }
-    }
-}
-
-mylauncher = awful.widget.launcher({
+local mylauncher = awful.widget.launcher({
     image = beautiful.awesome_icon,
     menu = mymainmenu
 })
 
--- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
--- }}}
-
 -- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
+local mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock(beautiful.textclock_format or '%a %b %d, %R')
+local mytextclock = wibox.widget.textclock(beautiful.textclock_format or '%a %b %d, %R')
 -- Calendar widget
 local cw = calendar_widget({
     theme = beautiful.calendar_theme or 'nord',
@@ -166,9 +106,9 @@ mytextclock:connect_signal("button::press",
     end)
 
 -- Create a wibox for each screen and add it
-local taglist_buttons = require('taglist_buttons')
+local taglist_buttons = require('my.taglist-buttons')
 
-local tasklist_buttons = require('tasklist_buttons')
+local tasklist_buttons = require('my.tasklist-buttons')
 
 local function set_wallpaper(s)
     -- Wallpaper
@@ -479,22 +419,17 @@ awful.screen.connect_for_each_screen(function(s)
 end)
 -- }}}
 
--- {{{ Mouse bindings
+-- Mouse bindings
 root.buttons(gears.table.join(
     awful.button({}, 3, function() mymainmenu:toggle() end),
     awful.button({}, 4, awful.tag.viewnext),
     awful.button({}, 5, awful.tag.viewprev)
 ))
--- }}}
-
--- {{{ Key bindings
-local keybindings = require('keybindings')
+-- Key bindings
+local keybindings = require('my.keybindings')
 -- Set keys
 root.keys(keybindings.globalkeys)
--- }}}
 
-require('rules')(keybindings.clientkeys, keybindings.clientbuttons)
-
-require('signals')
-
-require('autostart')
+require('my.rules')(keybindings.clientkeys, keybindings.clientbuttons)
+require('my.signals')
+require('my.autostart')

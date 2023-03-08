@@ -1,5 +1,6 @@
 local gears = require("gears")
 local awful = require("awful")
+local modkey = require('my.variables').modkey
 
 return gears.table.join(
     awful.button({}, 1, function(t) t:view_only() end),
