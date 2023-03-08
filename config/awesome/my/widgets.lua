@@ -48,7 +48,7 @@ return {
         step_spacing = 1,
         color = beautiful.cpu_widget_color or '#009900'
     }),
-    ram_widget = ram_widget({}),
+    ram_widget = ram_widget,
     volume_widget = volume_widget {
         widget_type = beautiful.volume_widget_type or 'arc',
         shape = 'hexagon',
