@@ -1,6 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
+local dpi = require("beautiful.xresources").apply_dpi
 local widgets = require('my.widgets')
 
 local function create_left_widgets(s)
@@ -18,7 +19,7 @@ end
 
 local function create_middle_widgets(s)
     return beautiful.wibar_expand == "none" and
-        wibox.container.constraint(s.mytasklist, "max", beautiful.tasklist_max_width or 750) or s.mytasklist
+        wibox.container.constraint(s.mytasklist, "max", beautiful.tasklist_max_width or dpi(750)) or s.mytasklist
 end
 
 local function create_right_widgets(s)

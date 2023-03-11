@@ -2,6 +2,7 @@ local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
+local dpi = require("beautiful.xresources").apply_dpi
 local separators = require("lain").util.separators
 local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
@@ -15,7 +16,7 @@ local cw = calendar_widget({
     theme = beautiful.calendar_theme or 'nord',
     placement = beautiful.calendar_position or 'top_right',
     start_sunday = (type(beautiful.calendar_start_sunday) ~= 'boolean') and true or beautiful.calendar_start_sunday,
-    radius = beautiful.calendar_radius or 8,
+    radius = beautiful.calendar_radius or dpi(8),
     previous_month_button = 5,
     next_month_button = 4,
 })
@@ -43,9 +44,9 @@ return {
     keyboardlayout = awful.widget.keyboardlayout(),
     textclock = mytextclock,
     cpu_widget = cpu_widget({
-        width = 40,
-        step_width = 2,
-        step_spacing = 1,
+        width = dpi(40),
+        step_width = dpi(2),
+        step_spacing = dpi(1),
         color = beautiful.cpu_widget_color or '#009900'
     }),
     ram_widget = ram_widget,
@@ -58,7 +59,7 @@ return {
         show_notification_mode = 'on_hover',
         notification_position = beautiful.batteryarc_notification_position or 'top_right',
         arc_thickness = 2,
-        size = 18,
+        size = dpi(18),
         enable_battery_warning = true,
         timeout = 10,
         main_color = beautiful.batteryarc_main_color or '#756321'

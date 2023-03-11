@@ -14,10 +14,6 @@ awful.spawn.once('xinput disable "ETPS/2 Elantech Touchpad"')
 -- disable built-in PC speaker (or beeper)
 awful.spawn.once("xset -b")
 
-if type(beautiful.run_once) == "function" then
-	beautiful.run_once()
-end
-
 if type(beautiful.autostart) == "function" then
 	beautiful.autostart()
 end

@@ -10,6 +10,7 @@ require("awful.autofocus")
 local tasklist = require('my.tasklist')
 local taglist = require('my.taglist')
 -- Theme handling library
+local current_theme = require('my.static').current_theme
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
@@ -47,7 +48,6 @@ end
 -- }}}
 
 -- {{{ Variable definitions
-local current_theme = require('my.static').current_theme
 beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), current_theme))
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
@@ -72,8 +72,7 @@ awful.layout.layouts = {
 -- }}}
 
 
-local mymainmenu = require('my.main-menu')
-
+-- {{{ Wibar
 local widgets = require('my.widgets')
 local wibar = require('my.wibar')
 
@@ -126,6 +125,7 @@ end)
 -- }}}
 
 -- Mouse bindings
+local mymainmenu = require('my.main-menu')
 root.buttons(gears.table.join(
     awful.button({}, 3, function() mymainmenu:toggle() end),
     awful.button({}, 4, awful.tag.viewnext),
@@ -136,6 +136,6 @@ local keybindings = require('my.keybindings')
 -- Set keys
 root.keys(keybindings.globalkeys)
 
-require('my.rules')(keybindings.clientkeys, keybindings.clientbuttons)
-require('my.signals')
+require('my.clients.rules')(keybindings.clientkeys, keybindings.clientbuttons)
+require('my.clients.signals')
 require('my.autostart')

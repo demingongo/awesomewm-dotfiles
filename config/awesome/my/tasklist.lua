@@ -10,7 +10,7 @@ local function create_tasklist(s)
     };
 
     local tasklist = nil
-    
+
     -- Create a tasklist widget
     if type(beautiful.create_tasklist) == "function" then
         tasklist = beautiful.create_tasklist(tasklist_args, s)
