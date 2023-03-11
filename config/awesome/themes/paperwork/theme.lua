@@ -39,7 +39,7 @@ theme.fg_urgent     = "#a7060e"
 theme.fg_minimize   = "#989898"
 
 theme.useless_gap   = dpi(3)
-theme.border_radius = 6
+theme.border_radius = dpi(6)
 theme.border_width  = dpi(1)
 theme.border_normal = "#eaedd0"
 theme.border_focus  = theme.fg_focus
@@ -158,16 +158,16 @@ local mpris_widget_args = {
                         max_chars = -1,
                         scroll = {
                             enabled = true,
- 		            max_size = 400,
+ 		            max_size = dpi(400),
  		            -- step_function = wibox.container.scroll.step_functions.linear_increase,
  		            -- speed = 20, -- horizontal speed
                             -- speed = 8, -- vertical speed
                             -- fps = 10,
                             position = "vertical",
-                            margin_top = 8, -- if position vertical
+                            margin_top = dpi(8), -- if position vertical
                             -- margin_bottom = 5, -- if position vertical
                         },
-                        popup_maximum_width = 400,
+                        popup_maximum_width = dpi(400),
                         --bg = "#919191",
                         -- bgimage = gears.surface.load_uncached(os.getenv("HOME") 
                         --    .. "/Pictures/Wallpapers/Portraits/torii-japanese-shrine-anime-scenery-art-phone-wallpaper-400.jpg"),
@@ -206,8 +206,8 @@ local function setup_wibar(s, layout, left_side, middle_side, right_side)
                     layout = wibox.layout.fixed.horizontal,
                     mpris_widget(mpris_widget_args),
                 },
-                left = 15,
-                right = 15,
+                left = dpi(15),
+                right = dpi(15),
                 widget = wibox.container.margin
             },
             bg = theme.bg_normal,
@@ -249,7 +249,7 @@ local function create_tasklist(args, s)
         spacing = 10,
         spacing_widget = {
             {
-                forced_width = 5,
+                forced_width = dpi(5),
                 shape = gears.shape.circle,
                 widget = wibox.widget.separator
             },
@@ -268,7 +268,7 @@ local function create_tasklist(args, s)
                         id = "icon_role",
                         widget = wibox.widget.imagebox
                     },
-                    margins = 2,
+                    margins = dpi(2),
                     widget = wibox.container.margin
                 },
                 {
@@ -277,8 +277,8 @@ local function create_tasklist(args, s)
                 },
                 layout = wibox.layout.fixed.horizontal
             },
-            left = 10,
-            right = 10,
+            left = dpi(10),
+            right = dpi(10),
             widget = wibox.container.margin
         },
         id = "background_role",
@@ -319,12 +319,12 @@ theme.taglist_template = {
                     id = "text_role",
                     widget = wibox.widget.textbox
                 },
-                margins = 1,
+                margins = dpi(1),
                 widget = wibox.container.margin
             },
         },
-        left  = 8,
-        right = 0,
+        left  = dpi(8),
+        right = dpi(0),
         widget = wibox.container.margin
     },
     id     = 'background_role',
@@ -344,8 +344,8 @@ local function create_left_widgets(w_launcher, w_taglist, w_promptbox)
                     w_taglist,
                     w_promptbox
                 },
-                left = 15,
-                right = 15,
+                left = dpi(15),
+                right = dpi(15),
                 widget = wibox.container.margin
             },
             bg = theme.bg_normal,
@@ -378,7 +378,7 @@ local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, 
             {
                 {
                     layout = wibox.layout.fixed.horizontal,
-                    spacing = 20,
+                    spacing = dpi(20),
                     --mprisw,
                     wibox.widget {
                         {
@@ -386,8 +386,8 @@ local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, 
                             systray,
                             widget = wibox.container.place
                         },
-                        top = 2, -- fine tuning for better vertical align center
-                        right = 10,
+                        top = dpi(2), -- fine tuning for better vertical align center
+                        right = dpi(10),
                         widget = wibox.container.margin
                     },
                     --systray,
@@ -399,8 +399,8 @@ local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, 
                     w_clock,
                     w_layout
                 },
-                left = 15,
-                right = 10,
+                left = dpi(15),
+                right = dpi(10),
                 widget = wibox.container.margin
             },
             bg = theme.bg_normal,
@@ -415,6 +415,7 @@ theme.create_right_widgets = create_right_widgets
 
 -- Comment it when developing
 theme.autostart = function ()
+    --[[
     awful.spawn.easy_async_with_shell(
         os.getenv("HOME") .. "/.local/bin/spice_on_rice Onepunch Light",
         function (stdout, stderr)
@@ -422,6 +423,7 @@ theme.autostart = function ()
             -- naughty.notify({text = stderr})
         end
         )
+    --]]
 end
 
 return theme
