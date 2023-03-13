@@ -3,7 +3,7 @@ local beautiful = require("beautiful")
 local freedesktop = require("freedesktop")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
-local get_single_instance = require('my.widgets.get-single-instance')
+local get_single_instance = require('utils.get-single-instance')
 local themes = require('my.static').themes
 local myvariables = require('my.variables')
 

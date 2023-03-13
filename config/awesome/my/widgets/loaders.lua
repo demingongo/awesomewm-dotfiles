@@ -9,7 +9,7 @@ local volume_widget = require('awesome-wm-widgets.pactl-widget.volume')
 local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 local mymainmenu = require('my.main-menu')
-local get_single_instance = require('my.widgets.get-single-instance')
+local get_single_instance = require('utils.get-single-instance')
 
 return {
     -- Separators
