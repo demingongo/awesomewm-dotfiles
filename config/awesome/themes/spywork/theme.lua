@@ -164,63 +164,11 @@ theme.batteryarc_main_color = theme.fg_normal
 
 theme.volume_widget_type = "horizontal_bar"
 
-local function create_taglist(args, s)
-    --[[
-    args.widget_template = {
-      id = "background_role",
-      forced_width = 10,
-      widget = wibox.container.background,
-      create_callback = function(widget, tag, _, _)
-        widget:connect_signal("mouse::enter", function()
-          widget.shape_border_color = "#FF0000"
-        end)
-        widget:connect_signal("mouse::leave", function()
-          widget.shape_border_color = "#FFFFFF"
-        end)
-        -- optional bonus tooltip showing the tag name
-        -- awful.tooltip({
-        --   objects = { widget },
-        --   mode = "outside",
-        --   text = tag.name,
-        -- })
-      end,
-    }
-    --]]
-
-    --[[
-    args.widget_template = {
-    {
-        {
-	    layout = wibox.layout.fixed.horizontal,
-	    {
-		{
-                    {
-                        id     = 'index_role',
-                        widget = wibox.widget.textbox,
-                    },
-                    margins = 2,
-                    widget  = wibox.container.margin,
-                },
-                bg     = '#00FF00',
-                shape  = gears.shape.circle,
-                widget = wibox.container.background,
-            },
-        },
-        left  = 8,
-        right = 8,
-        widget = wibox.container.margin
-    },
-    id     = 'background_role',
-    widget = wibox.container.background,
-    }
-    --]]
-
-    return awful.widget.taglist(args)
-end
-
-theme.create_taglist = create_taglist
-
-local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, w_layout)
+---comment
+---@param widgets { load: function }
+---@param w_layoutbox table
+---@return table
+local function create_right_widgets(widgets, w_layoutbox)
     return {
         layout = wibox.layout.fixed.horizontal,
         
@@ -245,13 +193,13 @@ local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, 
                             spotify = theme.dir .. "/icons/mpris/spotify.png",
                         }
                     }),
-                    w_cpu,
-                    w_ram,
-                    w_vol,
-                    w_batt,
-                    w_kb,
-                    w_clock,
-                    w_layout
+                    widgets:load('cpu_widget'),
+                    widgets:load('ram_widget'),
+                    widgets:load('volume_widget'),
+                    widgets:load('battery_widget'),
+                    widgets:load('keyboardlayout'),
+                    widgets:load('textclock'),
+                    w_layoutbox
                 },
                 left = 15,
                 right = 10,

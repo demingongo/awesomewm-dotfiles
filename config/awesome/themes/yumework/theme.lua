@@ -36,7 +36,7 @@ theme.fg_urgent     = "#ED7A78"
 theme.fg_minimize   = "#999999"
 
 theme.useless_gap   = dpi(6)
-theme.border_radius = 6
+theme.border_radius = dpi(6)
 theme.border_width  = dpi(1)
 theme.border_normal = "#3F3F3F"
 theme.border_focus  = "#767EA2"
@@ -161,7 +161,7 @@ theme.wibar_border_width = dpi(9)--dpi(12)
 
 -- Tasklist
 --
-theme.tasklist_max_width = 600 
+theme.tasklist_max_width = dpi(600) 
 local function create_tasklist(args, s)
 
     args.style = {
@@ -170,10 +170,10 @@ local function create_tasklist(args, s)
     }
 
     args.layout = {
-        spacing = 20,
+        spacing = dpi(20),
         spacing_widget = {
             {
-                forced_width = 5,
+                forced_width = dpi(5),
                 shape = gears.shape.circle,
                 widget = wibox.widget.separator
             },
@@ -201,8 +201,8 @@ local function create_tasklist(args, s)
                 },
                 layout = wibox.layout.fixed.horizontal
             },
-            left = 15,
-            right = 15,
+            left = dpi(15),
+            right = dpi(15),
             widget = wibox.container.margin
         },
         id = "background_role",
@@ -243,7 +243,7 @@ theme.taglist_template = {
                     id = "text_role",
                     widget = wibox.widget.textbox
                 },
-                margins = 1,
+                margins = dpi(1),
                 widget = wibox.container.margin
             },
         },
@@ -257,8 +257,12 @@ theme.taglist_template = {
     update_callback = taglist_update_callback
 }
 
-
-local function create_left_widgets(w_launcher, w_taglist, w_promptbox)
+---comment
+---@param _ any
+---@param w_taglist table
+---@param w_promptbox table
+---@return table
+local function create_left_widgets(_, w_taglist, w_promptbox)
     return {
         layout = wibox.layout.fixed.horizontal,
         {
@@ -288,15 +292,15 @@ local function create_left_widgets(w_launcher, w_taglist, w_promptbox)
                             -- margin_top = 5, -- if position vertical
                             -- margin_bottom = 5, -- if position vertical
                         },
-                        popup_maximum_width = 400,
+                        popup_maximum_width = dpi(400),
                         bgimage = gears.surface.load_uncached(os.getenv("HOME") 
                             .. "/Pictures/Wallpapers/Portraits/starry-night-comet-scenery-anime-girl-phone-wallpaper-400.jpg"),
                         widget_dir = os.getenv("HOME") .. "/.config/awesome/awesomewm-mpris-widget" 
                     },
                     w_promptbox
                 },
-                left = 15,
-                right = 15,
+                left = dpi(15),
+                right = dpi(15),
                 widget = wibox.container.margin
             },
             shape_border_width = 1,
@@ -315,7 +319,11 @@ theme.create_left_widgets = create_left_widgets
 -- Right widgets
 --
 
-local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, w_layout)
+---comment
+---@param widgets { load: function }
+---@param w_layoutbox table
+---@return table
+local function create_right_widgets(widgets, w_layoutbox)
     local systray = wibox.widget.systray(false)
     systray:set_base_size(13)
 
@@ -331,7 +339,7 @@ local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, 
             {
                 {
                     layout = wibox.layout.fixed.horizontal,
-                    spacing = 20,
+                    spacing = dpi(20),
                     --mprisw,
                     wibox.widget {
                         {
@@ -339,21 +347,20 @@ local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, 
                             systray,
                             widget = wibox.container.place
                         },
-                        top = 2, -- fine tuning for better vertical align center
-                        right = 10,
+                        top = dpi(2), -- fine tuning for better vertical align center
+                        right = dpi(10),
                         widget = wibox.container.margin
                     },
-                    --systray,
-                    w_cpu,
-                    w_ram,
-                    w_vol,
-                    w_batt,
-                    w_kb,
-                    w_clock,
-                    w_layout
+                    widgets:load('cpu_widget'),
+                    widgets:load('ram_widget'),
+                    widgets:load('volume_widget'),
+                    widgets:load('battery_widget'),
+                    widgets:load('keyboardlayout'),
+                    widgets:load('textclock'),
+                    w_layoutbox
                 },
-                left = 15,
-                right = 10,
+                left = dpi(15),
+                right = dpi(10),
                 widget = wibox.container.margin
             },
             shape_border_width = 1,
@@ -368,7 +375,7 @@ end
 theme.create_right_widgets = create_right_widgets
 
 -- Comment it when developing
-theme.run_once = function ()
+theme.autostart = function ()
     awful.spawn.easy_async_with_shell(
         os.getenv("HOME") .. "/.local/bin/spice_on_rice Ziro rose-pine-moon",
         function (stdout, stderr)

@@ -17,7 +17,6 @@ local mpris_widget = require("awesomewm-mpris-widget")
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 
-
 local theme = {}
 theme.dir           = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name
 
@@ -246,7 +245,7 @@ theme.tasklist_max_width = dpi(1600 - 6) -- resolution width minus gaps
 local function create_tasklist(args, s)
 
     args.layout = {
-        spacing = 10,
+        spacing = dpi(10),
         spacing_widget = {
             {
                 forced_width = dpi(5),
@@ -334,7 +333,7 @@ theme.taglist_template = {
 }
 
 
-local function create_left_widgets(w_launcher, w_taglist, w_promptbox)
+local function create_left_widgets(_, w_taglist, w_promptbox)
     return {
         layout = wibox.layout.fixed.horizontal,
         {
@@ -362,7 +361,11 @@ theme.create_left_widgets = create_left_widgets
 -- Right widgets
 --
 
-local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, w_layout)
+---comment
+---@param widgets { load: function }
+---@param w_layoutbox table
+---@return table
+local function create_right_widgets(widgets, w_layoutbox)
     local systray = wibox.widget.systray(false)
     systray:set_base_size(13)
 
@@ -391,13 +394,13 @@ local function create_right_widgets(w_cpu, w_ram, w_vol, w_batt, w_kb, w_clock, 
                         widget = wibox.container.margin
                     },
                     --systray,
-                    w_cpu,
-                    w_ram,
-                    w_vol,
-                    w_batt,
-                    w_kb,
-                    w_clock,
-                    w_layout
+                    widgets:load('cpu_widget'),
+                    widgets:load('ram_widget'),
+                    widgets:load('volume_widget'),
+                    widgets:load('battery_widget'),
+                    widgets:load('keyboardlayout'),
+                    widgets:load('textclock'),
+                    w_layoutbox
                 },
                 left = dpi(15),
                 right = dpi(10),

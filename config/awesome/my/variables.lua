@@ -1,12 +1,21 @@
 local beautiful = require("beautiful")
 
--- This is used later as the default terminal and editor to run.
-local terminal = beautiful.terminal or "kitty"
-local editor = "nvim"
-local editor_cmd = terminal .. " -e " .. editor
+local initiated = false
 
-return {
-    terminal = terminal,
-    editor = editor,
-    editor_cmd = editor_cmd
-}
+local variables = {}
+
+-- This is used later as the default terminal and editor to run.
+variables.terminal = beautiful.terminal or "kitty"
+variables.editor = "nvim"
+variables.editor_cmd = variables.terminal .. " -e " .. variables.editor
+
+function variables:get(name)
+    if not initiated then
+        variables.terminal = beautiful.terminal or "kitty"
+        variables.editor_cmd = variables.terminal .. " -e " .. variables.editor
+        initiated = true
+    end
+    return variables[name]
+end
+
+return variables

@@ -4,7 +4,7 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local volume_widget = require('awesome-wm-widgets.pactl-widget.volume')
 local modkey = require('my.static').modkey
-local terminal = require('my.variables').terminal
+local myvariables = require('my.variables')
 local mymainmenu = require('my.main-menu')
 
 local globalkeys = gears.table.join(
@@ -72,7 +72,7 @@ local globalkeys = gears.table.join(
         { description = "go back", group = "client" }),
 
     -- Standard program
-    awful.key({ modkey, }, "Return", function() awful.spawn(terminal) end,
+    awful.key({ modkey, }, "Return", function() awful.spawn(myvariables:get('terminal')) end,
         { description = "open a terminal", group = "launcher" }),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
         { description = "reload awesome", group = "awesome" }),

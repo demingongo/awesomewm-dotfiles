@@ -5,13 +5,14 @@ local dpi = require("beautiful.xresources").apply_dpi
 local widgets = require('my.widgets')
 
 local function create_left_widgets(s)
+    widgets:load('launcher')
     return type(beautiful.create_left_widgets) == "function" and beautiful.create_left_widgets(
-            widgets.launcher,
+            widgets,
             s.mytaglist,
             s.mypromptbox
         ) or {
             layout = wibox.layout.fixed.horizontal,
-            widgets.launcher,
+            widgets:load('launcher'),
             s.mytaglist,
             s.mypromptbox,
         }
@@ -24,39 +25,34 @@ end
 
 local function create_right_widgets(s)
     return type(beautiful.create_right_widgets) == "function" and beautiful.create_right_widgets(
-            widgets.cpu_widget,
-            widgets.ram_widget({}),
-            widgets.volume_widget,
-            widgets.battery_widget,
-            widgets.keyboardlayout,
-            widgets.textclock,
+            widgets,
             s.mylayoutbox
         ) or {
             -- Right widgets default
             layout = wibox.layout.fixed.horizontal,
-            widgets.spr,
-            widgets.spr,
+            widgets.spr(),
+            widgets.spr(),
             wibox.widget.systray(),
-            widgets.spr,
-            widgets.arrl_ld,
-            wibox.container.background(widgets.cpu_widget, beautiful.bg_focus),
-            widgets.arrl_dl,
+            widgets.spr(),
+            widgets.arrl_ld(),
+            wibox.container.background(widgets.cpu_widget(), beautiful.bg_focus),
+            widgets.arrl_dl(),
             widgets.ram_widget({
                 widget_width = 40
             }),
-            widgets.arrl_ld,
-            wibox.container.background(widgets.padding, beautiful.bg_focus),
-            wibox.container.background(widgets.volume_widget, beautiful.bg_focus),
-            wibox.container.background(widgets.padding, beautiful.bg_focus),
-            widgets.arrl_dl,
-            widgets.padding,
-            widgets.battery_widget,
-            widgets.padding,
-            widgets.arrl_ld,
-            wibox.container.background(widgets.keyboardlayout, beautiful.bg_focus),
-            widgets.arrl_dl,
-            widgets.textclock,
-            widgets.arrl_ld,
+            widgets.arrl_ld(),
+            wibox.container.background(widgets.padding(), beautiful.bg_focus),
+            wibox.container.background(widgets.volume_widget(), beautiful.bg_focus),
+            wibox.container.background(widgets.padding(), beautiful.bg_focus),
+            widgets.arrl_dl(),
+            widgets.padding(),
+            widgets.battery_widget(),
+            widgets.padding(),
+            widgets.arrl_ld(),
+            wibox.container.background(widgets.keyboardlayout(), beautiful.bg_focus),
+            widgets.arrl_dl(),
+            widgets.textclock(),
+            widgets.arrl_ld(),
             wibox.container.background(s.mylayoutbox, beautiful.bg_focus),
         }
 end
@@ -72,8 +68,8 @@ local function setup_wibar(s)
     local result = nil
     if type(beautiful.setup_wibar) == "function" then
         result = beautiful.setup_wibar(
-            s, 
-            create_layout(), 
+            s,
+            create_layout(),
             create_left_widgets(s),
             create_middle_widgets(s),
             create_right_widgets(s)
