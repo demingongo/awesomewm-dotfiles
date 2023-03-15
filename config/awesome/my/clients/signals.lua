@@ -40,15 +40,15 @@ client.connect_signal("request::titlebars", function(c)
 
     awful.titlebar(c):setup {
         {
-          -- Left
+            -- Left
             awful.titlebar.widget.iconwidget(c),
             buttons = buttons,
             layout  = wibox.layout.fixed.horizontal
         },
         {
-              -- Middle
+            -- Middle
             {
-              -- Title
+                -- Title
                 align  = "center",
                 widget = awful.titlebar.widget.titlewidget(c)
             },
@@ -56,7 +56,7 @@ client.connect_signal("request::titlebars", function(c)
             layout  = wibox.layout.flex.horizontal
         },
         {
-          -- Right
+            -- Right
             awful.titlebar.widget.floatingbutton(c),
             awful.titlebar.widget.maximizedbutton(c),
             awful.titlebar.widget.stickybutton(c),

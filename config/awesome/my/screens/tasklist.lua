@@ -1,6 +1,6 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
-local tasklist_buttons = require('my.tasklist-buttons')
+local tasklist_buttons = require('my.screens.tasklist-buttons')
 
 local function create_tasklist(s)
     local tasklist_args = {

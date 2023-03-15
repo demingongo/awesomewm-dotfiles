@@ -44,10 +44,12 @@ local function create_menu()
     return result
 end
 
+local get_menu = get_single_instance(create_menu)
+
 local mymainmenu = {}
 
 function mymainmenu:get()
-    return get_single_instance(create_menu)()
+    return get_menu()
 end
 
 function mymainmenu:toggle()

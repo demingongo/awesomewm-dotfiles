@@ -25,9 +25,7 @@ return {
     padding = get_single_instance(function()
         return wibox.widget.textbox('   ')
     end),
-    --{{{ Widgets
-
-    -- launcher
+    -- Launcher
     launcher = function(args)
         local props = args or {}
         props.image = props.image or beautiful.awesome_icon
@@ -95,5 +93,4 @@ return {
         props.main_color = props.main_color or beautiful.batteryarc_main_color or '#756321'
         return batteryarc_widget(props)
     end
-    --}}}
 }

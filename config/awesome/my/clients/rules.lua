@@ -1,7 +1,10 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
+local myclientskeybindings = require("my.clients.keybindings")
+local myclientsbuttonbindings = require("my.clients.buttonbindings")
 
-local function load_rules(clientkeys, clientbuttons)
+---Loads rules (keybindings, border, titlebars, ...) for clients
+local function load_rules()
   -- Rules to apply to new clients (through the "manage" signal).
   awful.rules.rules = {
     -- All clients will match this rule.
@@ -12,8 +15,8 @@ local function load_rules(clientkeys, clientbuttons)
         border_color = beautiful.border_normal,
         focus = awful.client.focus.filter,
         raise = true,
-        keys = clientkeys,
-        buttons = clientbuttons,
+        keys = myclientskeybindings,
+        buttons = myclientsbuttonbindings,
         screen = awful.screen.preferred,
         placement = awful.placement.no_overlap + awful.placement.no_offscreen
       }
@@ -80,4 +83,6 @@ local function load_rules(clientkeys, clientbuttons)
   }
 end
 
-return load_rules
+return { 
+  load = load_rules
+}

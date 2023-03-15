@@ -1,6 +1,10 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 
+-- Enable hotkeys help widget for VIM and other apps
+-- when client with a matching name is opened:
+require("awful.hotkeys_popup.keys")
+
 -- compositor
 awful.spawn.once("picom")
 -- network

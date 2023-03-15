@@ -1,6 +1,6 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
-local taglist_buttons = require('my.taglist-buttons')
+local taglist_buttons = require('my.screens.taglist-buttons')
 
 local function create_taglist(s)
     local taglist = nil
