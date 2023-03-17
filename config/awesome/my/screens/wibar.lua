@@ -72,7 +72,8 @@ local function setup_wibar(s)
             create_layout(),
             create_left_widgets(s),
             create_middle_widgets(s),
-            create_right_widgets(s)
+            create_right_widgets(s),
+            widgets
         )
     else
         result = create_layout()

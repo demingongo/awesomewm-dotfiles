@@ -8,6 +8,7 @@ local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
 local volume_widget = require('awesome-wm-widgets.pactl-widget.volume')
 local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
+local mytext_cpu_widget = require('my.widgets.widgets.text_cpu')
 local mymainmenu = require('my.main-menu')
 local get_single_instance = require('utils.get-single-instance')
 
@@ -57,6 +58,10 @@ return {
                 if button == 1 then cw.toggle() end
             end)
         return mytextclock
+    end,
+    -- text CPU monitor
+    text_cpu_widget = function(args)
+        return mytext_cpu_widget(args)
     end,
     -- CPU monitor
     cpu_widget = function(args)
