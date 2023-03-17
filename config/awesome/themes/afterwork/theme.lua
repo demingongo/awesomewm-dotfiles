@@ -24,8 +24,8 @@ theme.dir                                       = os.getenv("HOME") .. "/.config
 
 theme.terminal                                  = "kitty --config " .. theme.dir .. "/config/kitty.conf"
 
-theme.wallpaper = "#24273a"
---theme.wallpaper                                 = os.getenv("HOME") .. "/Pictures/Wallpapers/yawn.jpg"
+--theme.wallpaper = "#24273a"
+theme.wallpaper                                 = os.getenv("HOME") .. "/Pictures/Wallpapers/yawn.jpg"
 
 theme.font                                      = "Vanilla Caramel 12"
 
@@ -147,7 +147,7 @@ theme.icon_theme                                = nil
 -- Widgets
 --
 
-theme.textclock_format                          = "%A %d/%I   %R"
+theme.textclock_format                          = "%A %d/%m   %R"
 theme.calendar_theme                            = "naughty"
 theme.calendar_start_sunday                     = false
 
