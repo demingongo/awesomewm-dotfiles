@@ -2,50 +2,51 @@
 -- afterwork awesome theme --
 ---------------------------
 
-local theme_name = "afterwork"
+local theme_name                                = "afterwork"
 
-local theme_assets = require("beautiful.theme_assets")
-local xresources = require("beautiful.xresources")
-local dpi = xresources.apply_dpi
-local gears = require("gears")
-local wibox = require("wibox")
-local awful = require("awful")
+local theme_assets                              = require("beautiful.theme_assets")
+local xresources                                = require("beautiful.xresources")
+local dpi                                       = xresources.apply_dpi
+local gears                                     = require("gears")
+local wibox                                     = require("wibox")
+local awful                                     = require("awful")
 -- local naughty = require("naughty")
 
-local mpris_widget = require("awesomewm-mpris-widget")
+local mpris_widget                              = require("awesomewm-mpris-widget")
 
-local gfs = require("gears.filesystem")
-local themes_path = gfs.get_themes_dir()
+local gfs                                       = require("gears.filesystem")
+local themes_path                               = gfs.get_themes_dir()
 
-local text_color_2 = "#cba6f7" 
+local color_purple                              = "#cba6f7"
 
-local theme = {}
-theme.dir           = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name
+local theme                                     = {}
+theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name
 
-theme.terminal = "kitty --config " .. theme.dir .. "/config/kitty.conf"
+theme.terminal                                  = "kitty --config " .. theme.dir .. "/config/kitty.conf"
 
-theme.wallpaper = "#24273a" --theme.dir .. "/afterwork.jpg"
+theme.wallpaper = "#24273a"
+--theme.wallpaper                                 = os.getenv("HOME") .. "/Pictures/Wallpapers/yawn.jpg"
 
-theme.font          = "Vanilla Caramel 12"
+theme.font                                      = "Vanilla Caramel 12"
 
-theme.bg_normal     = "#1e1e2e" -- "#f1f1f1"
-theme.bg_focus      = "#1e1e2e" -- "#f1f1f1"
-theme.bg_urgent     = "#1e1e2e" -- "#f1f1f1"
-theme.bg_minimize   = "#1e1e2e" -- "#f1f1f1"
-theme.bg_systray    = theme.bg_normal
+theme.bg_normal                                 = "#1e1e2e"
+theme.bg_focus                                  = "#1e1e2e"
+theme.bg_urgent                                 = "#1e1e2e"
+theme.bg_minimize                               = "#1e1e2e"
+theme.bg_systray                                = theme.bg_normal
 
-theme.fg_normal     = "#cdd6f4"
-theme.fg_focus      = "#91d6e2"
-theme.fg_urgent     = "#f38ba8"
-theme.fg_minimize   = "#989898"
+theme.fg_normal                                 = "#cdd6f4"
+theme.fg_focus                                  = "#91d6e2"
+theme.fg_urgent                                 = "#f38ba8"
+theme.fg_minimize                               = "#989898"
 
-theme.useless_gap   = dpi(1)
-theme.border_radius = dpi(1)
-theme.border_width  = dpi(6)
-theme.border_normal = theme.fg_normal
-theme.border_focus  = theme.fg_focus
-theme.border_marked = "#CC9393"
-theme.systray_icon_spacing = dpi(10)
+theme.useless_gap                               = dpi(1)
+theme.border_radius                             = dpi(1)
+theme.border_width                              = dpi(6)
+theme.border_normal                             = theme.fg_normal
+theme.border_focus                              = theme.fg_focus
+theme.border_marked                             = "#CC9393"
+theme.systray_icon_spacing                      = dpi(10)
 
 -- There are other variable sets
 -- overriding the default one when
@@ -59,21 +60,22 @@ theme.systray_icon_spacing = dpi(10)
 -- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
-theme.taglist_fg_focus    = theme.fg_focus
-theme.taglist_fg_urgent   = theme.fg_urgent
-theme.taglist_fg_empty    = "#f7a064"
-theme.taglist_bg_focus    = theme.bg_focus .. "11"
-theme.taglist_font        = theme.font
+theme.taglist_fg_focus                          = theme.fg_focus
+theme.taglist_fg_urgent                         = theme.fg_urgent
+theme.taglist_fg_empty                          = "#f7a064"
+theme.taglist_bg_focus                          = theme.bg_focus .. "11"
+theme.taglist_font                              = theme.font
 
-theme.tasklist_disable_icon = true
-theme.tasklist_disable_task_name = false
-theme.tasklist_bg_focus  = theme.bg_focus
+theme.tasklist_disable_icon                     = true
+theme.tasklist_disable_task_name                = false
+theme.tasklist_bg_focus                         = theme.bg_focus
+theme.tasklist_max_width                        = dpi(1600 - 6) -- resolution width minus gaps
 
-theme.titlebar_bg_focus  = theme.bg_focus
-theme.titlebar_bg_normal = theme.bg_normal
-theme.titlebar_fg_focus  = theme.fg_focus
+theme.titlebar_bg_focus                         = theme.bg_focus
+theme.titlebar_bg_normal                        = theme.bg_normal
+theme.titlebar_fg_focus                         = theme.fg_focus
 
-theme.hotkeys_modifiers_fg = theme.fg_focus
+theme.hotkeys_modifiers_fg                      = theme.fg_focus
 
 -- Variables set for theming notifications:
 -- notification_font
@@ -84,127 +86,104 @@ theme.hotkeys_modifiers_fg = theme.fg_focus
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
-theme.menu_submenu_icon = theme.dir .. "/icons/submenu.png"
-theme.menu_height = dpi(22)
-theme.menu_width  = dpi(160)
+theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
+theme.menu_height                               = dpi(22)
+theme.menu_width                                = dpi(160)
 
 -- Define the image to load
-theme.titlebar_close_button_normal = theme.dir .. "/icons/titlebar/close_normal.png"
-theme.titlebar_close_button_focus  = theme.dir .. "/icons/titlebar/close_focus.png"
+theme.titlebar_close_button_normal              = theme.dir .. "/icons/titlebar/close_normal.png"
+theme.titlebar_close_button_focus               = theme.dir .. "/icons/titlebar/close_focus.png"
 
-theme.titlebar_minimize_button_normal = theme.dir .. "/icons/titlebar/minimize_normal.png"
-theme.titlebar_minimize_button_focus  = theme.dir .. "/icons/titlebar/minimize_focus.png"
+theme.titlebar_minimize_button_normal           = theme.dir .. "/icons/titlebar/minimize_normal.png"
+theme.titlebar_minimize_button_focus            = theme.dir .. "/icons/titlebar/minimize_focus.png"
 
-theme.titlebar_ontop_button_normal_inactive = theme.dir .. "/icons/titlebar/ontop_normal_inactive.png"
-theme.titlebar_ontop_button_focus_inactive  = theme.dir .. "/icons/titlebar/ontop_focus_inactive.png"
-theme.titlebar_ontop_button_normal_active = theme.dir .. "/icons/titlebar/ontop_normal_active.png"
-theme.titlebar_ontop_button_focus_active  = theme.dir .. "/icons/titlebar/ontop_focus_active.png"
+theme.titlebar_ontop_button_normal_inactive     = theme.dir .. "/icons/titlebar/ontop_normal_inactive.png"
+theme.titlebar_ontop_button_focus_inactive      = theme.dir .. "/icons/titlebar/ontop_focus_inactive.png"
+theme.titlebar_ontop_button_normal_active       = theme.dir .. "/icons/titlebar/ontop_normal_active.png"
+theme.titlebar_ontop_button_focus_active        = theme.dir .. "/icons/titlebar/ontop_focus_active.png"
 
-theme.titlebar_sticky_button_normal_inactive = theme.dir .. "/icons/titlebar/sticky_normal_inactive.png"
-theme.titlebar_sticky_button_focus_inactive  = theme.dir .. "/icons/titlebar/sticky_focus_inactive.png"
-theme.titlebar_sticky_button_normal_active = theme.dir .. "/icons/titlebar/sticky_normal_active.png"
-theme.titlebar_sticky_button_focus_active  = theme.dir .. "/icons/titlebar/sticky_focus_active.png"
+theme.titlebar_sticky_button_normal_inactive    = theme.dir .. "/icons/titlebar/sticky_normal_inactive.png"
+theme.titlebar_sticky_button_focus_inactive     = theme.dir .. "/icons/titlebar/sticky_focus_inactive.png"
+theme.titlebar_sticky_button_normal_active      = theme.dir .. "/icons/titlebar/sticky_normal_active.png"
+theme.titlebar_sticky_button_focus_active       = theme.dir .. "/icons/titlebar/sticky_focus_active.png"
 
-theme.titlebar_floating_button_normal_inactive = theme.dir .. "/icons/titlebar/floating_normal_inactive.png"
-theme.titlebar_floating_button_focus_inactive  = theme.dir .. "/icons/titlebar/floating_focus_inactive.png"
-theme.titlebar_floating_button_normal_active = theme.dir .. "/icons/titlebar/floating_normal_active.png"
-theme.titlebar_floating_button_focus_active  = theme.dir .. "/icons/titlebar/floating_focus_active.png"
+theme.titlebar_floating_button_normal_inactive  = theme.dir .. "/icons/titlebar/floating_normal_inactive.png"
+theme.titlebar_floating_button_focus_inactive   = theme.dir .. "/icons/titlebar/floating_focus_inactive.png"
+theme.titlebar_floating_button_normal_active    = theme.dir .. "/icons/titlebar/floating_normal_active.png"
+theme.titlebar_floating_button_focus_active     = theme.dir .. "/icons/titlebar/floating_focus_active.png"
 
 theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/maximized_normal_inactive.png"
 theme.titlebar_maximized_button_focus_inactive  = theme.dir .. "/icons/titlebar/maximized_focus_inactive.png"
-theme.titlebar_maximized_button_normal_active = theme.dir .. "/icons/titlebar/maximized_normal_active.png"
-theme.titlebar_maximized_button_focus_active  = theme.dir .. "/icons/titlebar/maximized_focus_active.png"
+theme.titlebar_maximized_button_normal_active   = theme.dir .. "/icons/titlebar/maximized_normal_active.png"
+theme.titlebar_maximized_button_focus_active    = theme.dir .. "/icons/titlebar/maximized_focus_active.png"
 
 -- You can use your own layout icons like this:
-theme.layout_fairv = theme.dir .. "/icons/fairv.png"
-theme.layout_fairh = theme.dir .. "/icons/fairh.png"
-theme.layout_max = themes_path .. "default/layouts/maxw.png"
-theme.layout_fullscreen = themes_path .. "defaults/layout/fullscreenw.png"
-theme.layout_magnifier = themes_path .. "default/layouts/magnifierw.png"
-theme.layout_floating = theme.dir .. "/icons/floating.png"
-theme.layout_tile = theme.dir .. "/icons/tile.png"
-theme.layout_tileleft = theme.dir .. "/icons/tileleft.png"
-theme.layout_tilebottom = theme.dir .. "/icons/tilebottom.png"
-theme.layout_tiletop = theme.dir .. "/icons/tiletop.png"
-theme.layout_spiral  = themes_path.."default/layouts/spiralw.png"
-theme.layout_dwindle = themes_path.."default/layouts/dwindlew.png"
-theme.layout_cornernw = themes_path.."default/layouts/cornernww.png"
-theme.layout_cornerne = themes_path.."default/layouts/cornernew.png"
-theme.layout_cornersw = themes_path.."default/layouts/cornersww.png"
-theme.layout_cornerse = themes_path.."default/layouts/cornersew.png"
+theme.layout_fairv                              = theme.dir .. "/icons/fairv.png"
+theme.layout_fairh                              = theme.dir .. "/icons/fairh.png"
+theme.layout_max                                = themes_path .. "default/layouts/maxw.png"
+theme.layout_fullscreen                         = themes_path .. "defaults/layout/fullscreenw.png"
+theme.layout_magnifier                          = themes_path .. "default/layouts/magnifierw.png"
+theme.layout_floating                           = theme.dir .. "/icons/floating.png"
+theme.layout_tile                               = theme.dir .. "/icons/tile.png"
+theme.layout_tileleft                           = theme.dir .. "/icons/tileleft.png"
+theme.layout_tilebottom                         = theme.dir .. "/icons/tilebottom.png"
+theme.layout_tiletop                            = theme.dir .. "/icons/tiletop.png"
+theme.layout_spiral                             = themes_path .. "default/layouts/spiralw.png"
+theme.layout_dwindle                            = themes_path .. "default/layouts/dwindlew.png"
+theme.layout_cornernw                           = themes_path .. "default/layouts/cornernww.png"
+theme.layout_cornerne                           = themes_path .. "default/layouts/cornernew.png"
+theme.layout_cornersw                           = themes_path .. "default/layouts/cornersww.png"
+theme.layout_cornerse                           = themes_path .. "default/layouts/cornersew.png"
 
 -- Generate Awesome icon:
-theme.awesome_icon = theme_assets.awesome_icon(
+theme.awesome_icon                              = theme_assets.awesome_icon(
     theme.menu_height, theme.bg_focus, theme.fg_focus
 )
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = nil
+theme.icon_theme                                = nil
 
 -- Widgets
 --
 
-local mpris_widget_max_width = dpi(180)
-local mpris_widget_args = {
-                        --ignore_player="totem,firefox,spotify",
-                        --empty_text = "Nothing's playing",
-                        --ignore_player = "rhythmbox,spotify",
-                        --state_paused = "... ",
-                        --media_icons = {
-                        --    rhythmbox = os.getenv("HOME") .. "/.icons/candy-icons/apps/scalable/juk.svg",
-                        --},
-                        --timeout = 3,
-                        --max_chars = 34,
-                        max_chars = -1,
-                        scroll = {
-                            enabled = true,
- 		            max_size = mpris_widget_max_width,
- 		            -- step_function = wibox.container.scroll.step_functions.linear_increase,
- 		            -- speed = 20, -- horizontal speed
-                            -- speed = 8, -- vertical speed
-                            -- fps = 10,
-                            --position = "vertical",
-                            margin_top = dpi(7), -- if position vertical
-                            -- margin_bottom = 5, -- if position vertical
-                        },
-                        popup_maximum_width = dpi(400),
-                        --bg = "#919191",
-                        -- bgimage = gears.surface.load_uncached(os.getenv("HOME") 
-                        --    .. "/Pictures/Wallpapers/Portraits/torii-japanese-shrine-anime-scenery-art-phone-wallpaper-400.jpg"),
-                        widget_dir = os.getenv("HOME") .. "/.config/awesome/awesomewm-mpris-widget" 
-                    }
+theme.textclock_format                          = "%A %d/%I   %R"
+theme.calendar_theme                            = "naughty"
+theme.calendar_start_sunday                     = false
 
-theme.textclock_format = "%A %d/%I   %R"
-theme.calendar_theme = "naughty"
-theme.calendar_start_sunday = false
+theme.batteryarc_main_color                     = color_purple
 
-theme.batteryarc_main_color = text_color_2
+local function create_media_player_widget()
+    local media_player = nil
 
-theme.cpu_widget_color = theme.fg_normal
+    -- mpris widget args
+    local mpris_widget_max_width = dpi(180)
+    local mpris_widget_args = {
+        state_playing = "",
+        font = "Purple Smile 12",
+        media_icons = {
+            musikcube = theme.dir .. "/icons/mpris/musikcube.png",
+            rhythmbox = theme.dir .. "/icons/mpris/rhythmbox.svg",
+            spotify = theme.dir .. "/icons/mpris/spotify.svg",
+        },
+        max_chars = -1,
+        scroll = {
+            enabled = true,
+            max_size = mpris_widget_max_width,
+            -- step_function = wibox.container.scroll.step_functions.linear_increase,
+            -- speed = 20, -- horizontal speed
+        },
+        popup_maximum_width = dpi(400),
+        --bg = "#919191",
+        -- bgimage = gears.surface.load_uncached(os.getenv("HOME")
+        --    .. "/Pictures/Wallpapers/Portraits/torii-japanese-shrine-anime-scenery-art-phone-wallpaper-400.jpg"),
+    }
 
--- Wibar
---
---
-
--- Wibar properties
---
-theme.wibar_position = "top"
-theme.wibar_height = dpi(34)
-theme.wibar_expand = "none"
-theme.wibar_bg = theme.bg_normal
-theme.wibar_opacity = 1
-theme.wibar_border_width = theme.border_width
-theme.wibar_border_color = theme.border_normal
-
--- return arg for wibar:setup
-local function setup_wibar(s, layout, left_side, middle_side, right_side, widgets)
-
-    local media_player = nil 
+    -- Controls
     local previous_button = wibox.widget.textbox("󰙣 ")
     previous_button.font = "Vanilla Caramel 18"
     previous_button.visible = false
-    previous_button:connect_signal("button::release", function (self, _, _, button)
+    previous_button:connect_signal("button::release", function(self, _, _, button)
         if button == 1 then
             media_player:previous()
         end
@@ -212,145 +191,52 @@ local function setup_wibar(s, layout, left_side, middle_side, right_side, widget
     local next_button = wibox.widget.textbox(" 󰙡 ")
     next_button.font = "Vanilla Caramel 18"
     next_button.visible = false
-    next_button:connect_signal("button::release", function (self, _, _, button) 
+    next_button:connect_signal("button::release", function(self, _, _, button)
         if button == 1 then
             media_player:next()
         end
     end)
 
+    -- Events
     mpris_widget_args.clients_running = function()
         if not previous_button.visible then
-            previous_button.visible = not previous_button.visible 
+            previous_button.visible = not previous_button.visible
         end
         if not next_button.visible then
-            next_button.visible = not next_button.visible 
+            next_button.visible = not next_button.visible
         end
     end
     mpris_widget_args.all_clients_closed = function()
         if previous_button.visible then
-            previous_button.visible = not previous_button.visible 
+            previous_button.visible = not previous_button.visible
         end
         if next_button.visible then
-            next_button.visible = not next_button.visible 
+            next_button.visible = not next_button.visible
         end
     end
 
+    ---mpris widget
     media_player = mpris_widget(mpris_widget_args)
 
-
-    table.insert(layout, left_side)
-    table.insert(layout, {
+    return {
         layout = wibox.layout.fixed.horizontal,
+        previous_button,
         {
-            {
-                {
-                    layout = wibox.layout.fixed.horizontal,
-                    previous_button,
-                    {
-                        media_player,
-                        forced_width = mpris_widget_max_width,
-                        widget = wibox.container.constraint
-                    },
-                    next_button
-                },
-                left = dpi(15),
-                right = dpi(15),
-                widget = wibox.container.margin
-            },
-            bg = theme.bg_normal,
-            id = "background_role",
-            widget = wibox.container.background
-        }
-    })
-    table.insert(layout, right_side)
-
-    -- add second wibar
-    s.mybottomwibox = awful.wibar({
-        screen = s,
-        position = "bottom"
-    })
-
-    local empty_widget = wibox.widget.textbox('')
-
-    s.mybottomwibox:setup({
-        layout = wibox.layout.ratio.horizontal,
-        {
-            --layout = wibox.layout.fixed.horizontal
-            layout = wibox.layout.align.horizontal,
-            expand = "none",
-            widgets:load("launcher")
+            media_player,
+            forced_width = mpris_widget_max_width,
+            widget = wibox.container.constraint
         },
-        {
-            layout = wibox.layout.align.horizontal,
-            expand = "none",
-            empty_widget,
-            middle_side,
-            empty_widget
-        }
-        ,
-        {
-            layout = wibox.layout.align.horizontal,
-            expand = "none",
-            empty_widget,
-            {
-                {
-                    {
-                        layout = wibox.layout.fixed.horizontal,
-                        wibox.widget.textbox('CPU: '),
-                        widgets:load('text_cpu_widget', { timeout = 5 }),
-                        wibox.widget.textbox('%')
-                    },
-                    fg = text_color_2,
-                    widget = wibox.container.background
-                },
-                forced_width = dpi(70),
-                widget = wibox.container.constraint
-            },
-            empty_widget
-        }
-    })
-    s.mybottomwibox.widget:ajust_ratio(2, 0.05, 0.9, 0.05)
-
-
-    --[[
-    s.mybottomwibox:setup {
-        --layout = wibox.layout.align.horizontal,
-        --expand = theme.wibar_expand,
-        layout         = wibox.layout.ratio.horizontal,
-        {
-            layout = wibox.layout.fixed.horizontal
-        },
-        middle_side,
-        {
-            {
-                {
-                    {
-                        layout = wibox.layout.fixed.horizontal,
-                        wibox.widget.textbox('CPU: '),
-                        widgets:load('text_cpu_widget', { timeout = 5 }),
-                        wibox.widget.textbox('%')
-                    },
-                    --fg = text_color_2,
-                    widget = wibox.container.background
-                },
-                forced_width = dpi(67),
-                widget = wibox.container.constraint
-            },
-            layout = wibox.layout.fixed.horizontal
-        }
+        next_button
     }
-    --]]
-
-    return layout;
 end
 
-theme.setup_wibar = setup_wibar
+-- Wibar
+--
+--
 
 -- Tasklist
 --
-theme.tasklist_max_width = dpi(1600 - 6) -- resolution width minus gaps 
 local function create_tasklist(args, s)
-
     args.layout = {
         spacing = dpi(10),
         spacing_widget = {
@@ -367,7 +253,7 @@ local function create_tasklist(args, s)
     }
 
     args.widget_template = {
-        {   
+        {
             {
                 {
                     {
@@ -396,22 +282,15 @@ end
 
 theme.create_tasklist = create_tasklist
 
--- Custom widgets
---
-
-
 
 -- Left widgets
 --
-
--- Taglist
---theme.taglist_tags = { "1", "2", "3", "4", "5", "6" }
 
 -- Taglist widget template
 theme.taglist_template = {
     {
         {
-	    layout = wibox.layout.fixed.horizontal,
+            layout = wibox.layout.fixed.horizontal,
             {
                 {
                     id = "text_role",
@@ -421,8 +300,8 @@ theme.taglist_template = {
                 widget = wibox.container.margin
             },
         },
-        left  = dpi(8),
-        right = dpi(8),
+        left   = dpi(8),
+        right  = dpi(8),
         widget = wibox.container.margin
     },
     id     = 'background_role',
@@ -452,8 +331,6 @@ end
 
 theme.create_left_widgets = create_left_widgets
 
-
-
 -- Right widgets
 --
 
@@ -465,12 +342,6 @@ local function create_right_widgets(widgets, w_layoutbox)
     local systray = wibox.widget.systray(true)
     systray:set_base_size(13)
 
-    --local mprisw = mpris_widget({
-    --                    ignore_player = "spotify"
-    --                })
-    --mprisw:play_pause()
-    --mprisw:previous()
-    --mprisw:next()
     -- separator
     local spr = {
         wibox.widget.textbox('|'),
@@ -478,7 +349,6 @@ local function create_right_widgets(widgets, w_layoutbox)
         widget = wibox.container.background
     }
 
-    --wibox.widget.textbox('|')
     return {
         layout = wibox.layout.fixed.horizontal,
         {
@@ -486,37 +356,16 @@ local function create_right_widgets(widgets, w_layoutbox)
                 {
                     layout = wibox.layout.fixed.horizontal,
                     spacing = dpi(20),
-                    --systray,
-                    --widgets:load('cpu_widget'),
-                    --widgets:load('textclock'),
                     {
                         widgets:load('textclock'),
-                        fg = text_color_2,
+                        fg = color_purple,
                         widget = wibox.container.background
                     },
-                    --[[
-                    spr,
-                    {
-                        {
-                            {
-                                layout = wibox.layout.fixed.horizontal,
-                                wibox.widget.textbox('CPU: '),
-                                widgets:load('text_cpu_widget', { timeout = 5 }),
-                                wibox.widget.textbox('%')
-                            },
-                            --fg = text_color_2,
-                            widget = wibox.container.background
-                        },
-                        forced_width = dpi(67),
-                        widget = wibox.container.constraint
-                    },
-                    --]]
                     spr,
                     widgets:load('volume_widget'),
                     spr,
                     widgets:load('battery_widget'),
                     spr,
-                    --w_layoutbox,
                     wibox.widget {
                         {
                             -- vertical align center
@@ -541,12 +390,96 @@ end
 
 theme.create_right_widgets = create_right_widgets
 
+-- Wibar
+--
+
+-- Wibar properties
+theme.wibar_position = "top"
+theme.wibar_height = dpi(34)
+theme.wibar_expand = "none"
+theme.wibar_bg = theme.bg_normal
+theme.wibar_opacity = 1
+theme.wibar_border_width = theme.border_width
+theme.wibar_border_color = theme.border_normal
+
+---Returns the argument for wibar:setup
+local function setup_wibar(s, layout, left_side, middle_side, right_side, widgets)
+    local empty_widget = wibox.widget.textbox('')
+
+    local media_player_widget = create_media_player_widget()
+
+    table.insert(layout, left_side)
+    table.insert(layout, {
+        layout = wibox.layout.fixed.horizontal,
+        {
+            {
+                media_player_widget,
+                left = dpi(15),
+                right = dpi(15),
+                widget = wibox.container.margin
+            },
+            bg = theme.bg_normal,
+            id = "background_role",
+            widget = wibox.container.background
+        }
+    })
+    table.insert(layout, right_side)
+
+    -- add second wibar
+    s.mybottomwibox = awful.wibar({
+        screen = s,
+        position = "bottom"
+    })
+
+    s.mybottomwibox:setup({
+        layout = wibox.layout.ratio.horizontal,
+        {
+            layout = wibox.layout.align.horizontal,
+            expand = "none",
+            widgets:load("launcher")
+        },
+        {
+            layout = wibox.layout.align.horizontal,
+            expand = "none",
+            empty_widget,
+            middle_side,
+            empty_widget
+        }
+        ,
+        {
+            layout = wibox.layout.align.horizontal,
+            expand = "none",
+            empty_widget,
+            {
+                {
+                    {
+                        layout = wibox.layout.fixed.horizontal,
+                        wibox.widget.textbox('CPU: '),
+                        widgets:load('text_cpu_widget', { timeout = 5 }),
+                        wibox.widget.textbox('%')
+                    },
+                    fg = color_purple,
+                    widget = wibox.container.background
+                },
+                forced_width = dpi(70),
+                widget = wibox.container.constraint
+            },
+            empty_widget
+        }
+    })
+    s.mybottomwibox.widget:ajust_ratio(2, 0.05, 0.9, 0.05)
+
+    return layout;
+end
+
+theme.setup_wibar = setup_wibar
+
 
 -- Comment it when developing
-theme.autostart = function ()
+theme.autostart = function()
     --[[
     awful.spawn.easy_async_with_shell(
-        os.getenv("HOME") .. "/.local/bin/spice_on_rice Onepunch Light",
+        os.getenv("HOME") .. "/.local/bin/spice_on_rice Ziro rose-pine-dawn",
         function (stdout, stderr)
             -- naughty.notify({text = "spiced out"})
             -- naughty.notify({text = stderr})
