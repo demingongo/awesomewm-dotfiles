@@ -49,6 +49,7 @@ if [[ -n "$theme" ]] then
 	# load zsh config
 	ZSH_THEME_CONF="$HOME/.config/awesome/themes/$theme/config/zshrc.conf"
 	ZSH_CONF="$CONFIG_DIR/zshrc.conf"
+	rm -f "$ZSH_CONF~" # remove old backup file (to avoid overwriting symbolic link)
 	if [ -f "$ZSH_THEME_CONF" ]; then
 		ln -s -b "$ZSH_THEME_CONF" "$ZSH_CONF"		
 	else
