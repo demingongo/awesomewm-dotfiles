@@ -475,18 +475,9 @@ end
 theme.setup_wibar = setup_wibar
 
 
--- Comment it when developing
-theme.autostart = function()
-    --[[
-    awful.spawn.easy_async_with_shell(
-        os.getenv("HOME") .. "/.local/bin/spice_on_rice Ziro rose-pine-dawn",
-        function (stdout, stderr)
-            -- naughty.notify({text = "spiced out"})
-            -- naughty.notify({text = stderr})
-        end
-        )
-    --]]
-end
+theme.autostart_shell_cmds = {
+    os.getenv("HOME") .. "/.local/bin/spice_on_rice Ziro rose-pine-moon"
+}
 
 return theme
 

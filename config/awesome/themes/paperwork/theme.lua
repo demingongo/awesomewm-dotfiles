@@ -388,8 +388,9 @@ end
 
 theme.setup_wibar = setup_wibar
 
+
 theme.autostart_shell_cmds = {
-    -- os.getenv("HOME") .. "/.local/bin/spice_on_rice Onepunch Light"
+    os.getenv("HOME") .. "/.local/bin/spice_on_rice Onepunch Light"
 }
 
 return theme
