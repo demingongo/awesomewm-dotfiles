@@ -17,31 +17,31 @@ local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 
 
-local theme = {}
-theme.dir           = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name
+local theme                                     = {}
+theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name
 
-theme.wallpaper = theme.dir .. "/yumework.jpg"
+theme.wallpaper                                 = theme.dir .. "/yumework.jpg"
 
-theme.font          = "Terminus 9"
+theme.font                                      = "Terminus 9"
 
-theme.bg_normal     = "#1A1A1A"
-theme.bg_focus      = "#303446"
-theme.bg_urgent     = "#313131"
-theme.bg_minimize   = "#313131"
-theme.bg_systray    = theme.bg_normal
+theme.bg_normal                                 = "#1A1A1A"
+theme.bg_focus                                  = "#303446"
+theme.bg_urgent                                 = "#313131"
+theme.bg_minimize                               = "#313131"
+theme.bg_systray                                = theme.bg_normal
 
-theme.fg_normal     = "#959CB7"
-theme.fg_focus      = "#DDDDFF"
-theme.fg_urgent     = "#ED7A78"
-theme.fg_minimize   = "#999999"
+theme.fg_normal                                 = "#959CB7"
+theme.fg_focus                                  = "#DDDDFF"
+theme.fg_urgent                                 = "#ED7A78"
+theme.fg_minimize                               = "#999999"
 
-theme.useless_gap   = dpi(6)
-theme.border_radius = dpi(6)
-theme.border_width  = dpi(1)
-theme.border_normal = "#3F3F3F"
-theme.border_focus  = "#767EA2"
-theme.border_marked = "#CC9393"
-theme.systray_icon_spacing = dpi(10)
+theme.useless_gap                               = dpi(6)
+theme.border_radius                             = dpi(6)
+theme.border_width                              = dpi(1)
+theme.border_normal                             = "#3F3F3F"
+theme.border_focus                              = "#767EA2"
+theme.border_marked                             = "#CC9393"
+theme.systray_icon_spacing                      = dpi(10)
 
 -- There are other variable sets
 -- overriding the default one when
@@ -55,19 +55,19 @@ theme.systray_icon_spacing = dpi(10)
 -- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
-theme.taglist_fg_focus    = "#3EA0C1"
-theme.taglist_fg_urgent   = theme.fg_urgent
-theme.taglist_fg_empty    = theme.fg_normal
-theme.taglist_bg_focus    = theme.bg_focus .. "11"
-theme.taglist_font        = "Hack Nerd Font Bold 12"
+theme.taglist_fg_focus                          = "#3EA0C1"
+theme.taglist_fg_urgent                         = theme.fg_urgent
+theme.taglist_fg_empty                          = theme.fg_normal
+theme.taglist_bg_focus                          = theme.bg_focus .. "11"
+theme.taglist_font                              = "Hack Nerd Font Bold 12"
 
-theme.tasklist_disable_icon = true
-theme.tasklist_disable_task_name = false
-theme.tasklist_bg_focus  = "#1A1A1A"
+theme.tasklist_disable_icon                     = true
+theme.tasklist_disable_task_name                = false
+theme.tasklist_bg_focus                         = "#1A1A1A"
 
-theme.titlebar_bg_focus  = theme.bg_focus
-theme.titlebar_bg_normal = theme.bg_normal
-theme.titlebar_fg_focus  = theme.fg_focus
+theme.titlebar_bg_focus                         = theme.bg_focus
+theme.titlebar_bg_normal                        = theme.bg_normal
+theme.titlebar_fg_focus                         = theme.fg_focus
 
 -- Variables set for theming notifications:
 -- notification_font
@@ -78,73 +78,73 @@ theme.titlebar_fg_focus  = theme.fg_focus
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
-theme.menu_submenu_icon = theme.dir .. "/icons/submenu.png"
-theme.menu_height = dpi(22)
-theme.menu_width  = dpi(140)
+theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
+theme.menu_height                               = dpi(22)
+theme.menu_width                                = dpi(140)
 
 -- Define the image to load
-theme.titlebar_close_button_normal = theme.dir .. "/icons/titlebar/close_normal.png"
-theme.titlebar_close_button_focus  = theme.dir .. "/icons/titlebar/close_focus.png"
+theme.titlebar_close_button_normal              = theme.dir .. "/icons/titlebar/close_normal.png"
+theme.titlebar_close_button_focus               = theme.dir .. "/icons/titlebar/close_focus.png"
 
-theme.titlebar_minimize_button_normal = theme.dir .. "/icons/titlebar/minimize_normal.png"
-theme.titlebar_minimize_button_focus  = theme.dir .. "/icons/titlebar/minimize_focus.png"
+theme.titlebar_minimize_button_normal           = theme.dir .. "/icons/titlebar/minimize_normal.png"
+theme.titlebar_minimize_button_focus            = theme.dir .. "/icons/titlebar/minimize_focus.png"
 
-theme.titlebar_ontop_button_normal_inactive = theme.dir .. "/icons/titlebar/ontop_normal_inactive.png"
-theme.titlebar_ontop_button_focus_inactive  = theme.dir .. "/icons/titlebar/ontop_focus_inactive.png"
-theme.titlebar_ontop_button_normal_active = theme.dir .. "/icons/titlebar/ontop_normal_active.png"
-theme.titlebar_ontop_button_focus_active  = theme.dir .. "/icons/titlebar/ontop_focus_active.png"
+theme.titlebar_ontop_button_normal_inactive     = theme.dir .. "/icons/titlebar/ontop_normal_inactive.png"
+theme.titlebar_ontop_button_focus_inactive      = theme.dir .. "/icons/titlebar/ontop_focus_inactive.png"
+theme.titlebar_ontop_button_normal_active       = theme.dir .. "/icons/titlebar/ontop_normal_active.png"
+theme.titlebar_ontop_button_focus_active        = theme.dir .. "/icons/titlebar/ontop_focus_active.png"
 
-theme.titlebar_sticky_button_normal_inactive = theme.dir .. "/icons/titlebar/sticky_normal_inactive.png"
-theme.titlebar_sticky_button_focus_inactive  = theme.dir .. "/icons/titlebar/sticky_focus_inactive.png"
-theme.titlebar_sticky_button_normal_active = theme.dir .. "/icons/titlebar/sticky_normal_active.png"
-theme.titlebar_sticky_button_focus_active  = theme.dir .. "/icons/titlebar/sticky_focus_active.png"
+theme.titlebar_sticky_button_normal_inactive    = theme.dir .. "/icons/titlebar/sticky_normal_inactive.png"
+theme.titlebar_sticky_button_focus_inactive     = theme.dir .. "/icons/titlebar/sticky_focus_inactive.png"
+theme.titlebar_sticky_button_normal_active      = theme.dir .. "/icons/titlebar/sticky_normal_active.png"
+theme.titlebar_sticky_button_focus_active       = theme.dir .. "/icons/titlebar/sticky_focus_active.png"
 
-theme.titlebar_floating_button_normal_inactive = theme.dir .. "/icons/titlebar/floating_normal_inactive.png"
-theme.titlebar_floating_button_focus_inactive  = theme.dir .. "/icons/titlebar/floating_focus_inactive.png"
-theme.titlebar_floating_button_normal_active = theme.dir .. "/icons/titlebar/floating_normal_active.png"
-theme.titlebar_floating_button_focus_active  = theme.dir .. "/icons/titlebar/floating_focus_active.png"
+theme.titlebar_floating_button_normal_inactive  = theme.dir .. "/icons/titlebar/floating_normal_inactive.png"
+theme.titlebar_floating_button_focus_inactive   = theme.dir .. "/icons/titlebar/floating_focus_inactive.png"
+theme.titlebar_floating_button_normal_active    = theme.dir .. "/icons/titlebar/floating_normal_active.png"
+theme.titlebar_floating_button_focus_active     = theme.dir .. "/icons/titlebar/floating_focus_active.png"
 
 theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/maximized_normal_inactive.png"
 theme.titlebar_maximized_button_focus_inactive  = theme.dir .. "/icons/titlebar/maximized_focus_inactive.png"
-theme.titlebar_maximized_button_normal_active = theme.dir .. "/icons/titlebar/maximized_normal_active.png"
-theme.titlebar_maximized_button_focus_active  = theme.dir .. "/icons/titlebar/maximized_focus_active.png"
+theme.titlebar_maximized_button_normal_active   = theme.dir .. "/icons/titlebar/maximized_normal_active.png"
+theme.titlebar_maximized_button_focus_active    = theme.dir .. "/icons/titlebar/maximized_focus_active.png"
 
 -- You can use your own layout icons like this:
-theme.layout_fairv = theme.dir .. "/icons/fairv.png"
-theme.layout_fairh = theme.dir .. "/icons/fairh.png"
-theme.layout_max = themes_path .. "default/layouts/maxw.png"
-theme.layout_fullscreen = themes_path .. "defaults/layout/fullscreenw.png"
-theme.layout_magnifier = themes_path .. "default/layouts/magnifierw.png"
-theme.layout_floating = theme.dir .. "/icons/floating.png"
-theme.layout_tile = theme.dir .. "/icons/tile.png"
-theme.layout_tileleft = theme.dir .. "/icons/tileleft.png"
-theme.layout_tilebottom = theme.dir .. "/icons/tilebottom.png"
-theme.layout_tiletop = theme.dir .. "/icons/tiletop.png"
-theme.layout_spiral  = themes_path.."default/layouts/spiralw.png"
-theme.layout_dwindle = themes_path.."default/layouts/dwindlew.png"
-theme.layout_cornernw = themes_path.."default/layouts/cornernww.png"
-theme.layout_cornerne = themes_path.."default/layouts/cornernew.png"
-theme.layout_cornersw = themes_path.."default/layouts/cornersww.png"
-theme.layout_cornerse = themes_path.."default/layouts/cornersew.png"
+theme.layout_fairv                              = theme.dir .. "/icons/fairv.png"
+theme.layout_fairh                              = theme.dir .. "/icons/fairh.png"
+theme.layout_max                                = themes_path .. "default/layouts/maxw.png"
+theme.layout_fullscreen                         = themes_path .. "defaults/layout/fullscreenw.png"
+theme.layout_magnifier                          = themes_path .. "default/layouts/magnifierw.png"
+theme.layout_floating                           = theme.dir .. "/icons/floating.png"
+theme.layout_tile                               = theme.dir .. "/icons/tile.png"
+theme.layout_tileleft                           = theme.dir .. "/icons/tileleft.png"
+theme.layout_tilebottom                         = theme.dir .. "/icons/tilebottom.png"
+theme.layout_tiletop                            = theme.dir .. "/icons/tiletop.png"
+theme.layout_spiral                             = themes_path .. "default/layouts/spiralw.png"
+theme.layout_dwindle                            = themes_path .. "default/layouts/dwindlew.png"
+theme.layout_cornernw                           = themes_path .. "default/layouts/cornernww.png"
+theme.layout_cornerne                           = themes_path .. "default/layouts/cornernew.png"
+theme.layout_cornersw                           = themes_path .. "default/layouts/cornersww.png"
+theme.layout_cornerse                           = themes_path .. "default/layouts/cornersew.png"
 
 -- Generate Awesome icon:
-theme.awesome_icon = theme_assets.awesome_icon(
+theme.awesome_icon                              = theme_assets.awesome_icon(
     theme.menu_height, theme.bg_focus, theme.fg_focus
 )
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = nil
+theme.icon_theme                                = nil
 
 -- Widgets
 --
--- 
+--
 
-theme.textclock_format = "%R"
-theme.calendar_theme = "naughty"
-theme.calendar_start_sunday = false
+theme.textclock_format                          = "%R"
+theme.calendar_theme                            = "naughty"
+theme.calendar_start_sunday                     = false
 
-theme.batteryarc_main_color = theme.fg_normal
+theme.batteryarc_main_color                     = theme.fg_normal
 
 -- Wibar
 --
@@ -152,18 +152,19 @@ theme.batteryarc_main_color = theme.fg_normal
 
 -- Wibar properties
 --
-theme.wibar_position = "top"
-theme.wibar_height = dpi(28)--dpi(25)
-theme.wibar_expand = "none"
-theme.wibar_bg = "#00000000" -- transparent
-theme.wibar_opacity = 0.85
-theme.wibar_border_width = dpi(9)--dpi(12)
+
+-- Wibar properties
+theme.wibar_position                            = "top"
+theme.wibar_height                              = dpi(28)
+theme.wibar_expand                              = "none"
+theme.wibar_bg                                  = "#00000000" -- transparent
+theme.wibar_opacity                             = 0.85
+theme.wibar_border_width                        = dpi(9)
 
 -- Tasklist
 --
-theme.tasklist_max_width = dpi(600) 
+theme.tasklist_max_width                        = dpi(600)
 local function create_tasklist(args, s)
-
     args.style = {
         shape_border_width = 1,
         shape = gears.shape.rounded_bar
@@ -185,7 +186,7 @@ local function create_tasklist(args, s)
     }
 
     args.widget_template = {
-        {   
+        {
             {
                 {
                     {
@@ -214,22 +215,17 @@ end
 
 theme.create_tasklist = create_tasklist
 
--- Custom widgets
---
-
-
-
 -- Left widgets
 --
 
 -- Taglist
 -- nf-weather-moon_alt
-theme.taglist_tags = { " ", " ", " ", " ", " ", " ", " " } -- tags 8 and 9: " ", " " 
+theme.taglist_tags = { " ", " ", " ", " ", " ", " ", " " } -- tags 8 and 9: " ", " "
 
 local function taglist_update_callback(widget, t, idx)
     if t.activated and #t:clients() > 0 then
         t.name = " "
-    elseif t.name ~= theme.taglist_tags[idx] then 
+    elseif t.name ~= theme.taglist_tags[idx] then
         t.name = theme.taglist_tags[idx];
     end
 end
@@ -237,7 +233,7 @@ end
 theme.taglist_template = {
     {
         {
-	    layout = wibox.layout.fixed.horizontal,
+            layout = wibox.layout.fixed.horizontal,
             {
                 {
                     id = "text_role",
@@ -247,12 +243,12 @@ theme.taglist_template = {
                 widget = wibox.container.margin
             },
         },
-        left  = 8,
-        right = 0,
+        left   = 8,
+        right  = 0,
         widget = wibox.container.margin
     },
-    id     = 'background_role',
-    widget = wibox.container.background,
+    id              = 'background_role',
+    widget          = wibox.container.background,
     create_callback = taglist_update_callback,
     update_callback = taglist_update_callback
 }
@@ -283,9 +279,9 @@ local function create_left_widgets(_, w_taglist, w_promptbox)
                         max_chars = -1,
                         scroll = {
                             enabled = true,
- 		            -- max_size = 170,
- 		            -- step_function = wibox.container.scroll.step_functions.linear_increase,
- 		            -- speed = 20, -- horizontal speed
+                            -- max_size = 170,
+                            -- step_function = wibox.container.scroll.step_functions.linear_increase,
+                            -- speed = 20, -- horizontal speed
                             -- speed = 8, -- vertical speed
                             -- fps = 10,
                             position = "vertical",
@@ -293,9 +289,9 @@ local function create_left_widgets(_, w_taglist, w_promptbox)
                             -- margin_bottom = 5, -- if position vertical
                         },
                         popup_maximum_width = dpi(400),
-                        bgimage = gears.surface.load_uncached(os.getenv("HOME") 
+                        bgimage = gears.surface.load_uncached(os.getenv("HOME")
                             .. "/Pictures/Wallpapers/Portraits/starry-night-comet-scenery-anime-girl-phone-wallpaper-400.jpg"),
-                        widget_dir = os.getenv("HOME") .. "/.config/awesome/awesomewm-mpris-widget" 
+                        widget_dir = os.getenv("HOME") .. "/.config/awesome/awesomewm-mpris-widget"
                     },
                     w_promptbox
                 },
@@ -327,12 +323,6 @@ local function create_right_widgets(widgets, w_layoutbox)
     local systray = wibox.widget.systray(false)
     systray:set_base_size(13)
 
-    --local mprisw = mpris_widget({
-    --                    ignore_player = "spotify"
-    --                })
-    --mprisw:play_pause()
-    --mprisw:previous()
-    --mprisw:next()
     return {
         layout = wibox.layout.fixed.horizontal,
         {
@@ -340,7 +330,6 @@ local function create_right_widgets(widgets, w_layoutbox)
                 {
                     layout = wibox.layout.fixed.horizontal,
                     spacing = dpi(20),
-                    --mprisw,
                     wibox.widget {
                         {
                             -- vertical align center
@@ -374,16 +363,10 @@ end
 
 theme.create_right_widgets = create_right_widgets
 
--- Comment it when developing
-theme.autostart = function ()
-    awful.spawn.easy_async_with_shell(
-        os.getenv("HOME") .. "/.local/bin/spice_on_rice Ziro rose-pine-moon",
-        function (stdout, stderr)
-            -- naughty.notify({text = "spiced out"})
-            -- naughty.notify({text = stderr})
-        end
-        )
-end
+
+theme.autostart_shell_cmds = {
+    os.getenv("HOME") .. "/.local/bin/spice_on_rice Ziro rose-pine-moon"
+}
 
 return theme
 
