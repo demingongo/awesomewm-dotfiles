@@ -2,3 +2,7 @@ ricework
 spywork
 yumework
 paperwork
+homework
+afterwork
+
+workless

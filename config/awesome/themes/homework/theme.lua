@@ -152,8 +152,6 @@ theme.icon_theme                                = nil
 --
 --
 
-local bottom_wibar                              = nil
-
 theme.textclock_format                          = "%R"
 theme.calendar_theme                            = "naughty"
 theme.calendar_start_sunday                     = false
@@ -162,7 +160,7 @@ theme.batteryarc_main_color                     = theme.fg_normal
 
 theme.cpu_widget_color                          = "#86c0c1"
 
-local function create_media_player_widget()
+local function create_media_player_widget(s)
     return mpris_widget({
         empty_text = "   nothing's playing",
         ignore_player = "firefox",
@@ -175,14 +173,14 @@ local function create_media_player_widget()
         popup_maximum_width = dpi(400),
         all_clients_closed = function()
             -- naughty.notify({text = "All mpris clients closed"})
-            if bottom_wibar and bottom_wibar.visible then
-                bottom_wibar.visible = not bottom_wibar.visible
+            if s.mybottomwibox and s.mybottomwibox.visible then
+                s.mybottomwibox.visible = not s.mybottomwibox.visible
             end
         end,
         clients_running = function()
             -- naughty.notify({text = "mpris clients playing"})
-            if bottom_wibar and not bottom_wibar.visible then
-                bottom_wibar.visible = not bottom_wibar.visible
+            if s.mybottomwibox and not s.mybottomwibox.visible then
+                s.mybottomwibox.visible = not s.mybottomwibox.visible
             end
         end
     })
@@ -376,7 +374,7 @@ local function setup_wibar(s, layout, left_side, middle_side, right_side)
     table.insert(layout, right_side)
 
     -- add second wibar
-    bottom_wibar = awful.wibar({
+    s.mybottomwibox = awful.wibar({
         screen = s,
         position = "bottom",
         border_width = dpi(2),
@@ -384,7 +382,6 @@ local function setup_wibar(s, layout, left_side, middle_side, right_side)
         visible = false
     })
 
-    s.mybottomwibox = bottom_wibar
     s.mybottomwibox:setup {
         layout = wibox.layout.align.horizontal,
         {
@@ -395,7 +392,7 @@ local function setup_wibar(s, layout, left_side, middle_side, right_side)
             {
                 {
                     {
-                        create_media_player_widget(),
+                        create_media_player_widget(s),
                         layout = wibox.layout.fixed.horizontal
                     },
                     left = dpi(8),
