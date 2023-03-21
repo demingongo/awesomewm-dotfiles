@@ -28,7 +28,6 @@ theme.wallpaper                                 = theme.dir .. "/6562423.jpg"
 theme.font                                      = "Comfortaa 11"
 -- "Z003 15"
 -- "Nimbus Mono 11"
--- --"Comfortaa 11"
 
 theme.bg_normal                                 = "#f1f1f1"
 theme.bg_focus                                  = "#fff2e2" .. "00"

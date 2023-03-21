@@ -10,7 +10,6 @@ local dpi                                       = xresources.apply_dpi
 local gears                                     = require("gears")
 local wibox                                     = require("wibox")
 local awful                                     = require("awful")
--- local naughty = require("naughty")
 
 local mpris_widget                              = require("awesomewm-mpris-widget")
 
