@@ -7,6 +7,7 @@ local widgets = require('my.widgets')
 local function create_left_widgets(s)
     widgets:load('launcher')
     return type(beautiful.create_left_widgets) == "function" and beautiful.create_left_widgets(
+            s,
             widgets,
             s.mytaglist,
             s.mypromptbox
@@ -25,6 +26,7 @@ end
 
 local function create_right_widgets(s)
     return type(beautiful.create_right_widgets) == "function" and beautiful.create_right_widgets(
+            s,
             widgets,
             s.mylayoutbox
         ) or {

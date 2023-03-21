@@ -162,10 +162,11 @@ theme.batteryarc_main_color = theme.fg_normal
 theme.volume_widget_type = "horizontal_bar"
 
 ---comment
+---@param screen any
 ---@param widgets { load: function }
 ---@param w_layoutbox table
 ---@return table
-local function create_right_widgets(widgets, w_layoutbox)
+local function create_right_widgets(screen, widgets, w_layoutbox)
     return {
         layout = wibox.layout.fixed.horizontal,
         {

@@ -254,11 +254,12 @@ theme.taglist_template = {
 }
 
 ---comment
----@param _ any
+---@param screen any
+---@param widgets any
 ---@param w_taglist table
 ---@param w_promptbox table
 ---@return table
-local function create_left_widgets(_, w_taglist, w_promptbox)
+local function create_left_widgets(screen, widgets, w_taglist, w_promptbox)
     return {
         layout = wibox.layout.fixed.horizontal,
         {
@@ -315,10 +316,11 @@ theme.create_left_widgets = create_left_widgets
 --
 
 ---comment
+---@param screen any
 ---@param widgets { load: function }
 ---@param w_layoutbox table
 ---@return table
-local function create_right_widgets(widgets, w_layoutbox)
+local function create_right_widgets(screen, widgets, w_layoutbox)
     local systray = wibox.widget.systray(false)
     systray:set_base_size(13)
 
