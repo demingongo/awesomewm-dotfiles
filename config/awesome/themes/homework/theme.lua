@@ -174,7 +174,6 @@ local function create_media_player_widget()
         },
         max_chars = -1,
         popup_maximum_width = dpi(400),
-        widget_dir = os.getenv("HOME") .. "/.config/awesome/awesomewm-mpris-widget",
         all_clients_closed = function()
             -- naughty.notify({text = "All mpris clients closed"})
             if bottom_wibar and bottom_wibar.visible then

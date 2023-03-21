@@ -289,9 +289,8 @@ local function create_left_widgets(_, w_taglist, w_promptbox)
                             -- margin_bottom = 5, -- if position vertical
                         },
                         popup_maximum_width = dpi(400),
-                        bgimage = gears.surface.load_uncached(os.getenv("HOME")
-                            .. "/Pictures/Wallpapers/Portraits/starry-night-comet-scenery-anime-girl-phone-wallpaper-400.jpg"),
-                        widget_dir = os.getenv("HOME") .. "/.config/awesome/awesomewm-mpris-widget"
+                        bgimage = gears.surface.load_uncached(theme.dir
+                            .. "/starry-night-comet-scenery-anime-girl-phone-wallpaper-400.jpg"),
                     },
                     w_promptbox
                 },

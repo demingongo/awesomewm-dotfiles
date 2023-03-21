@@ -162,7 +162,6 @@ local function create_media_player_widget()
             margin_top = dpi(8)
         },
         popup_maximum_width = dpi(400),
-        widget_dir = os.getenv("HOME") .. "/.config/awesome/awesomewm-mpris-widget"
     })
 end
 

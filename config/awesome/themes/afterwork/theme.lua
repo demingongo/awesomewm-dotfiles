@@ -169,14 +169,9 @@ local function create_media_player_widget()
         max_chars = -1,
         scroll = {
             enabled = true,
-            max_size = mpris_widget_max_width,
-            -- step_function = wibox.container.scroll.step_functions.linear_increase,
-            -- speed = 20, -- horizontal speed
+            max_size = mpris_widget_max_width
         },
-        popup_maximum_width = dpi(400),
-        --bg = "#919191",
-        -- bgimage = gears.surface.load_uncached(os.getenv("HOME")
-        --    .. "/Pictures/Wallpapers/Portraits/torii-japanese-shrine-anime-scenery-art-phone-wallpaper-400.jpg"),
+        popup_maximum_width = dpi(400)
     }
 
     -- Controls
