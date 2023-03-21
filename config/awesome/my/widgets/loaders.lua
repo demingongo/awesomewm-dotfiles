@@ -78,12 +78,12 @@ return {
         return ram_widget(props)
     end,
     -- Volume control
-    volume_widget = function(args)
+    volume_widget = get_single_instance(function(args)
         local props = args or {}
         props.widget_type = props.widget_type or beautiful.volume_widget_type or 'arc'
         props.shape = props.shape or 'hexagon'
         return volume_widget(props)
-    end,
+    end),
     -- Battery indicator
     battery_widget = function(args)
         local props = args or {}
