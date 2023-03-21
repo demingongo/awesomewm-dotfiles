@@ -25,7 +25,7 @@ theme.dir                                       = os.getenv("HOME") .. "/.config
 theme.terminal                                  = "kitty --config " .. theme.dir .. "/config/kitty.conf"
 
 --theme.wallpaper = "#24273a"
-theme.wallpaper                                 = os.getenv("HOME") .. "/Pictures/Wallpapers/yawn.jpg"
+theme.wallpaper                                 = theme.dir .. "/Ilya_Kuvshinov-yawn.jpg"
 
 theme.font                                      = "Vanilla Caramel 12"
 
