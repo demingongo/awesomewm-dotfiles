@@ -42,9 +42,14 @@ local default_layouts = {
     -- awful.layout.suit.corner.se,
 }
 
+
 return {
     themes = themes,
     current_theme = theme_name,
     modkey = modkey,
-    default_layouts = default_layouts
+    default_layouts = default_layouts,
+    --Lockscreen script path
+    lockscreen_script = os.getenv("HOME") .. "/.local/bin/lockscreen",
+    --Switch theme script path
+    switch_theme_script = os.getenv("HOME") .. "/.local/bin/awesome_switch_theme"
 }

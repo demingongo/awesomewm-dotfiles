@@ -5,6 +5,8 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local get_single_instance = require('utils.get-single-instance')
 local themes = require('my.static').themes
+local lockscreen_script = require('my.static').lockscreen_script
+local switch_theme_script = require('my.static').switch_theme_script
 local myvariables = require('my.variables')
 
 local function create_menu()
@@ -22,12 +24,20 @@ local function create_menu()
         { "Quit",    function() awesome.quit() end },
     }
 
+    local mypowermenu = {
+        { "Lock screen",
+            function() 
+                awful.spawn.easy_async_with_shell(lockscreen_script)
+            end
+        }
+    }
+
     local mythemesmenu = {}
 
     for _, name in ipairs(themes) do
         table.insert(mythemesmenu, {
             name,
-            function() os.execute(os.getenv("HOME") .. "/.local/bin/awesome_switch_theme " .. name) end
+            function() os.execute(switch_theme_script .. " " .. name) end
         })
     end
 
@@ -37,7 +47,8 @@ local function create_menu()
         },
         after = {
             { "Change theme",  mythemesmenu },
-            { "Open terminal", terminal }
+            { "Power", mypowermenu },
+            { "Open terminal", terminal },
         }
     }
 

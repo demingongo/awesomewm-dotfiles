@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+rm -f /tmp/lockscreenshot.png
+scrot /tmp/lockscreenshot.png
+convert /tmp/lockscreenshot.png -blur 0x5 /tmp/lockscreenshotblur.png
+i3lock -i /tmp/lockscreenshotblur.png

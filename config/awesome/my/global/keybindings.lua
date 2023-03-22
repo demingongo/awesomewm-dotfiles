@@ -4,6 +4,7 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local volume_widget = require('awesome-wm-widgets.pactl-widget.volume')
 local modkey = require('my.static').modkey
+local lockscreen_script = require('my.static').lockscreen_script
 local myvariables = require('my.variables')
 local mymainmenu = require('my.main-menu')
 
@@ -27,6 +28,10 @@ local globalkeys = gears.table.join(
         { description = "brightness -5%", group = "hotkeys" }),
     awful.key({}, "XF86MonBrightnessUp", function() os.execute("brightnessctl set 5%+") end,
         { description = "brightness +5%", group = "hotkeys" }),
+
+    -- Power (c, v, b)
+    awful.key({ modkey }, "c", function() awful.spawn.easy_async_with_shell(lockscreen_script) end,
+        { description = "lock screen", group = "power" }),
 
     awful.key({ modkey, }, "s", hotkeys_popup.show_help,
         { description = "show help", group = "awesome" }),
@@ -178,7 +183,7 @@ for i = 1, 9 do
 end
 
 --
--- shygyver tags with numpad
+-- Tags with numpad
 --
 local np_map = { 87, 88, 89, 83, 84, 85, 79, 80, 81 }
 for i = 1, 9 do

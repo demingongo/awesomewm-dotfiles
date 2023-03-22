@@ -34,10 +34,6 @@ local function load_screens()
         -- Wallpaper
         set_wallpaper(s)
 
-        -- Each screen has its own tag table.
-        awful.tag(beautiful.taglist_tags or { "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s,
-            #awful.layout.layouts > 0 and awful.layout.layouts[1] or awful.layout.suit.tile)
-
         -- Create a promptbox for each screen
         s.mypromptbox = mywidgets:create_promptbox()
 
