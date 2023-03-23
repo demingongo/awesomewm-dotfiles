@@ -5,6 +5,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 local volume_widget = require('awesome-wm-widgets.pactl-widget.volume')
 local modkey = require('my.static').modkey
 local lockscreen_script = require('my.static').lockscreen_script
+local screenshots_path = require('my.static').screenshots_path
 local myvariables = require('my.variables')
 local mymainmenu = require('my.main-menu')
 
@@ -28,6 +29,20 @@ local globalkeys = gears.table.join(
         { description = "brightness -5%", group = "hotkeys" }),
     awful.key({}, "XF86MonBrightnessUp", function() os.execute("brightnessctl set 5%+") end,
         { description = "brightness +5%", group = "hotkeys" }),
+
+    -- Print Screen
+    awful.key({}, "Print", function()
+            os.execute("scrot " .. screenshots_path .. "/awesome_screenshot_" .. os.date("%Y-%m-%d_%H-%M-%S") .. ".png")
+        end,
+        { description = "capture screen", group = "screenshots" }),
+    awful.key({ modkey }, "Print", function()
+            os.execute("scrot -ub " .. screenshots_path .. "/awesome_screenshot_" .. os.date("%Y-%m-%d_%H-%M-%S") .. ".png")
+        end,
+        { description = "capture window", group = "screenshots" }),
+    awful.key({ modkey, "Shift" }, "Print", function()
+            os.execute("scrot -s " .. screenshots_path .. "/awesome_screenshot_" .. os.date("%Y-%m-%d_%H-%M-%S") .. ".png")
+        end,
+        { description = "capture area", group = "screenshots" }),
 
     -- Power (c, v, b)
     awful.key({ modkey }, "c", function() awful.spawn.easy_async_with_shell(lockscreen_script) end,

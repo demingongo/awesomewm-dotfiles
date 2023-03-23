@@ -48,6 +48,9 @@ return {
     current_theme = theme_name,
     modkey = modkey,
     default_layouts = default_layouts,
+
+    screenshots_path = os.getenv("HOME") .. "/Pictures/Screenshots",
+
     --Lockscreen script path
     lockscreen_script = os.getenv("HOME") .. "/.local/bin/lockscreen",
     --Switch theme script path
