@@ -9,7 +9,7 @@ client.connect_signal("manage", function(c)
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
 
-    -- shygyver shape border radius
+    -- shape border radius
     if type(beautiful.border_radius) == "number" then
         c.shape = function(cr, w, h)
             gears.shape.rounded_rect(cr, w, h, beautiful.border_radius)
