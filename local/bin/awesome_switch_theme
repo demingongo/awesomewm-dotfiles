@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# awesome_switch_theme
+#
+# Description: change theme of AwesomeWM
+# Author: demingongo
+# Link: https://github.com/demingongo
+# Availability: https://github.com/demingongo/awesomewm-dotfiles
+
 ALL_THEMES=()
 
 THEMES_FILE="$HOME/.config/awesome/themes/themes.txt" 

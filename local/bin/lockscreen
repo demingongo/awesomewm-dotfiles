@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# lockscreen
+#
+# Description: blurred desktop as lockscreen (i3lock)
+# Author: demingongo
+# Link: https://github.com/demingongo
+# Availability: https://github.com/demingongo/awesomewm-dotfiles
+
 rm -f /tmp/lockscreenshot.png
 scrot /tmp/lockscreenshot.png
 convert /tmp/lockscreenshot.png -blur 0x5 /tmp/lockscreenshotblur.png

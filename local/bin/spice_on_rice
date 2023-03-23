@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# spice_on_rice
+#
+# Description: use spicetify to change spotify's theme
+# Author: demingongo
+# Link: https://github.com/demingongo
+# Availability: https://github.com/demingongo/awesomewm-dotfiles
+
 set -euo pipefail
 
 if [[ $# -eq 0 ]]; then
