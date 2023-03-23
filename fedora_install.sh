@@ -36,10 +36,12 @@ if [[ "$c_answer_awesome" == "y" ]]; then
 
     cp -r local/bin ~/.local/
     
+    set +e
     git clone https://github.com/demingongo/awesomewm-mpris-widget.git ~/.config/awesome/awesomewm-mpris-widget
     git clone https://github.com/streetturtle/awesome-wm-widgets.git ~/.config/awesome/awesome-wm-widgets
     git clone https://github.com/lcpz/awesome-freedesktop.git ~/.config/awesome/freedesktop
     git clone https://github.com/lcpz/lain.git ~/.config/awesome/lain
+    set -e
 fi
 
 c_answer_dep="y"
