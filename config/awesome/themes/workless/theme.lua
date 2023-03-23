@@ -162,9 +162,11 @@ local function create_media_player_widget()
         state_playing = "",
         font = "Purple Smile 12",
         media_icons = {
-            musikcube = theme.dir .. "/icons/mpris/musikcube.png",
-            rhythmbox = theme.dir .. "/icons/mpris/rhythmbox.svg",
-            spotify = theme.dir .. "/icons/mpris/spotify.svg",
+            default = theme.dir .. "/icons/mpris/musicnote3d.png",
+            musikcube = theme.dir .. "/icons/mpris/musikcube3d.png",
+            rhythmbox = theme.dir .. "/icons/mpris/rhythmbox3d.png",
+            firefox = theme.dir .. "/icons/mpris/firefox3d.png",
+            spotify = theme.dir .. "/icons/mpris/spotify3d.png",
         },
         max_chars = -1,
         scroll = {
@@ -274,13 +276,37 @@ theme.create_tasklist = create_tasklist
 -- Left widgets
 --
 
-theme.taglist_tags = { "󰺕 ", "󰺕 ", "󰺕 ", "󰺕 ", "󰺕 ", "󰺕 ", "󰺕 " } -- tags 8 and 9: " ", " "
+theme.taglist_tags = { "󰺕 ", "󰺕 ", "󰺕 ", "󰺕 ", "󰺕 ", "󰺕 ", "󰺕 " }
+
+theme.init_tags_for_screen = function(screen)
+    return {
+        {
+            tag_name = "Hello",
+            layout = awful.layout.suit.max
+        },
+        {
+            tag_name = "Aloha",
+            layout = awful.layout.suit.max
+        },
+        --[[
+        {
+            name = "bread",
+            layout = awful.layout.suit.max
+        },
+        {
+            name = "apple",
+            layout = awful.layout.suit.max,
+            screen = screen
+        }
+        --]]
+    }
+end
 
 local function taglist_update_callback(widget, t, idx)
     if t.activated and #t:clients() > 0 then
-        t.name = "󰪥 "
+        t.name = theme.taglist_tags[idx] and "󰪥 " or t.name
     elseif t.name ~= theme.taglist_tags[idx] then
-        t.name = theme.taglist_tags[idx];
+        t.name = theme.taglist_tags[idx] or t.tag_name or t.name;
     end
 end
 -- Taglist widget template
@@ -491,7 +517,7 @@ theme.setup_wibar = setup_wibar
 
 
 theme.autostart_shell_cmds = {
-    os.getenv("HOME") .. "/.local/bin/spice_on_rice Ziro rose-pine-moon"
+    --os.getenv("HOME") .. "/.local/bin/spice_on_rice Ziro rose-pine-moon"
 }
 
 return theme
