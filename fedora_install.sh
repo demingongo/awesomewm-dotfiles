@@ -33,6 +33,8 @@ if [[ "$c_answer_awesome" == "y" ]]; then
     cp -r config/picom ~/.config/
 
     ./install_fonts.sh
+
+    cp -r local/bin ~/.local/
     
     git clone https://github.com/demingongo/awesomewm-mpris-widget.git ~/.config/awesome/awesomewm-mpris-widget
     git clone https://github.com/streetturtle/awesome-wm-widgets.git ~/.config/awesome/awesome-wm-widgets
