@@ -31,6 +31,8 @@ if [[ "$c_answer_awesome" == "y" ]]; then
     cp -r config/awesome ~/.config/
     cp -r config/kitty ~/.config/
     cp -r config/picom ~/.config/
+
+    ./install_fonts.sh
     
     git clone https://github.com/demingongo/awesomewm-mpris-widget.git ~/.config/awesome/awesomewm-mpris-widget
     git clone https://github.com/streetturtle/awesome-wm-widgets.git ~/.config/awesome/awesome-wm-widgets
@@ -90,12 +92,3 @@ Exec=awesome
     fi
     
 fi
-
-### Fonts
-#
-# - Hack font (see https://github.com/ryanoasis/nerd-fonts#option-3-install-script)
-#
-# - Vanilla Caramel (https://www.dafont.com/vanilla-caramel.font)
-#
-# - Purple Smile (https://www.dafont.com/purple-smile.font)
-#
