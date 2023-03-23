@@ -6,8 +6,11 @@ local naughty = require("naughty")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
--- compositor
+-- compositor (default)
 awful.spawn.once("picom")
+-- compositor (xrender backend) (VMs, ...)
+-- uncomment this one for your VM and comment the default one 
+--awful.spawn.once("picom --config " .. os.getenv("env") .. "/.config/picom/picom-vm.conf")
 -- network
 awful.util.spawn("nm-applet")
 -- bluetooth
