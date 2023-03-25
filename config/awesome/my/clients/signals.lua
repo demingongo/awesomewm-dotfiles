@@ -12,12 +12,12 @@ client.connect_signal("manage", function(c)
 
     if c and c.valid then
         local client_icon = nil
-        if not c.icon and beautiful.client_default_icon then
-            client_icon = beautiful.client_default_icon
+        if not c.icon and beautiful.clients_default_icon then
+            client_icon = beautiful.clients_default_icon
         end
 
-        if type(beautiful.client_icons) == "table" and beautiful.client_icons[c.class] then
-            client_icon = beautiful.client_icons[c.class]
+        if type(beautiful.clients_icons) == "table" and beautiful.clients_icons[c.class] then
+            client_icon = beautiful.clients_icons[c.class]
         end
 
         -- set icon for client

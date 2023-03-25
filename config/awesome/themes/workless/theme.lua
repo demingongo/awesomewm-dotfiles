@@ -136,8 +136,8 @@ theme.layout_cornersw                           = themes_path .. "default/layout
 theme.layout_cornerse                           = themes_path .. "default/layouts/cornersew.png"
 
 -- Client icons used in tasklist
-theme.client_default_icon = theme.dir .. "/icons/clients/monokuma_512x512.png"
-theme.client_icons = {
+theme.clients_default_icon = theme.dir .. "/icons/clients/monokuma_512x512.png"
+theme.clients_icons = {
     ["Spotify"] = theme.dir .. "/icons/clients/spotify_512x512.png",
     ["kitty"] = theme.dir .. "/icons/clients/kitty.svg",
     ["firefox"] = theme.dir .. "/icons/clients/firefox.svg"
