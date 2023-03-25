@@ -1,6 +1,7 @@
 local gears = require("gears")
 local awful = require("awful")
 local wibox = require("wibox")
+local cairo = require("lgi").cairo
 local beautiful = require("beautiful")
 
 -- Signal function to execute when a new client appears.
@@ -8,6 +9,32 @@ client.connect_signal("manage", function(c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
+
+    if c and c.valid then
+        local client_icon = nil
+        if not c.icon and beautiful.client_default_icon then
+            client_icon = beautiful.client_default_icon
+        end
+
+        if type(beautiful.client_icons) == "table" and beautiful.client_icons[c.class] then
+            client_icon = beautiful.client_icons[c.class]
+        end
+
+        -- set icon for client
+        if client_icon then
+            local s = gears.surface(client_icon)
+            local img = cairo.ImageSurface.create(cairo.Format.ARGB32, s:get_width(), s:get_height())
+            local cr = cairo.Context(img)
+            cr:set_source_surface(s, 0, 0)
+            cr:paint()
+            gears.timer ({
+                callback = function() c.icon = img._native end,
+                timeout = 0.5,
+                autostart = true,
+                single_shot = true
+            })
+        end
+    end
 
     -- shape border radius
     if type(beautiful.border_radius) == "number" then

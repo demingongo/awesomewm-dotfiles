@@ -135,6 +135,14 @@ theme.layout_cornerne                           = themes_path .. "default/layout
 theme.layout_cornersw                           = themes_path .. "default/layouts/cornersww.png"
 theme.layout_cornerse                           = themes_path .. "default/layouts/cornersew.png"
 
+-- Client icons used in tasklist
+theme.client_default_icon = theme.dir .. "/icons/clients/monokuma_512x512.png"
+theme.client_icons = {
+    ["Spotify"] = theme.dir .. "/icons/clients/spotify_512x512.png",
+    ["kitty"] = theme.dir .. "/icons/clients/kitty.svg",
+    ["firefox"] = theme.dir .. "/icons/clients/firefox.svg"
+}
+
 -- Generate Awesome icon:
 theme.awesome_icon                              = theme_assets.awesome_icon(
     theme.menu_height, theme.bg_focus, theme.fg_focus
