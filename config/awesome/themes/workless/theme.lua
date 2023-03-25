@@ -68,7 +68,7 @@ theme.tasklist_disable_icon                     = false
 theme.tasklist_disable_task_name                = true
 theme.tasklist_bg_focus                         = theme.bg_focus .. "77"
 theme.tasklist_bg_normal                        = theme.bg_normal .. "00"
-theme.tasklist_bg_minimize                        = theme.bg_minimize .. "00"
+theme.tasklist_bg_minimize                      = theme.bg_minimize .. "00"
 theme.tasklist_max_width                        = dpi(1600 - 6) -- resolution width minus gaps
 
 theme.titlebar_bg_focus                         = theme.bg_focus
@@ -76,6 +76,27 @@ theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
 
 theme.hotkeys_modifiers_fg                      = theme.fg_focus
+
+theme.popups_font                               = "Purple Smile 20"
+theme.popups_timeout_font                       = theme.font
+theme.popups_fg                                 = nil
+theme.popups_bgimage                            = theme.dir .. "/danganronpa_blur_300.png"
+theme.popups_bg                                 = nil
+theme.popups_text_bg                            = theme.bg_normal
+theme.popups_confirm_bg                         = theme.bg_normal
+theme.popups_cancel_bg                          = theme.bg_normal
+theme.popups_confirm_hover_bg                   = color_purple
+theme.popups_confirm_hover_fg                   = theme.bg_normal
+theme.popups_cancel_hover_bg                    = color_purple
+theme.popups_cancel_hover_fg                    = theme.bg_normal
+theme.popups_border_width                       = theme.border_width
+theme.popups_border_color                       = theme.border_focus
+theme.popups_minimum_width                      = dpi(300)
+theme.popups_minimum_height                     = nil
+theme.popups_maxmimum_width                     = dpi(300)
+theme.popups_maximum_height                     = nil
+theme.popups_width                              = nil
+theme.popups_height                             = nil
 
 -- Variables set for theming notifications:
 -- notification_font
@@ -136,8 +157,8 @@ theme.layout_cornersw                           = themes_path .. "default/layout
 theme.layout_cornerse                           = themes_path .. "default/layouts/cornersew.png"
 
 -- Client icons used in tasklist
-theme.clients_default_icon = theme.dir .. "/icons/clients/monokuma_512x512.png"
-theme.clients_icons = {
+theme.clients_default_icon                      = theme.dir .. "/icons/clients/monokuma_512x512.png"
+theme.clients_icons                             = {
     ["Spotify"] = theme.dir .. "/icons/clients/spotify_512x512.png",
     ["kitty"] = theme.dir .. "/icons/clients/kitty.svg",
     ["firefox"] = theme.dir .. "/icons/clients/firefox.svg"
@@ -335,8 +356,8 @@ theme.taglist_template = {
         right  = dpi(8),
         widget = wibox.container.margin
     },
-    id     = 'background_role',
-    widget = wibox.container.background,
+    id              = 'background_role',
+    widget          = wibox.container.background,
     create_callback = taglist_update_callback,
     update_callback = taglist_update_callback
 }
@@ -418,10 +439,10 @@ local function create_right_widgets(screen, widgets, w_layoutbox)
     table.insert(right_side_layout, wibox.widget {
         {
             {
-                    layout = wibox.layout.fixed.horizontal,
-                    wibox.widget.textbox('CPU: '),
-                    widgets:load('text_cpu_widget', { timeout = 5 }),
-                    wibox.widget.textbox('%')
+                layout = wibox.layout.fixed.horizontal,
+                wibox.widget.textbox('CPU: '),
+                widgets:load('text_cpu_widget', { timeout = 5 }),
+                wibox.widget.textbox('%')
             },
             fg = color_purple,
             widget = wibox.container.background
@@ -457,7 +478,7 @@ theme.wibar_height = dpi(34)
 theme.wibar_expand = "none"
 theme.wibar_bg = theme.bg_normal
 theme.wibar_opacity = 1
-theme.wibar_border_width = dpi(0)--theme.border_width
+theme.wibar_border_width = dpi(0) --theme.border_width
 theme.wibar_border_color = theme.border_normal
 theme.wibar_ontop = false
 

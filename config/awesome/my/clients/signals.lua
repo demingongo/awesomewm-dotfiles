@@ -20,7 +20,8 @@ client.connect_signal("manage", function(c)
             client_icon = beautiful.clients_icons[c.class]
         end
 
-        -- set icon for client
+        -- Set icon for client
+        -- check a client's class with "xprop" command
         if client_icon then
             local s = gears.surface(client_icon)
             local img = cairo.ImageSurface.create(cairo.Format.ARGB32, s:get_width(), s:get_height())
