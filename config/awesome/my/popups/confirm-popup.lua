@@ -138,13 +138,27 @@ local function init_confirm_popup(args)
     local countdown_timer = nil
     local countdown_count = 1
     local countdown_pace = 2
+    ---@param value integer
+    ---@return integer
+    local function format_countdown_value(value)
+        local formatted_value = value - 1 -- because display might be late
+        if formatted_value < 0 then formatted_value = 0 end
+        return formatted_value
+    end
     local function get_countdown_string(value)
+        if value < 0 then
+            value = 0
+        end
         return "... " .. value .. " seconds"
     end
     local function reset_countdown_timer()
         if countdown_timer then
             countdown_count = 1
-            countdown_textbox:set_text(get_countdown_string(props.timeout - (countdown_count * countdown_pace)))
+            countdown_textbox:set_text(
+                get_countdown_string(
+                    format_countdown_value(props.timeout)
+                )
+            )
             countdown_timer:again()
         end
     end
@@ -162,7 +176,11 @@ local function init_confirm_popup(args)
         }
 
         countdown_timer = gears.timer.start_new (countdown_pace, function ()
-            countdown_textbox:set_text(get_countdown_string(props.timeout - (countdown_count * countdown_pace)))
+            countdown_textbox:set_text(
+                get_countdown_string(
+                    format_countdown_value(props.timeout - (countdown_count * countdown_pace))
+                )
+            )
             countdown_count = countdown_count + 1
             return (props.timeout - (countdown_count * countdown_pace) >= 0)
         end)

@@ -8,7 +8,7 @@ local themes = require('my.static').themes
 local lockscreen_script = require('my.static').lockscreen_script
 local switch_theme_script = require('my.static').switch_theme_script
 local myvariables = require('my.variables')
-local confirm_popup = require('my.confirm-popup')
+local get_shutdown_popup = require('my.popups.shutdown-popup')
 
 local function create_menu()
     local terminal = myvariables:get('terminal')
@@ -25,18 +25,6 @@ local function create_menu()
         { "Quit",    function() awesome.quit() end },
     }
 
-    local get_shutdown_confirm_popup = get_single_instance(
-        function ()
-            return confirm_popup({
-                text = "Shutdown?",
-                timeout = 60,
-                confirm = function()
-                    os.execute('systemctl poweroff')
-                end
-            })
-        end
-    )
-
     local mypowermenu = {
         { "Lock screen",
             function() 
@@ -45,7 +33,7 @@ local function create_menu()
         },
         { "Shutdown",
             function()
-                local shutdown_popup = get_shutdown_confirm_popup()
+                local shutdown_popup = get_shutdown_popup()
                 shutdown_popup:show()
             end
         }
