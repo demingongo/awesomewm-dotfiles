@@ -9,6 +9,7 @@ local volume_widget = require('awesome-wm-widgets.pactl-widget.volume')
 local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 local mytext_cpu_widget = require('my.widgets.widgets.text_cpu')
+local mytoggable_systray = require('my.widgets.widgets.toggable_systray')
 local mymainmenu = require('my.main-menu')
 local get_single_instance = require('utils.get-single-instance')
 
@@ -97,5 +98,8 @@ return {
         props.size = props.size or dpi(18)
         props.main_color = props.main_color or beautiful.batteryarc_main_color or '#756321'
         return batteryarc_widget(props)
-    end
+    end,
+    toggable_systray = function(args)
+        return mytoggable_systray(args)
+    end,
 }

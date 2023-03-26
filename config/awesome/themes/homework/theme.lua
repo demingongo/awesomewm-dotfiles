@@ -318,8 +318,15 @@ theme.create_left_widgets = create_left_widgets
 ---@param w_layoutbox table
 ---@return table
 local function create_right_widgets(screen, widgets, w_layoutbox)
+    --[[
     local systray = wibox.widget.systray(false)
     systray:set_base_size(13)
+    --]]
+    local systray = widgets:load("toggable_systray", {
+        margin_top = dpi(2),
+        margin_right = dpi(50)
+    })
+    systray:get_systray():set_base_size(13)
 
     return {
         layout = wibox.layout.fixed.horizontal,
@@ -328,16 +335,7 @@ local function create_right_widgets(screen, widgets, w_layoutbox)
                 {
                     layout = wibox.layout.fixed.horizontal,
                     spacing = 20,
-                    wibox.widget {
-                        {
-                            -- vertical align center
-                            systray,
-                            widget = wibox.container.place
-                        },
-                        top = dpi(2), -- fine tuning for better vertical align center
-                        right = dpi(10),
-                        widget = wibox.container.margin
-                    },
+                    systray,
                     widgets:load('cpu_widget'),
                     widgets:load('ram_widget'),
                     widgets:load('volume_widget'),
