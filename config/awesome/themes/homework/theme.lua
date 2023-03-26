@@ -323,7 +323,8 @@ local function create_right_widgets(screen, widgets, w_layoutbox)
     systray:set_base_size(13)
     --]]
     local systray = widgets:load("toggable_systray", {
-        margin_top = dpi(2),
+        hidden_at_start = true,
+        margin_top = dpi(2), -- fine tuning for better vertical align center
         margin_right = dpi(50)
     })
     systray:get_systray():set_base_size(13)

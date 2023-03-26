@@ -6,6 +6,12 @@ local beautiful = require("beautiful")
 local function init_toggable_systray(args)
     local props = type(args) == "table" and args or {}
 
+    -- hide systray from the start
+    local hidden_at_start = props.hidden_at_start or false
+
+    -- no tooltip
+    local no_tooltip = props.no_tooltip or false
+
     -- left or right
     local toggle_side = props.toggle_side == "right"
         and props.toggle_side or "left"
@@ -24,14 +30,16 @@ local function init_toggable_systray(args)
 
     -- icon + tooltip
     local text_icon = wibox.widget.textbox(text_icon_hide)
-    awful.tooltip {
-        objects        = { text_icon },
-        timer_function = function()
-            return "systray"
-        end,
-        fg = beautiful.fg_normal,
-        bg = beautiful.bg_normal
-    }
+    if not no_tooltip then
+        awful.tooltip {
+            objects        = { text_icon },
+            timer_function = function()
+                return "systray"
+            end,
+            fg             = beautiful.fg_normal,
+            bg             = beautiful.bg_normal
+        }
+    end
 
     -- systray widget
     local systray = wibox.widget.systray(true)
@@ -122,13 +130,15 @@ local function init_toggable_systray(args)
         return toggle()
     end
 
-    -- hack: needs to be triggered one time to work as it should
-    gears.timer {
-        autostart = true,
-        timeout   = 0.5,
-        callback  = toggle,
-        single_shot = true
-    }
+    if hidden_at_start then
+        -- hack: needs to be triggered one time to work as it should
+        gears.timer {
+            autostart   = true,
+            timeout     = 0.5,
+            callback    = toggle,
+            single_shot = true
+        }
+    end
 
     return t_systray_widget
 end

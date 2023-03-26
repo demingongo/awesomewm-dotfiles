@@ -334,8 +334,8 @@ theme.create_left_widgets = create_left_widgets
 ---@param w_layoutbox table
 ---@return table
 local function create_right_widgets(screen, widgets, w_layoutbox)
-    local systray = wibox.widget.systray(true)
-    systray:set_base_size(13)
+    --local systray = wibox.widget.systray(true)
+    --systray:set_base_size(13)
 
     -- separator
     local spr = {
@@ -343,6 +343,14 @@ local function create_right_widgets(screen, widgets, w_layoutbox)
         fg = theme.taglist_fg_empty,
         widget = wibox.container.background
     }
+
+    local systray = widgets:load("toggable_systray", {
+        toggle_side = "right",
+        no_tooltip = true,
+        margin_top = dpi(2), -- fine tuning for better vertical align center
+        margin_right = dpi(15)
+    })
+    systray:get_systray():set_base_size(13)
 
     return {
         layout = wibox.layout.fixed.horizontal,
@@ -361,6 +369,8 @@ local function create_right_widgets(screen, widgets, w_layoutbox)
                     spr,
                     widgets:load('battery_widget'),
                     spr,
+                    systray,
+                    --[[
                     wibox.widget {
                         {
                             -- vertical align center
@@ -371,6 +381,7 @@ local function create_right_widgets(screen, widgets, w_layoutbox)
                         right = dpi(15),
                         widget = wibox.container.margin
                     }
+                    --]]
                 },
                 left = dpi(15),
                 right = dpi(15),
