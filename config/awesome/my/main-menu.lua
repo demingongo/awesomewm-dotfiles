@@ -8,7 +8,9 @@ local themes = require('my.static').themes
 local lockscreen_script = require('my.static').lockscreen_script
 local switch_theme_script = require('my.static').switch_theme_script
 local myvariables = require('my.variables')
+local get_logout_popup = require('my.popups.logout-popup')
 local get_shutdown_popup = require('my.popups.shutdown-popup')
+local get_reboot_popup = require('my.popups.reboot-popup')
 
 local function create_menu()
     local terminal = myvariables:get('terminal')
@@ -31,10 +33,19 @@ local function create_menu()
                 awful.spawn.easy_async_with_shell(lockscreen_script)
             end
         },
+        { "Log out",
+            function()
+                get_logout_popup():show()
+            end
+        },
         { "Shutdown",
             function()
-                local shutdown_popup = get_shutdown_popup()
-                shutdown_popup:show()
+                get_shutdown_popup():show()
+            end
+        },
+        { "Reboot",
+            function()
+                get_reboot_popup():show()
             end
         }
     }

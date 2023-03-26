@@ -245,13 +245,13 @@ local function init_confirm_popup(args)
         end
         if timer and timer.started then
             timer:stop()
-            stop_countdown_timer()
         end
+        stop_countdown_timer()
     end
 
     local function show_popup()
-        reset_countdown_timer()
         if not confirm_popup.visible then
+            reset_countdown_timer()
             confirm_popup.visible = not confirm_popup.visible
             if timer then
                 timer:again()
