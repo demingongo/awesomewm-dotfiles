@@ -28,22 +28,22 @@ local function create_menu()
     }
 
     local mypowermenu = {
-        { "Lock screen",
+        { "  Lock",
             function() 
                 awful.spawn.easy_async_with_shell(lockscreen_script)
             end
         },
-        { "Log out",
+        { "󰗽  Log out",
             function()
                 get_logout_popup():show()
             end
         },
-        { "Shutdown",
+        { "  Power off",
             function()
                 get_shutdown_popup():show()
             end
         },
-        { "Reboot",
+        { "  Reboot",
             function()
                 get_reboot_popup():show()
             end
