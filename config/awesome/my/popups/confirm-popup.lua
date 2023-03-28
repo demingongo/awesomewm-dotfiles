@@ -24,11 +24,11 @@ local function text_container(w, bg)
                 expand = "none",
                 layout = wibox.layout.align.horizontal
             },
-            left = 5,
-            right = 5,
-            top = 5,
+            left   = 5,
+            right  = 5,
+            top    = 5,
             bottom = 5,
-            widget  = wibox.container.margin
+            widget = wibox.container.margin
         },
         bg     = bg,
         shape  = container_shape,
@@ -90,7 +90,7 @@ local function init_confirm_popup(args)
     props.width = get_prop_value(props, 'width')
     props.height = get_prop_value(props, 'height')
 
-    local function confirm_callback ()
+    local function confirm_callback()
         if type(props.confirm) == "function" then
             props.confirm()
         else
@@ -101,7 +101,7 @@ local function init_confirm_popup(args)
         end
     end
 
-    local function cancel_callback ()
+    local function cancel_callback()
         if type(props.cancel) == "function" then
             props.cancel()
         end
@@ -109,11 +109,11 @@ local function init_confirm_popup(args)
 
     local yes_button = text_container({
         text   = props.yes_text or 'Yes',
-        font = props.font,
+        font   = props.font,
         widget = wibox.widget.textbox
     }, props.confirm_bg)
     format_button(
-        yes_button, 
+        yes_button,
         props.confirm_bg,
         props.confirm_hover_bg,
         props.fg,
@@ -122,12 +122,12 @@ local function init_confirm_popup(args)
 
     local cancel_button = text_container({
         text   = props.cancel_text or 'No',
-        font = props.font,
+        font   = props.font,
         widget = wibox.widget.textbox
     }, props.cancel_bg)
     format_button(
-        cancel_button, 
-        props.cancel_bg, 
+        cancel_button,
+        props.cancel_bg,
         props.cancel_hover_bg,
         props.fg,
         props.cancel_hover_fg
@@ -175,7 +175,7 @@ local function init_confirm_popup(args)
             widget = wibox.widget.textbox
         }
 
-        countdown_timer = gears.timer.start_new (countdown_pace, function ()
+        countdown_timer = gears.timer.start_new(countdown_pace, function()
             countdown_textbox:set_text(
                 get_countdown_string(
                     format_countdown_value(props.timeout - (countdown_count * countdown_pace))
@@ -193,7 +193,7 @@ local function init_confirm_popup(args)
         -- message
         text_container({
             text   = props.text or 'Are you sure?',
-            font = props.font,
+            font   = props.font,
             widget = wibox.widget.textbox
         }, props.text_bg),
         spacing = 10,
@@ -213,28 +213,28 @@ local function init_confirm_popup(args)
     })
 
     local confirm_popup = awful.popup {
-        widget = {
+        widget         = {
             content,
             margins = 10,
             widget  = wibox.container.margin
         },
-        border_color = props.border_color,
-        border_width = props.border_width,
-        bg = props.bg,
-        bgimage = props.bgimage,
-        fg = props.fg,
-        placement    = awful.placement.centered,
-        shape        = gears.shape.rounded_rect,
-        minimum_width = props.minimum_width,
+        border_color   = props.border_color,
+        border_width   = props.border_width,
+        bg             = props.bg,
+        bgimage        = props.bgimage,
+        fg             = props.fg,
+        placement      = awful.placement.centered,
+        shape          = gears.shape.rounded_rect,
+        minimum_width  = props.minimum_width,
         minimum_height = props.minimum_height,
         maxmimum_width = props.maxmimum_width,
         maximum_height = props.maximum_height,
-        width = props.width,
-        height = props.height,
-        visible      = false,
-        ontop = true,
-        type = "dialog",
-        screen = awful.screen.primary
+        width          = props.width,
+        height         = props.height,
+        visible        = false,
+        ontop          = true,
+        type           = "dialog",
+        screen         = awful.screen.primary
     }
 
     local timer = nil
@@ -242,6 +242,7 @@ local function init_confirm_popup(args)
     local function hide_popup()
         if confirm_popup.visible then
             confirm_popup.visible = not confirm_popup.visible
+            confirm_popup:emit_signal('hide')
         end
         if timer and timer.started then
             timer:stop()
@@ -253,6 +254,7 @@ local function init_confirm_popup(args)
         if not confirm_popup.visible then
             reset_countdown_timer()
             confirm_popup.visible = not confirm_popup.visible
+            confirm_popup:emit_signal('show')
             if timer then
                 timer:again()
             end
@@ -277,6 +279,18 @@ local function init_confirm_popup(args)
         hide_popup()
     end
 
+    function confirm_popup:confirm()
+        if confirm_popup.visible then
+            do_confirm()
+        end
+    end
+
+    function confirm_popup:cancel()
+        if confirm_popup.visible then
+            do_cancel()
+        end
+    end
+
     confirm_popup:buttons(awful.util.table.join(awful.button({}, 3, function()
         do_cancel()
     end)))
@@ -291,8 +305,8 @@ local function init_confirm_popup(args)
 
     if props.timeout then
         timer = gears.timer {
-            timeout   = props.timeout,
-            callback  = function()
+            timeout  = props.timeout,
+            callback = function()
                 do_confirm()
             end
         }

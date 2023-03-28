@@ -5,12 +5,10 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local get_single_instance = require('utils.get-single-instance')
 local themes = require('my.static').themes
-local lockscreen_script = require('my.static').lockscreen_script
 local switch_theme_script = require('my.static').switch_theme_script
 local myvariables = require('my.variables')
-local get_logout_popup = require('my.popups.logout-popup')
-local get_shutdown_popup = require('my.popups.shutdown-popup')
-local get_reboot_popup = require('my.popups.reboot-popup')
+
+local mypowermenu = require('my.power-menu')
 
 local function create_menu()
     local terminal = myvariables:get('terminal')
@@ -25,29 +23,6 @@ local function create_menu()
         --{ "Edit config", myvariables:get('editor_cmd') .. " " .. awesome.conffile },
         { "Restart", awesome.restart },
         { "Quit",    function() awesome.quit() end },
-    }
-
-    local mypowermenu = {
-        { "  Lock",
-            function() 
-                awful.spawn.easy_async_with_shell(lockscreen_script)
-            end
-        },
-        { "󰗽  Log out",
-            function()
-                get_logout_popup():show()
-            end
-        },
-        { "  Power off",
-            function()
-                get_shutdown_popup():show()
-            end
-        },
-        { "  Reboot",
-            function()
-                get_reboot_popup():show()
-            end
-        }
     }
 
     local mythemesmenu = {}
@@ -65,7 +40,7 @@ local function create_menu()
         },
         after = {
             { "Change theme",  mythemesmenu },
-            { "Power", mypowermenu },
+            { "Power", mypowermenu:get_table() },
             { "Open terminal", terminal },
         }
     }

@@ -4,10 +4,10 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local volume_widget = require('awesome-wm-widgets.pactl-widget.volume')
 local modkey = require('my.static').modkey
-local lockscreen_script = require('my.static').lockscreen_script
 local screenshots_path = require('my.static').screenshots_path
 local myvariables = require('my.variables')
 local mymainmenu = require('my.main-menu')
+local mypowermenu = require('my.power-menu')
 
 local globalkeys = gears.table.join(
     --  Audio
@@ -45,7 +45,7 @@ local globalkeys = gears.table.join(
         { description = "capture area", group = "screenshots" }),
 
     -- Power (c, v, b)
-    awful.key({ modkey }, "c", function() awful.spawn.easy_async_with_shell(lockscreen_script) end,
+    awful.key({ modkey }, "c", function() mypowermenu:lock() end,
         { description = "lock screen", group = "power" }),
 
     awful.key({ modkey, }, "s", hotkeys_popup.show_help,
