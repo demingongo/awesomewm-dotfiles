@@ -1,29 +1,9 @@
-local gears = require("gears")
 local awful = require("awful")
-local beautiful = require("beautiful")
 local tasklist = require('my.screens.tasklist')
 local taglist = require('my.screens.taglist')
 local mywibar = require('my.screens.wibar')
 local mywidgets = require('my.widgets')
-
-
-local function set_wallpaper(s)
-    -- Wallpaper
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
-        end
-        -- If starts with "#", it is a hex color
-        -- otherwise it is the path to the wallpaper
-        if string.sub(wallpaper, 1, 1) == "#" then
-            gears.wallpaper.set(wallpaper)
-        else
-            gears.wallpaper.maximized(wallpaper, s, true)
-        end
-    end
-end
+local set_wallpaper = require("my.screens.helpers").set_wallpaper
 
 ---Creates a wibox and wallpaper for each screen
 local function load_screens()
