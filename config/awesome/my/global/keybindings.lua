@@ -8,6 +8,7 @@ local screenshots_path = require('my.static').screenshots_path
 local myvariables = require('my.variables')
 local mymainmenu = require('my.main-menu')
 local mypowermenu = require('my.power-menu')
+local set_next_wallpaper = require("my.screens.helpers").set_next_wallpaper
 
 local globalkeys = gears.table.join(
     --  Audio
@@ -47,6 +48,10 @@ local globalkeys = gears.table.join(
     -- Power (c, v, b)
     awful.key({ modkey }, "c", function() mypowermenu:lock() end,
         { description = "lock screen", group = "power" }),
+
+    -- Wallpaper
+    awful.key({ modkey, "Shift" }, "g", function() set_next_wallpaper() end,
+        { description = "select next wallpaper", group = "screen" }),
 
     awful.key({ modkey, }, "s", hotkeys_popup.show_help,
         { description = "show help", group = "awesome" }),
