@@ -9,7 +9,15 @@ helpers.wallpaper = nil
 ---@param screen any
 helpers.set_wallpaper = function(screen)
     if not helpers.wallpaper then
-        helpers.wallpaper = beautiful.wallpaper
+        if beautiful.wallpaper then
+            -- set the default wallpaper from the theme
+            helpers.wallpaper = beautiful.wallpaper
+        elseif type(beautiful.wallpaper_list) == "table" and #beautiful.wallpaper_list > 0 then
+            -- set the first wallpaper from the list
+            helpers.wallpaper = beautiful.wallpaper_list[1]
+        else
+            helpers.wallpaper = "#bbbbbb"
+        end
     end
 
     -- Wallpaper

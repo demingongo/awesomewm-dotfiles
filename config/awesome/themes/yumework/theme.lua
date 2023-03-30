@@ -25,13 +25,10 @@ local wallpapers_dir                            = theme.dir .. "/wallpapers"
 
 theme.wallpaper_list                            = {
     wallpapers_dir .. "/aurelion-sol-lol-finality-stars-night-scenery-hd-wallpaper.jpg",
-    wallpapers_dir .. "/Untitled.jpg",
     wallpapers_dir .. "/wp6565072-aesthetic-moon-pc-wallpapers.jpg",
-    wallpapers_dir .. "/wp6565107-aesthetic-moon-pc-wallpapers.jpg"
+    wallpapers_dir .. "/Untitled.jpg",
+    wallpapers_dir .. "/wp6565107-aesthetic-moon-pc-wallpapers.jpg",
 }
-
-theme.wallpaper                                 = wallpapers_dir ..
-"/aurelion-sol-lol-finality-stars-night-scenery-hd-wallpaper.jpg"
 
 theme.font                                      = "Terminus 9"
 
