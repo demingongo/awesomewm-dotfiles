@@ -178,6 +178,8 @@ theme.calendar_start_sunday                     = false
 
 theme.batteryarc_main_color                     = theme.fg_normal
 
+theme.cpu_widget_color                          = theme.fg_normal
+
 -- Wibar
 --
 --
