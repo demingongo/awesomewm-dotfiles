@@ -2,7 +2,7 @@
 My awesome wm config
 
 <details>
-  <summary>Screenshot</summary>
+  <summary>Screenshots</summary>
 
 ### ricework
 ![Image](config/awesome/themes/ricework/screenshot.png)
