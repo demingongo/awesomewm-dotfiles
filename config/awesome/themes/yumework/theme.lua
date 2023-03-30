@@ -80,6 +80,27 @@ theme.titlebar_bg_focus                         = theme.bg_focus
 theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
 
+theme.popups_font                               = "Terminus 11"
+theme.popups_timeout_font                       = theme.font
+theme.popups_fg                                 = nil
+theme.popups_bgimage                            = nil
+theme.popups_bg                                 = nil
+theme.popups_text_bg                            = theme.bg_normal
+theme.popups_confirm_bg                         = theme.bg_normal
+theme.popups_cancel_bg                          = theme.bg_normal
+theme.popups_confirm_hover_bg                   = theme.fg_normal
+theme.popups_confirm_hover_fg                   = theme.bg_normal
+theme.popups_cancel_hover_bg                    = theme.fg_normal
+theme.popups_cancel_hover_fg                    = theme.bg_normal
+theme.popups_border_width                       = theme.border_width
+theme.popups_border_color                       = theme.border_focus
+theme.popups_minimum_width                      = dpi(300)
+theme.popups_minimum_height                     = nil
+theme.popups_maxmimum_width                     = dpi(300)
+theme.popups_maximum_height                     = nil
+theme.popups_width                              = nil
+theme.popups_height                             = nil
+
 -- Variables set for theming notifications:
 -- notification_font
 -- notification_[bg|fg]
