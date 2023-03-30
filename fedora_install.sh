@@ -52,6 +52,13 @@ if [[ "$c_answer_awesome" != "y" ]]; then
 fi
 
 if [[ "$c_answer_dep" == "y" ]]; then
+    ## Enable the Free and Nonfree RPM Fusion repositories
+    #
+    # Install
+    #
+    sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+    https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
     ## Awesome WM
     #
     # Install
@@ -62,13 +69,27 @@ if [[ "$c_answer_dep" == "y" ]]; then
     #
     # Install
     #
-    sudo dnf install xset xinput numlockx brightnessctl pavucontrol acpi network-manager-applet blueman picom kitty cool-retro-term
+    sudo dnf install xset xinput numlockx brightnessctl pavucontrol playerctl i3lock \
+    acpi network-manager-applet blueman picom \
+    kitty cool-retro-term \
+    scrot
     
     ## "Nice to have" tools
     #
     # Install
     #
-    sudo dnf install neofetch cava
+    sudo dnf install lxappearance gmic-gimp ImageMagick nsxiv \
+    lame musikcube cava \
+    neofetch xdotool
+
+    ## Some dev tools often used to compile apps locally
+    #
+    # Install
+    #
+    sudo dnf install dbus-devel gcc libconfig-devel libdrm-devel \
+    libev-devel libX11-devel libX11-xcb libXext-devel libxcb-devel mesa-libGL-devel \
+    meson pcre-devel pixman-devel uthash-devel \
+    xcb-util-image-devel xcb-util-renderutil-devel xorg-x11-proto-devel
     
     echo
     echo -n "Set a GNOME session for awesome ? [y/N] "
