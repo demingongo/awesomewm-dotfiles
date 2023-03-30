@@ -7,7 +7,6 @@ local theme_name                                = "workless"
 local theme_assets                              = require("beautiful.theme_assets")
 local xresources                                = require("beautiful.xresources")
 local dpi                                       = xresources.apply_dpi
-local gears                                     = require("gears")
 local wibox                                     = require("wibox")
 local awful                                     = require("awful")
 
@@ -16,6 +15,8 @@ local mpris_widget                              = require("awesomewm-mpris-widge
 local gfs                                       = require("gears.filesystem")
 local themes_path                               = gfs.get_themes_dir()
 
+local ICONS_DIR                                 = os.getenv("HOME") .. "/.config/awesome/icons"
+
 local color_purple                              = "#cba6f7"
 
 local theme                                     = {}
@@ -23,7 +24,11 @@ theme.dir                                       = os.getenv("HOME") .. "/.config
 
 theme.terminal                                  = "kitty --config " .. theme.dir .. "/config/kitty.conf"
 
-theme.wallpaper                                 = theme.dir .. "/911476.png"
+theme.wallpaper = theme.dir .. "/911476.png"
+theme.wallpaper_list = {
+    theme.dir .. "/911476.png",
+    "#cba6f7"
+}
 
 theme.font                                      = "Vanilla Caramel 12"
 
@@ -112,43 +117,43 @@ theme.menu_height                               = dpi(22)
 theme.menu_width                                = dpi(160)
 
 -- Define the image to load
-theme.titlebar_close_button_normal              = theme.dir .. "/icons/titlebar/close_normal.png"
-theme.titlebar_close_button_focus               = theme.dir .. "/icons/titlebar/close_focus.png"
+theme.titlebar_close_button_normal              = ICONS_DIR .. "/titlebar/copycats/close_normal.png"
+theme.titlebar_close_button_focus               = ICONS_DIR .. "/titlebar/copycats/close_focus.png"
 
-theme.titlebar_minimize_button_normal           = theme.dir .. "/icons/titlebar/minimize_normal.png"
-theme.titlebar_minimize_button_focus            = theme.dir .. "/icons/titlebar/minimize_focus.png"
+theme.titlebar_minimize_button_normal           = ICONS_DIR .. "/titlebar/copycats/minimize_normal.png"
+theme.titlebar_minimize_button_focus            = ICONS_DIR .. "/titlebar/copycats/minimize_focus.png"
 
-theme.titlebar_ontop_button_normal_inactive     = theme.dir .. "/icons/titlebar/ontop_normal_inactive.png"
-theme.titlebar_ontop_button_focus_inactive      = theme.dir .. "/icons/titlebar/ontop_focus_inactive.png"
-theme.titlebar_ontop_button_normal_active       = theme.dir .. "/icons/titlebar/ontop_normal_active.png"
-theme.titlebar_ontop_button_focus_active        = theme.dir .. "/icons/titlebar/ontop_focus_active.png"
+theme.titlebar_ontop_button_normal_inactive     = ICONS_DIR .. "/titlebar/copycats/ontop_normal_inactive.png"
+theme.titlebar_ontop_button_focus_inactive      = ICONS_DIR .. "/titlebar/copycats/ontop_focus_inactive.png"
+theme.titlebar_ontop_button_normal_active       = ICONS_DIR .. "/titlebar/copycats/ontop_normal_active.png"
+theme.titlebar_ontop_button_focus_active        = ICONS_DIR .. "/titlebar/copycats/ontop_focus_active.png"
 
-theme.titlebar_sticky_button_normal_inactive    = theme.dir .. "/icons/titlebar/sticky_normal_inactive.png"
-theme.titlebar_sticky_button_focus_inactive     = theme.dir .. "/icons/titlebar/sticky_focus_inactive.png"
-theme.titlebar_sticky_button_normal_active      = theme.dir .. "/icons/titlebar/sticky_normal_active.png"
-theme.titlebar_sticky_button_focus_active       = theme.dir .. "/icons/titlebar/sticky_focus_active.png"
+theme.titlebar_sticky_button_normal_inactive    = ICONS_DIR .. "/titlebar/copycats/sticky_normal_inactive.png"
+theme.titlebar_sticky_button_focus_inactive     = ICONS_DIR .. "/titlebar/copycats/sticky_focus_inactive.png"
+theme.titlebar_sticky_button_normal_active      = ICONS_DIR .. "/titlebar/copycats/sticky_normal_active.png"
+theme.titlebar_sticky_button_focus_active       = ICONS_DIR .. "/titlebar/copycats/sticky_focus_active.png"
 
-theme.titlebar_floating_button_normal_inactive  = theme.dir .. "/icons/titlebar/floating_normal_inactive.png"
-theme.titlebar_floating_button_focus_inactive   = theme.dir .. "/icons/titlebar/floating_focus_inactive.png"
-theme.titlebar_floating_button_normal_active    = theme.dir .. "/icons/titlebar/floating_normal_active.png"
-theme.titlebar_floating_button_focus_active     = theme.dir .. "/icons/titlebar/floating_focus_active.png"
+theme.titlebar_floating_button_normal_inactive  = ICONS_DIR .. "/titlebar/copycats/floating_normal_inactive.png"
+theme.titlebar_floating_button_focus_inactive   = ICONS_DIR .. "/titlebar/copycats/floating_focus_inactive.png"
+theme.titlebar_floating_button_normal_active    = ICONS_DIR .. "/titlebar/copycats/floating_normal_active.png"
+theme.titlebar_floating_button_focus_active     = ICONS_DIR .. "/titlebar/copycats/floating_focus_active.png"
 
-theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/maximized_normal_inactive.png"
-theme.titlebar_maximized_button_focus_inactive  = theme.dir .. "/icons/titlebar/maximized_focus_inactive.png"
-theme.titlebar_maximized_button_normal_active   = theme.dir .. "/icons/titlebar/maximized_normal_active.png"
-theme.titlebar_maximized_button_focus_active    = theme.dir .. "/icons/titlebar/maximized_focus_active.png"
+theme.titlebar_maximized_button_normal_inactive = ICONS_DIR .. "/titlebar/copycats/maximized_normal_inactive.png"
+theme.titlebar_maximized_button_focus_inactive  = ICONS_DIR .. "/titlebar/copycats/maximized_focus_inactive.png"
+theme.titlebar_maximized_button_normal_active   = ICONS_DIR .. "/titlebar/copycats/maximized_normal_active.png"
+theme.titlebar_maximized_button_focus_active    = ICONS_DIR .. "/titlebar/copycats/maximized_focus_active.png"
 
 -- You can use your own layout icons like this:
-theme.layout_fairv                              = theme.dir .. "/icons/fairv.png"
-theme.layout_fairh                              = theme.dir .. "/icons/fairh.png"
+theme.layout_fairv                              = ICONS_DIR .. "/layouts/fairv.png"
+theme.layout_fairh                              = ICONS_DIR .. "/layouts/fairh.png"
 theme.layout_max                                = themes_path .. "default/layouts/maxw.png"
 theme.layout_fullscreen                         = themes_path .. "defaults/layout/fullscreenw.png"
 theme.layout_magnifier                          = themes_path .. "default/layouts/magnifierw.png"
-theme.layout_floating                           = theme.dir .. "/icons/floating.png"
-theme.layout_tile                               = theme.dir .. "/icons/tile.png"
-theme.layout_tileleft                           = theme.dir .. "/icons/tileleft.png"
-theme.layout_tilebottom                         = theme.dir .. "/icons/tilebottom.png"
-theme.layout_tiletop                            = theme.dir .. "/icons/tiletop.png"
+theme.layout_floating                           = ICONS_DIR .. "/layouts/floating.png"
+theme.layout_tile                               = ICONS_DIR .. "/layouts/tile.png"
+theme.layout_tileleft                           = ICONS_DIR .. "/layouts/tileleft.png"
+theme.layout_tilebottom                         = ICONS_DIR .. "/layouts/tilebottom.png"
+theme.layout_tiletop                            = ICONS_DIR .. "/layouts/tiletop.png"
 theme.layout_spiral                             = themes_path .. "default/layouts/spiralw.png"
 theme.layout_dwindle                            = themes_path .. "default/layouts/dwindlew.png"
 theme.layout_cornernw                           = themes_path .. "default/layouts/cornernww.png"
@@ -307,6 +312,7 @@ theme.create_tasklist = create_tasklist
 
 theme.taglist_tags = { "󰺕 ", "󰺕 ", "󰺕 ", "󰺕 ", "󰺕 ", "󰺕 ", "󰺕 " }
 
+--[[
 theme.init_tags_for_screen = function(screen)
     return {
         {
@@ -317,19 +323,14 @@ theme.init_tags_for_screen = function(screen)
             tag_name = "Aloha",
             layout = awful.layout.suit.max
         },
-        --[[
-        {
-            name = "bread",
-            layout = awful.layout.suit.max
-        },
-        {
-            name = "apple",
-            layout = awful.layout.suit.max,
-            screen = screen
-        }
-        --]]
+        --{
+        --    name = "apple",
+        --    layout = awful.layout.suit.max,
+        --    screen = screen
+        --}
     }
 end
+--]]
 
 local function taglist_update_callback(widget, t, idx)
     if t.activated and #t:clients() > 0 then
@@ -396,9 +397,6 @@ local systrayDisplayed = false
 ---@param w_layoutbox table
 ---@return table
 local function create_right_widgets(screen, widgets, w_layoutbox)
-    local systray = wibox.widget.systray(true)
-    systray:set_base_size(13)
-
     -- separator
     local spr = {
         wibox.widget.textbox('|'),
@@ -423,6 +421,8 @@ local function create_right_widgets(screen, widgets, w_layoutbox)
 
     if not systrayDisplayed then
         systrayDisplayed = true
+        local systray = wibox.widget.systray(true)
+        systray:set_base_size(13)
         table.insert(right_side_layout, wibox.widget {
             {
                 -- vertical align center
