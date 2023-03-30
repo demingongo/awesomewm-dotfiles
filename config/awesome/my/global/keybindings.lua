@@ -45,9 +45,19 @@ local globalkeys = gears.table.join(
         end,
         { description = "capture area", group = "screenshots" }),
 
-    -- Power (c, v, b)
+    -- Power (c, e, r, t, y, z)
     awful.key({ modkey }, "c", function() mypowermenu:lock() end,
         { description = "lock screen", group = "power" }),
+    awful.key({ modkey, "Shift" }, "e", function() mypowermenu:logout() end,
+        { description = "log out (exit)", group = "power" }),
+    awful.key({ modkey, "Shift" }, "r", function() mypowermenu:reboot() end,
+        { description = "reboot", group = "power" }),
+    awful.key({ modkey, "Shift" }, "t", function() mypowermenu:poweroff() end,
+        { description = "power off (terminate)", group = "power" }),
+    awful.key({ modkey }, "z", function() mypowermenu:cancel() end,
+        { description = "cancel action", group = "power" }),
+    awful.key({ modkey }, "y", function() mypowermenu:confirm() end,
+        { description = "confirm action", group = "power" }),
 
     -- Wallpaper
     awful.key({ modkey, "Shift" }, "g", function() set_next_wallpaper() end,
@@ -102,8 +112,10 @@ local globalkeys = gears.table.join(
         { description = "open a terminal", group = "launcher" }),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
         { description = "reload awesome", group = "awesome" }),
+    --[[
     awful.key({ modkey, "Shift" }, "e", awesome.quit,
         { description = "quit awesome", group = "awesome" }),
+    --]]
     awful.key({ modkey, }, "l", function() awful.tag.incmwfact(0.05) end,
         { description = "increase master width factor", group = "layout" }),
     awful.key({ modkey, }, "h", function() awful.tag.incmwfact(-0.05) end,
