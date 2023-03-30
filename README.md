@@ -13,7 +13,7 @@ My awesome wm config
 
 - [Spotify](https://flathub.org/apps/details/com.spotify.Client)
 - [spicetify](https://github.com/spicetify/spicetify-cli)
-- [spicetify-themes](hhttps://github.com/spicetify/spicetify-themes)
+- [spicetify-themes](https://github.com/spicetify/spicetify-themes)
 
 ## References
 
