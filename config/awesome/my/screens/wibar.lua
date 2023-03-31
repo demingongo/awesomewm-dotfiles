@@ -20,7 +20,11 @@ local function create_left_widgets(s)
 end
 
 local function create_middle_widgets(s)
-    return beautiful.wibar_expand == "none" and
+    return type(beautiful.create_middle_widgets) == "function" and beautiful.create_middle_widgets(
+            s,
+            widgets,
+            s.mytasklist
+        ) or beautiful.wibar_expand == "none" and
         wibox.container.constraint(s.mytasklist, "max", beautiful.tasklist_max_width or dpi(750)) or s.mytasklist
 end
 
