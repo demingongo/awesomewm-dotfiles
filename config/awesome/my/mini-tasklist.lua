@@ -112,13 +112,21 @@ local function create_mini_tasklist(s, args)
 
         local clients = t:clients()
         -- no client in selected tag
-        if not #clients or #clients < 1 then
+        if not clients or #clients < 1 then
             timer.delayed_call(hide_widget, "(no clients in selected tag)")
             return
         end
 
-        -- found selected tag and clients
-        timer.delayed_call(update_widget, clients[1])
+        -- found selected tag and its clients
+
+        -- check if there is a focused client
+        local focused_c = client.focus
+        if focused_c then
+            -- TODO: check if focused client has selected tag
+            timer.delayed_call(update_widget, focused_c)
+        else
+            timer.delayed_call(hide_widget, "(no focused client)")
+        end
     end)
 
     client.connect_signal("focus", function(c)
