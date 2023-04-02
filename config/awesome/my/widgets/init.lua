@@ -1,12 +1,13 @@
 local awful = require("awful")
 local gears = require("gears")
+local beautiful = require("beautiful")
 local loaders = require('my.widgets.loaders')
 
 -- loaders for each widget
 local mywidgets = {}
 
 function mywidgets:create_promptbox()
-    return awful.widget.prompt()
+    return type(beautiful.create_promptbox) == "function" and beautiful.create_promptbox() or awful.widget.prompt()
 end
 
 function mywidgets:create_layoutbox(s)
