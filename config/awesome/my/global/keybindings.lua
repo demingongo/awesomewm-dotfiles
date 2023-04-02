@@ -2,6 +2,7 @@ local gears = require("gears")
 local awful = require("awful")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+local xrandr = require("xrandr")
 local volume_widget = require('awesome-wm-widgets.pactl-widget.volume')
 local modkey = require('my.static').modkey
 local screenshots_path = require('my.static').screenshots_path
@@ -62,6 +63,10 @@ local globalkeys = gears.table.join(
     -- Wallpaper
     awful.key({ modkey, "Shift" }, "g", function() set_next_wallpaper() end,
         { description = "select next wallpaper", group = "screen" }),
+
+    -- Multiple monitors
+    awful.key({ modkey }, "v", function() xrandr.xrandr() end,
+        { description = "xrandr", group = "screen" }),
 
     awful.key({ modkey, }, "s", hotkeys_popup.show_help,
         { description = "show help", group = "awesome" }),
