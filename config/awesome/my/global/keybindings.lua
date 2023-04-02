@@ -65,7 +65,7 @@ local globalkeys = gears.table.join(
         { description = "select next wallpaper", group = "screen" }),
 
     -- Multiple monitors
-    awful.key({ modkey }, "v", function() xrandr.xrandr() end,
+    awful.key({ modkey, "Shift" }, "v", function() xrandr.xrandr() end,
         { description = "xrandr", group = "screen" }),
 
     awful.key({ modkey, }, "s", hotkeys_popup.show_help,
