@@ -1,4 +1,5 @@
 local awful = require("awful")
+local gears = require("gears")
 local beautiful = require("beautiful")
 local myclientskeybindings = require("my.clients.keybindings")
 local myclientsbuttonbindings = require("my.clients.buttonbindings")
@@ -82,11 +83,17 @@ local function load_rules()
     --   properties = { screen = 1, tag = "2" } },
   }
 
+  --[[
   if type(beautiful.init_clients_rules) == "function" then
     local theme_rules = beautiful.init_clients_rules(clients_rules)
     if theme_rules then
       clients_rules = theme_rules
     end
+  end
+  --]]
+
+  if type(beautiful.additional_rules) == "table" then
+    clients_rules = gears.table.join(clients_rules, beautiful.additional_rules)
   end
 
   awful.rules.rules = clients_rules
