@@ -6,7 +6,7 @@ local myclientsbuttonbindings = require("my.clients.buttonbindings")
 ---Loads rules (keybindings, border, titlebars, ...) for clients
 local function load_rules()
   -- Rules to apply to new clients (through the "manage" signal).
-  awful.rules.rules = {
+  local clients_rules = {
     -- All clients will match this rule.
     {
       rule = {},
@@ -81,6 +81,15 @@ local function load_rules()
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
   }
+
+  if type(beautiful.init_clients_rules) == "function" then
+    local theme_rules = beautiful.init_clients_rules(clients_rules)
+    if theme_rules then
+      clients_rules = theme_rules
+    end
+  end
+
+  awful.rules.rules = clients_rules
 end
 
 return { 
