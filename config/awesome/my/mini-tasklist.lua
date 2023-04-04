@@ -3,6 +3,7 @@ local wibox   = require("wibox")
 local tag     = require("awful.tag")
 local timer   = require("gears.timer")
 local naughty = require("naughty")
+local tasklist_popup = require("my.popups.tasklist-popup")
 
 -- useful to debug
 local function notify_now(text)
@@ -15,7 +16,6 @@ local function notify_now(text)
 end
 
 -- shygyver TEST
--- TODO: when client closes, moves to another screen, gets minimized
 local function create_mini_tasklist(s, args)
     local props = type(args) == "table" and args or {}
 
@@ -26,6 +26,9 @@ local function create_mini_tasklist(s, args)
 
     mini_tasklist:buttons(
         awful.util.table.join(
+            awful.button({}, 1, function()
+                tasklist_popup().visible = not tasklist_popup().visible
+            end),
             awful.button({}, 3, function()
                 awful.menu.client_list({ theme = { width = 250 } })
             end),    
