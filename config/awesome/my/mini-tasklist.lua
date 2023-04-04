@@ -1,8 +1,8 @@
-local awful   = require("awful")
-local wibox   = require("wibox")
-local tag     = require("awful.tag")
-local timer   = require("gears.timer")
-local naughty = require("naughty")
+local awful          = require("awful")
+local wibox          = require("wibox")
+local tag            = require("awful.tag")
+local timer          = require("gears.timer")
+local naughty        = require("naughty")
 local tasklist_popup = require("my.popups.tasklist-popup")
 
 -- useful to debug
@@ -31,7 +31,7 @@ local function create_mini_tasklist(s, args)
             end),
             awful.button({}, 3, function()
                 awful.menu.client_list({ theme = { width = 250 } })
-            end),    
+            end),
             awful.button({}, 4, function()
                 awful.client.focus.byidx(1)
             end),
