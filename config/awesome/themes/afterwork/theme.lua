@@ -27,8 +27,8 @@ theme.terminal                                  = "kitty --config " .. theme.dir
 
 theme.wallpaper                                 = theme.dir .. "/Ilya_Kuvshinov-yawn.jpg"
 theme.wallpaper_list = {
-    theme.dir .. "/911476.png",
-    "#24273a"
+    "#24273a",
+    theme.dir .. "/Ilya_Kuvshinov-yawn.jpg"
 }
 
 theme.font                                      = "Vanilla Caramel 12"
