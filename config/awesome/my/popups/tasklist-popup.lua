@@ -2,8 +2,22 @@ local gears            = require("gears")
 local awful            = require("awful")
 local wibox            = require("wibox")
 local tasklist_buttons = require("my.screens.tasklist-buttons")
+local beautiful = require("beautiful")
 
-local function create_tasklist_popup(s)
+---@param props table
+---@param name string
+---@return unknown
+local function get_prop_value(props, name)
+    return props[name] or beautiful["popups_" .. name]
+end
+
+local function create_tasklist_popup(s, args)
+    local props = type(args) == "table" and args or {}
+
+    props.close_button_text = props.close_button_text or 'X'
+    props.border_width = get_prop_value(props, 'border_width')
+    props.border_color = get_prop_value(props, 'border_color')
+
     local tasklist = awful.widget.tasklist {
         screen          = s,
         filter          = awful.widget.tasklist.filter.currenttags,
@@ -35,19 +49,76 @@ local function create_tasklist_popup(s)
             end,
         },
     }
-    return awful.popup {
+    local close_button = wibox.widget {
+        {
+            {
+                wibox.widget.textbox(''),
+                wibox.widget.textbox(props.close_button_text),
+                expand = "none",
+                layout = wibox.layout.align.horizontal
+            },
+            left   = 5,
+            right  = 5,
+            top    = 5,
+            bottom = 5,
+            widget = wibox.container.margin
+        },
+        bg     = props.border_color,
+        shape  = function (cr, width, height, radius)
+            return gears.shape.rounded_rect(cr, width, height, beautiful.border_radius)
+        end,
+        widget = wibox.widget.background
+    }
+    local close_button_bg = close_button.bg or beautiful.bg_normal
+    local close_button_fg = close_button.fg or beautiful.fg_normal or "#ffffff"
+    close_button:connect_signal("mouse::enter", function()
+        if close_button_fg and type(close_button.set_bg) == 'function' then
+            close_button:set_bg(close_button_fg)
+        end
+        if close_button_bg and type(close_button.set_fg) == 'function' then
+            close_button:set_fg(close_button_bg)
+        end
+        -- Get the wibox currently under the mouse cursor
+        local w = mouse.current_wibox
+        if w then w.cursor = "hand2" end
+    end)
+    close_button:connect_signal("mouse::leave", function()
+        if close_button_bg and type(close_button.set_bg) == 'function' then
+            close_button:set_bg(close_button_bg)
+        end
+        if close_button_fg and type(close_button.set_fg) == 'function' then
+            close_button:set_fg(close_button_fg)
+        end
+        -- Get the wibox currently under the mouse cursor
+        local w = mouse.current_wibox
+        if w then w.cursor = "left_ptr" end
+    end)
+
+    local widget = awful.popup {
         widget       = {
-            tasklist,
+            {
+                tasklist,
+                close_button,
+                spacing = 4,
+                layout = wibox.layout.fixed.vertical
+            },
             margins = 5,
             widget  = wibox.container.margin
         },
-        border_color = '#777777',
-        border_width = 2,
+        border_color = props.border_color,
+        border_width = props.border_width,
         ontop        = true,
         placement    = awful.placement.centered,
         shape        = gears.shape.rounded_rect,
         visible      = false
     }
+
+    close_button:buttons(awful.util.table.join(awful.button({}, 1, function()
+        if widget then
+            widget.visible = not widget.visible
+        end
+    end)))
+    return widget
 end
 
 

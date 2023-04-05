@@ -15,7 +15,6 @@ local function notify_now(text)
     --]]
 end
 
--- shygyver TEST
 local function create_mini_tasklist(s, args)
     local props = type(args) == "table" and args or {}
 
@@ -48,8 +47,6 @@ local function create_mini_tasklist(s, args)
     local current_client = nil
 
     local current_text = ""
-
-    local visible = true
 
     local mini_tasklist_timer = nil
 

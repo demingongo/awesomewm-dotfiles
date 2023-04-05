@@ -1,4 +1,3 @@
-local gears   = require("gears")
 local awful   = require("awful")
 local wibox   = require("wibox")
 local tag     = require("awful.tag")
@@ -16,7 +15,6 @@ local function notify_now(text)
     --]]
 end
 
--- shygyver TEST
 local function create_tiny_tasklist(s, args)
     local props = type(args) == "table" and args or {}
 
@@ -92,7 +90,7 @@ local function create_tiny_tasklist(s, args)
         end, 0)
     end
 
-    -- make widget visible
+    -- make widget visible if nb > 0
     local function update_widget(nb)
         if nb == 0 then
             return hide_widget()

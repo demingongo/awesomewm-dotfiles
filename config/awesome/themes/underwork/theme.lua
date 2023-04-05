@@ -430,7 +430,9 @@ theme.taglist_template = {
 ---@param w_promptbox table
 ---@return table
 local function create_left_widgets(screen, widgets, w_taglist, w_promptbox)
-    local my_tasklist_popup = tasklist_popup.create_tasklist_popup(screen)
+    local my_tasklist_popup = tasklist_popup.create_tasklist_popup(screen, {
+        close_button_text= ""
+    })
 
     screen.myminitasklist = myminitasklist.create_mini_tasklist(screen, {
         popup = my_tasklist_popup,
