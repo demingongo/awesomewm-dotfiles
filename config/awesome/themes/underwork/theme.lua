@@ -14,6 +14,7 @@ local awful          = require("awful")
 local mpris_widget   = require("awesomewm-mpris-widget")
 local myminitasklist = require('my.mini-tasklist')
 local mytinytasklist = require('my.tiny-tasklist')
+local tasklist_popup = require("my.popups.tasklist-popup")
 local naughty        = require("naughty")
 
 local gfs            = require("gears.filesystem")
@@ -65,8 +66,8 @@ theme.font                                      = "Hack Nerd Font 11"
 
 theme.bg_normal                                 = "#2b2a29"
 theme.bg_focus                                  = "#32302f"
-theme.bg_urgent                                 = "#32302f"
-theme.bg_minimize                               = "#313131"
+theme.bg_urgent                                 = "#cd241c"
+theme.bg_minimize                               = "#468387"
 theme.bg_systray                                = theme.bg_normal
 -- d5c4a1
 theme.fg_normal                                 = "#ffffff"
@@ -94,11 +95,14 @@ theme.systray_icon_spacing                      = dpi(10)
 -- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
+theme.tasklist_bg_focus                         = primary_bg_wrapper;
+theme.tasklist_bg_urgent                        = theme.bg_urgent
+
 theme.taglist_fg_focus                          = "#ffffff"
 theme.taglist_fg_urgent                         = theme.fg_urgent
 theme.taglist_fg_empty                          = theme.fg_normal
 theme.taglist_bg_focus                          = "#ffffff33"
-theme.taglist_bg_urgent                         = theme.bg_urgent .. "22"
+theme.taglist_bg_urgent                         = theme.bg_urgent .. "11"
 theme.taglist_font                              = "Hack Nerd Font Bold 12"
 
 theme.titlebar_bg_focus                         = theme.bg_focus
@@ -426,7 +430,10 @@ theme.taglist_template = {
 ---@param w_promptbox table
 ---@return table
 local function create_left_widgets(screen, widgets, w_taglist, w_promptbox)
+    local my_tasklist_popup = tasklist_popup.create_tasklist_popup(screen)
+
     screen.myminitasklist = myminitasklist.create_mini_tasklist(screen, {
+        popup = my_tasklist_popup,
         create_widget = function(textbox)
             return wrap_widget({
                 {
@@ -454,6 +461,7 @@ local function create_left_widgets(screen, widgets, w_taglist, w_promptbox)
     })
 
     screen.mytinytasklist = mytinytasklist.create_tiny_tasklist(screen, {
+        popup = my_tasklist_popup,
         create_widget = function(textbox)
             return wrap_widget({
                 {
@@ -476,7 +484,7 @@ local function create_left_widgets(screen, widgets, w_taglist, w_promptbox)
                 },
                 id     = 'background_role',
                 widget = wibox.container.background,
-            }, "#d69821")
+            }, "#468387")
         end
     })
 

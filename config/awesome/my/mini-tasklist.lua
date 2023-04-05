@@ -19,6 +19,8 @@ end
 local function create_mini_tasklist(s, args)
     local props = type(args) == "table" and args or {}
 
+    local t_popup = props.popup or tasklist_popup.create_tasklist_popup(s)
+
     local mini_textbox = wibox.widget.textbox('')
 
     local mini_tasklist = type(props.create_widget) == "function" and props.create_widget(mini_textbox) or mini_textbox
@@ -27,7 +29,9 @@ local function create_mini_tasklist(s, args)
     mini_tasklist:buttons(
         awful.util.table.join(
             awful.button({}, 1, function()
-                tasklist_popup().visible = not tasklist_popup().visible
+                if t_popup then
+                    t_popup.visible = not t_popup.visible
+                end
             end),
             awful.button({}, 3, function()
                 awful.menu.client_list({ theme = { width = 250 } })
