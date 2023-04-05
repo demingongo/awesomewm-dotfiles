@@ -60,6 +60,7 @@ theme.wallpaper_list                            = {
     wallpapers_dir .. "/cropped-1600-900-1191506.jpg",
     wallpapers_dir .. "/69334-648812134-ousamaranking.png",
     wallpapers_dir .. "/69335-648812135-ousamaranking.png",
+    wallpapers_dir .. "/desktop-1920x1080.png"
 }
 
 theme.font                                      = "Hack Nerd Font 11"
