@@ -113,10 +113,30 @@ local function create_tasklist_popup(s, args)
         visible      = false
     }
 
-    close_button:buttons(awful.util.table.join(awful.button({}, 1, function()
-        if widget then
+    function widget:show()
+        if not widget.visible then
             widget.visible = not widget.visible
         end
+    end
+
+    function widget:hide()
+        if widget then
+            local w = mouse.current_wibox
+            if w then w.cursor = "left_ptr" end
+            widget.visible = not widget.visible
+        end
+    end
+
+    function widget:toggle()
+        if not widget.visible then
+            widget:show()
+        else
+            widget:hide()
+        end
+    end
+
+    close_button:buttons(awful.util.table.join(awful.button({}, 1, function()
+        widget:hide()
     end)))
     return widget
 end
