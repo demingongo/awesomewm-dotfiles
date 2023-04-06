@@ -260,6 +260,7 @@ local function create_media_player_widget()
         --},
         --timeout = 3,
         --max_chars = 34,
+        title_first = true,
         separator = " 󰞇  ",
         state_playing = "󰎈", -- 󰆥
         state_paused = "󰏤",

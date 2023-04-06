@@ -33,7 +33,7 @@ theme.bg_minimize                               = "#101010"
 theme.bg_systray                                = theme.bg_normal
 
 theme.fg_normal                                 = "#057f05"
-theme.fg_focus                                  = "#019b01"--"#00a900"
+theme.fg_focus                                  = "#019b01"
 theme.fg_urgent                                 = "#FF0000"
 theme.fg_minimize                               = "#0b350b"
 
