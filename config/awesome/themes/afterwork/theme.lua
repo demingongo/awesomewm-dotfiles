@@ -67,7 +67,7 @@ theme.systray_icon_spacing                      = dpi(10)
 theme.taglist_fg_focus                          = theme.fg_focus
 theme.taglist_fg_urgent                         = theme.fg_urgent
 theme.taglist_fg_empty                          = "#f7a064"
-theme.taglist_bg_focus                          = theme.bg_focus .. "11"
+theme.taglist_bg_focus                          = theme.bg_focus .. "11" --"png:" .. theme.dir .. "/icons/submenu.png"
 theme.taglist_font                              = theme.font
 
 theme.tasklist_disable_icon                     = true
@@ -173,6 +173,7 @@ local function create_media_player_widget()
         max_chars = -1,
         scroll = {
             enabled = true,
+            orientation = "horizontal",
             max_size = mpris_widget_max_width
         },
         popup_maximum_width = dpi(400)
@@ -353,7 +354,7 @@ local function create_right_widgets(screen, widgets, w_layoutbox)
         toggle_side = "right",
         no_tooltip = true,
         margin_top = dpi(2), -- fine tuning for better vertical align center
-        margin_right = dpi(15)
+        margin_right = dpi(30)
     })
     systray:get_systray():set_base_size(13)
 
@@ -374,19 +375,7 @@ local function create_right_widgets(screen, widgets, w_layoutbox)
                     spr,
                     widgets:load('battery_widget'),
                     spr,
-                    systray,
-                    --[[
-                    wibox.widget {
-                        {
-                            -- vertical align center
-                            systray,
-                            widget = wibox.container.place
-                        },
-                        top = dpi(2), -- fine tuning for better vertical align center
-                        right = dpi(15),
-                        widget = wibox.container.margin
-                    }
-                    --]]
+                    systray
                 },
                 left = dpi(15),
                 right = dpi(15),
