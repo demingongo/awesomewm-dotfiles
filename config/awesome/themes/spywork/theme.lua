@@ -175,7 +175,10 @@ theme.cpu_widget_color  = theme.fg_normal
 ---@return table
 local function create_right_widgets(screen, widgets, w_layoutbox)
     local systray = widgets:load("toggable_systray", {
-        hidden_at_start = true
+        hidden_at_start = true,
+        no_tooltip = true,
+        text_icon_show = "󱊖 ",
+        font = "Commodore 64 20"
     })
     return {
         layout = wibox.layout.fixed.horizontal,

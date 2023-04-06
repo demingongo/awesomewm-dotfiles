@@ -40,6 +40,9 @@ local function init_toggable_systray(args)
             bg             = beautiful.bg_normal
         }
     end
+    if props.font then
+        text_icon.font = props.font
+    end
 
     -- systray widget
     local systray = wibox.widget.systray(true)
