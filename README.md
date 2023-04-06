@@ -19,5 +19,6 @@ My awesome wm config
 
 ### Fonts
 - [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts#option-3-install-script)
+- [Commodore 64](https://www.dafont.com/commodore-64.font)
 - [Vanilla Caramel](https://www.dafont.com/vanilla-caramel.font)
 - [Purple Smile](https://www.dafont.com/purple-smile.font)

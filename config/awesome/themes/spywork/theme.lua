@@ -24,18 +24,18 @@ theme.terminal                                  = "cool-retro-term"
 
 theme.wallpaper                                 = "#101010"
 
-theme.font                                      = "Terminus 10"
+theme.font                                      = "Commodore 64 10"
 
 theme.bg_normal                                 = "#101010"
 theme.bg_focus                                  = "#101010"
-theme.bg_urgent                                 = "#FDC407"
+theme.bg_urgent                                 = "#0b350b"
 theme.bg_minimize                               = "#101010"
 theme.bg_systray                                = theme.bg_normal
 
-theme.fg_normal                                 = "#009900"
-theme.fg_focus                                  = "#00FF00"
+theme.fg_normal                                 = "#057f05"
+theme.fg_focus                                  = "#019b01"--"#00a900"
 theme.fg_urgent                                 = "#FF0000"
-theme.fg_minimize                               = "#FDC407"
+theme.fg_minimize                               = "#0b350b"
 
 theme.useless_gap                               = dpi(0)
 theme.border_width                              = dpi(1)
@@ -85,8 +85,8 @@ theme.taglist_squares_unsel                     = theme_assets.taglist_squares_u
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
-theme.menu_height                               = dpi(22)
-theme.menu_width                                = dpi(140)
+theme.menu_height                               = dpi(25)
+theme.menu_width                                = dpi(180)
 
 -- You can add as many variables as
 -- you wish and access them by using
@@ -121,22 +121,22 @@ theme.titlebar_maximized_button_normal_active   = ICONS_DIR .. "/titlebar/copyca
 theme.titlebar_maximized_button_focus_active    = ICONS_DIR .. "/titlebar/copycats/maximized_focus_active.png"
 
 -- You can use your own layout icons like this:
-theme.layout_fairv                              = ICONS_DIR .. "/layouts/fairv.png"
-theme.layout_fairh                              = ICONS_DIR .. "/layouts/fairh.png"
-theme.layout_max                                = themes_path .. "default/layouts/maxw.png"
-theme.layout_fullscreen                         = themes_path .. "defaults/layout/fullscreenw.png"
-theme.layout_magnifier                          = themes_path .. "default/layouts/magnifierw.png"
-theme.layout_floating                           = ICONS_DIR .. "/layouts/floating.png"
-theme.layout_tile                               = ICONS_DIR .. "/layouts/tile.png"
-theme.layout_tileleft                           = ICONS_DIR .. "/layouts/tileleft.png"
-theme.layout_tilebottom                         = ICONS_DIR .. "/layouts/tilebottom.png"
-theme.layout_tiletop                            = ICONS_DIR .. "/layouts/tiletop.png"
-theme.layout_spiral                             = themes_path .. "default/layouts/spiralw.png"
-theme.layout_dwindle                            = themes_path .. "default/layouts/dwindlew.png"
-theme.layout_cornernw                           = themes_path .. "default/layouts/cornernww.png"
-theme.layout_cornerne                           = themes_path .. "default/layouts/cornernew.png"
-theme.layout_cornersw                           = themes_path .. "default/layouts/cornersww.png"
-theme.layout_cornerse                           = themes_path .. "default/layouts/cornersew.png"
+theme.layout_fairv                              = theme.dir .. "/icons/layouts/fairv.png"
+theme.layout_fairh                              = theme.dir .. "/icons/layouts/fairh.png"
+theme.layout_max                                = theme.dir .. "/icons/layouts/max.png"
+theme.layout_fullscreen                         = theme.dir .. "/icons/layout/fullscreen.png"
+theme.layout_magnifier                          = theme.dir .. "/icons/layouts/magnifier.png"
+theme.layout_floating                           = theme.dir .. "/icons/layouts/floating.png"
+theme.layout_tile                               = theme.dir .. "/icons/layouts/tile.png"
+theme.layout_tileleft                           = theme.dir .. "/icons/layouts/tileleft.png"
+theme.layout_tilebottom                         = theme.dir .. "/icons/layouts/tilebottom.png"
+theme.layout_tiletop                            = theme.dir .. "/icons/layouts/tiletop.png"
+theme.layout_spiral                             = theme.dir .. "/icons/layouts/spiral.png"
+theme.layout_dwindle                            = theme.dir .. "/icons/layouts/dwindle.png"
+theme.layout_cornernw                           = theme.dir .. "/icons/layouts/cornernw.png"
+theme.layout_cornerne                           = theme.dir .. "/icons/layouts/cornerne.png"
+theme.layout_cornersw                           = theme.dir .. "/icons/layouts/cornersw.png"
+theme.layout_cornerse                           = theme.dir .. "/icons/layouts/cornerse.png"
 
 -- Generate Awesome icon:
 theme.awesome_icon                              = theme_assets.awesome_icon(
@@ -163,12 +163,20 @@ theme.batteryarc_main_color = theme.fg_normal
 
 theme.volume_widget_type = "horizontal_bar"
 
+theme.cpu_widget_color  = theme.fg_normal
+
+-- Right widgets
+--
+
 ---comment
 ---@param screen any
 ---@param widgets { load: function }
 ---@param w_layoutbox table
 ---@return table
 local function create_right_widgets(screen, widgets, w_layoutbox)
+    local systray = widgets:load("toggable_systray", {
+        hidden_at_start = true
+    })
     return {
         layout = wibox.layout.fixed.horizontal,
         {
@@ -176,7 +184,7 @@ local function create_right_widgets(screen, widgets, w_layoutbox)
                 {
                     layout = wibox.layout.fixed.horizontal,
                     spacing = 15,
-                    wibox.widget.systray(),
+                    systray,
                     mpris_widget({
                         bg = "#000000",
                         max_chars = -1,
@@ -190,6 +198,7 @@ local function create_right_widgets(screen, widgets, w_layoutbox)
                             totem = theme.dir .. "/icons/mpris/totem.png",
                             rhythmbox = theme.dir .. "/icons/mpris/rhythmbox.png",
                             spotify = theme.dir .. "/icons/mpris/spotify.png",
+                            musikcube = theme.dir .. "/icons/mpris/musikcube.png",
                         }
                     }),
                     widgets:load('cpu_widget'),
