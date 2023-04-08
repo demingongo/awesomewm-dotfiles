@@ -12,8 +12,8 @@ local wibox          = require("wibox")
 local awful          = require("awful")
 
 local mpris_widget   = require("awesomewm-mpris-widget")
-local myminitasklist = require('my.mini-tasklist')
-local mytinytasklist = require('my.tiny-tasklist')
+local myminitasklist = require('my.screens.mini-tasklist')
+local mytinytasklist = require('my.screens.tiny-tasklist')
 local tasklist_popup = require("my.popups.tasklist-popup")
 local naughty        = require("naughty")
 
@@ -60,7 +60,8 @@ theme.wallpaper_list                            = {
     wallpapers_dir .. "/cropped-1600-900-1191506.jpg",
     wallpapers_dir .. "/69334-648812134-ousamaranking.png",
     wallpapers_dir .. "/69335-648812135-ousamaranking.png",
-    wallpapers_dir .. "/desktop-1920x1080.png"
+    wallpapers_dir .. "/desktop-1920x1080.png",
+    wallpapers_dir .. "/osama-ranking-pixel-art-1220x686.png.webp"
 }
 
 theme.font                                      = "Hack Nerd Font 11"
