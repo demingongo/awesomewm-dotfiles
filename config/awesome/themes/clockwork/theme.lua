@@ -508,7 +508,7 @@ theme.additional_rules = {
 }
 
 theme.autostart_shell_cmds = {
-    --os.getenv("HOME") .. "/.local/bin/spice_on_rice Ziro rose-pine-moon"
+    --os.getenv("HOME") .. "/.local/bin/spice_on_rice Glaze Blase"
 }
 
 return theme
