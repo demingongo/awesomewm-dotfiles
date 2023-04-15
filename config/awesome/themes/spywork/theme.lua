@@ -42,6 +42,7 @@ theme.border_width                              = dpi(1)
 theme.border_normal                             = "#101010"
 theme.border_focus                              = "#101010"
 theme.border_marked                             = "#FF0000"
+theme.systray_icon_spacing                      = dpi(10)
 
 -- There are other variable sets
 -- overriding the default one when
@@ -61,6 +62,8 @@ theme.tasklist_bg_focus                         = "#101010"
 theme.titlebar_bg_focus                         = theme.bg_focus
 theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
+
+theme.hotkeys_modifiers_fg                      = theme.fg_focus
 
 -- awful wibar properties
 theme.wibar_position                            = "bottom"
@@ -178,7 +181,9 @@ local function create_right_widgets(screen, widgets, w_layoutbox)
         hidden_at_start = true,
         no_tooltip = true,
         text_icon_show = "󱊖 ",
-        font = "Commodore 64 20"
+        font = "Commodore 64 20",
+        margin_top = dpi(3),
+        margin_bottom = dpi(3)
     })
     return {
         layout = wibox.layout.fixed.horizontal,
@@ -223,6 +228,10 @@ local function create_right_widgets(screen, widgets, w_layoutbox)
 end
 
 theme.create_right_widgets = create_right_widgets
+
+theme.autostart_shell_cmds = {
+    os.getenv("HOME") .. "/.local/bin/spice_on_rice Glaze Blase"
+}
 
 return theme
 

@@ -26,8 +26,8 @@ theme.terminal                                  = "kitty --config " .. theme.dir
 
 theme.wallpaper = theme.dir .. "/911476.png"
 theme.wallpaper_list = {
+    "#8601c7",
     theme.dir .. "/911476.png",
-    "#cba6f7"
 }
 
 theme.font                                      = "Vanilla Caramel 12"
@@ -312,25 +312,6 @@ theme.create_tasklist = create_tasklist
 
 theme.taglist_tags = { "󰺕 ", "󰺕 ", "󰺕 ", "󰺕 ", "󰺕 ", "󰺕 ", "󰺕 " }
 
---[[
-theme.init_tags_for_screen = function(screen)
-    return {
-        {
-            tag_name = "Hello",
-            layout = awful.layout.suit.max
-        },
-        {
-            tag_name = "Aloha",
-            layout = awful.layout.suit.max
-        },
-        --{
-        --    name = "apple",
-        --    layout = awful.layout.suit.max,
-        --    screen = screen
-        --}
-    }
-end
---]]
 
 local function taglist_update_callback(widget, t, idx)
     if t.activated and #t:clients() > 0 then
@@ -422,15 +403,15 @@ local function create_right_widgets(screen, widgets, w_layoutbox)
     if not systrayDisplayed then
         systrayDisplayed = true
         local systray = wibox.widget.systray(true)
-        systray:set_base_size(13)
+        --systray:set_base_size(13)
         table.insert(right_side_layout, wibox.widget {
             {
                 -- vertical align center
                 systray,
                 widget = wibox.container.place
             },
-            top = dpi(2), -- fine tuning for better vertical align center
-            right = dpi(15),
+            top = dpi(9),
+            bottom = dpi(9),
             widget = wibox.container.margin
         })
         table.insert(right_side_layout, spr)
@@ -546,7 +527,7 @@ theme.setup_wibar = setup_wibar
 
 
 theme.autostart_shell_cmds = {
-    --os.getenv("HOME") .. "/.local/bin/spice_on_rice Ziro rose-pine-moon"
+    os.getenv("HOME") .. "/.local/bin/spice_on_rice Ziro rose-pine-moon"
 }
 
 return theme

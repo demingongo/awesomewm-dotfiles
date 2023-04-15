@@ -353,10 +353,10 @@ local function create_right_widgets(screen, widgets, w_layoutbox)
     local systray = widgets:load("toggable_systray", {
         toggle_side = "right",
         no_tooltip = true,
-        margin_top = dpi(2), -- fine tuning for better vertical align center
-        margin_right = dpi(30)
+        margin_bottom = dpi(9),
+        margin_top = dpi(9),
+        margin_right = dpi(10)
     })
-    systray:get_systray():set_base_size(13)
 
     return {
         layout = wibox.layout.fixed.horizontal,

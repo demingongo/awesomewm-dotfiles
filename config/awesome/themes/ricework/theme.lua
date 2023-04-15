@@ -39,6 +39,7 @@ theme.border_width                              = dpi(1)
 theme.border_normal                             = "#3F3F3F"
 theme.border_focus                              = "#767EA2"
 theme.border_marked                             = "#CC9393"
+theme.systray_icon_spacing                      = dpi(10)
 
 -- There are other variable sets
 -- overriding the default one when

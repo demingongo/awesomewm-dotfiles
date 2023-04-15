@@ -353,7 +353,6 @@ theme.create_left_widgets = create_left_widgets
 ---@return table
 local function create_right_widgets(screen, widgets, w_layoutbox)
     local systray = wibox.widget.systray(false)
-    systray:set_base_size(13)
 
     return {
         layout = wibox.layout.fixed.horizontal,
@@ -368,8 +367,8 @@ local function create_right_widgets(screen, widgets, w_layoutbox)
                             systray,
                             widget = wibox.container.place
                         },
-                        top = dpi(2), -- fine tuning for better vertical align center
-                        right = dpi(10),
+                        top = dpi(6),
+                        bottom = dpi(6),
                         widget = wibox.container.margin
                     },
                     widgets:load('cpu_widget'),

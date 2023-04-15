@@ -283,7 +283,6 @@ local function create_media_player_widget()
 
     -- Controls
     local previous_button = wibox.widget.textbox("")
-    --previous_button.font = "Vanilla Caramel 18"
     previous_button.visible = false
     previous_button:connect_signal("button::release", function(self, _, _, button)
         if button == 1 then
@@ -291,15 +290,22 @@ local function create_media_player_widget()
         end
     end)
     local next_button = wibox.widget.textbox("")
-    --next_button.font = "Vanilla Caramel 18"
     next_button.visible = false
     next_button:connect_signal("button::release", function(self, _, _, button)
         if button == 1 then
             w_mpris:next()
         end
     end)
+    local pause_button = wibox.widget.textbox("󰐎")
+    pause_button.visible = false
+    pause_button:connect_signal("button::release", function(self, _, _, button)
+        if button == 1 then
+            w_mpris:play_pause()
+        end
+    end)
     format_button(previous_button)
     format_button(next_button)
+    format_button(pause_button)
 
     -- Events
     w_mpris_args.clients_running = function()
@@ -324,12 +330,17 @@ local function create_media_player_widget()
                 forced_width = dpi(15),
                 widget = wibox.container.constraint
             },
-            w_mpris, --wrap_widget(w_mpris, "#ad6084"),
+            {
+                pause_button,
+                forced_width = dpi(15),
+                widget = wibox.container.constraint
+            },
             {
                 next_button,
                 forced_width = dpi(15),
                 widget = wibox.container.constraint
             },
+            w_mpris, --wrap_widget(w_mpris, "#ad6084"),
             spacing = dpi(15),
             layout = wibox.layout.fixed.horizontal,
         },
@@ -346,6 +357,9 @@ local function create_media_player_widget()
         if not next_button.visible then
             next_button.visible = not next_button.visible
         end
+        if not pause_button.visible then
+            pause_button.visible = not pause_button.visible
+        end
     end)
     container:connect_signal("mouse::leave", function()
         -- Get the wibox currently under the mouse cursor
@@ -354,6 +368,9 @@ local function create_media_player_widget()
         end
         if next_button.visible then
             next_button.visible = not next_button.visible
+        end
+        if pause_button.visible then
+            pause_button.visible = not pause_button.visible
         end
     end)
 
@@ -557,15 +574,14 @@ local function create_right_widgets(screen, widgets)
     if not systrayDisplayed then
         systrayDisplayed = true
         local systray = wibox.widget.systray(false)
-        systray:set_base_size(13)
         table.insert(right_side_layout, wrap_widget(wibox.widget {
             {
                 -- vertical align center
                 systray,
                 widget = wibox.container.place
             },
-            top = dpi(2), -- fine tuning for better vertical align center
-            right = dpi(30),
+            top = dpi(6),
+            bottom = dpi(6),
             widget = wibox.container.margin
         }, theme.bg_systray, dpi(8)))
     end
