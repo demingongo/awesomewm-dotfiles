@@ -213,6 +213,9 @@ local function create_media_player_widget()
     local mpris_widget_max_width = dpi(180)
     local mpris_widget_args = {
         state_playing = "",
+        state_paused = "󰏤",
+        display = "icon_text",
+        icon_width = dpi(26),
         font = "Commodore 64 Angled 12",
         media_icons = {
             musikcube = theme.dir .. "/icons/mpris/musikcube-neon.png",
