@@ -91,11 +91,11 @@ return {
         props.show_current_level = true
         props.enable_battery_warning = true
         props.timeout = 10
-        props.show_notification_mode = props.show_notification_mode or 'on_hover'
+        props.show_notification_mode = props.show_notification_mode or beautiful.batteryarc_show_notification_mode or 'on_hover'
         props.notification_position = props.notification_position or beautiful.batteryarc_notification_position or
             'top_right'
-        props.arc_thickness = props.arc_thickness or 2
-        props.size = props.size or dpi(18)
+        props.arc_thickness = props.arc_thickness or beautiful.batteryarc_arc_thickness or 2
+        props.size = props.size or beautiful.batteryarc_size or dpi(18)
         props.main_color = props.main_color or beautiful.batteryarc_main_color or '#756321'
         return batteryarc_widget(props)
     end,
