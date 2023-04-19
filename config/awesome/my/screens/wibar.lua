@@ -65,7 +65,7 @@ end
 
 local function create_layout()
     return {
-        layout = wibox.layout.align.horizontal,
+        layout = beautiful.wibar_layout or wibox.layout.align.horizontal,
         expand = beautiful.wibar_expand
     }
 end
