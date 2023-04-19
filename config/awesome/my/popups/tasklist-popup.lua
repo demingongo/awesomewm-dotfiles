@@ -17,6 +17,9 @@ local function create_tasklist_popup(s, args)
     props.close_button_text = props.close_button_text or 'X'
     props.border_width = get_prop_value(props, 'border_width')
     props.border_color = get_prop_value(props, 'border_color')
+    props.close_bg = get_prop_value(props, 'close_bg')
+    props.close_fg = get_prop_value(props, 'close_fg')
+    props.fg = get_prop_value(props, 'fg')
 
     local tasklist = awful.widget.tasklist {
         screen          = s,
@@ -63,7 +66,8 @@ local function create_tasklist_popup(s, args)
             bottom = 5,
             widget = wibox.container.margin
         },
-        bg     = props.border_color,
+        fg     = props.close_fg or props.fg,
+        bg     = props.close_bg or props.border_color,
         shape  = function (cr, width, height, radius)
             return gears.shape.rounded_rect(cr, width, height, beautiful.border_radius)
         end,
