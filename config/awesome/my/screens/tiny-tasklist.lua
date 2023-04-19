@@ -102,16 +102,21 @@ local function create_tiny_tasklist(s, args)
     end
 
     local function evaluate_situation()
-        local t = awful.screen.focused().selected_tag
+        local selected_tags = awful.screen.focused().selected_tags
         -- no tag selected
-        if not t then
+        if not selected_tags or #selected_tags < 1 then
             timer.delayed_call(hide_widget, "(no selected tag)")
             return
         end
 
-        local clients = t:clients()
+        local tmp_nb_clients = 0
 
-        timer.delayed_call(update_widget, #clients)
+        for k, t in ipairs(selected_tags) do
+            local clients = t:clients()
+            tmp_nb_clients = tmp_nb_clients + #clients
+        end
+
+        timer.delayed_call(update_widget, tmp_nb_clients)
     end
 
     tag.attached_connect_signal(s, "property::selected", function()
