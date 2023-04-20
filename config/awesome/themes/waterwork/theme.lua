@@ -170,6 +170,14 @@ theme.layout_cornerne                           = themes_path .. "default/layout
 theme.layout_cornersw                           = themes_path .. "default/layouts/cornersww.png"
 theme.layout_cornerse                           = themes_path .. "default/layouts/cornersew.png"
 
+-- Client icons used in tasklist
+theme.clients_default_icon                      = theme.dir .. "/icons/clients/Water_Type_Icon.svg"
+theme.clients_icons                             = {
+    ["Spotify"] = theme.dir .. "/icons/clients/spotify-client.svg",
+    ["kitty"] = theme.dir .. "/icons/clients/kitty.svg",
+    ["firefox"] = theme.dir .. "/icons/clients/firefox.png",
+}
+
 -- Generate Awesome icon:
 theme.awesome_icon                              = theme.dir .. "/icons/launcher.svg"
 
@@ -310,16 +318,12 @@ theme.create_middle_widgets = function(s, widgets)
         state_playing = "",
         state_paused = "󰏤",
         display = "icon",
-        --icon_width = dpi(26),
         popup_font = "Terminus 10",
-        --[[
         media_icons = {
-            musikcube = theme.dir .. "/icons/mpris/musikcube-neon.png",
-            rhythmbox = theme.dir .. "/icons/clients/rhythmbox-neon.png",
-            spotify = theme.dir .. "/icons/clients/spotify-neon.png",
-            firefox = theme.dir .. "/icons/mpris/firefox-neon-2.png",
+            musikcube   = theme.dir .. "/icons/clients/musikcube3d.png",
+            spotify     = theme.dir .. "/icons/clients/spotify-client.svg",
+            firefox     = theme.dir .. "/icons/clients/firefox.png",
         },
-        --]]
         max_chars = -1,
         popup_maximum_width = dpi(400)
     })
