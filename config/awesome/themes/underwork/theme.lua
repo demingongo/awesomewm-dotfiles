@@ -11,6 +11,7 @@ local gears          = require("gears")
 local wibox          = require("wibox")
 local awful          = require("awful")
 
+local markup         = require("lain").util.markup
 local mpris_widget   = require("awesomewm-mpris-widget")
 local myminitasklist = require('my.screens.mini-tasklist')
 local mytinytasklist = require('my.screens.tiny-tasklist')
@@ -264,7 +265,7 @@ local function create_media_player_widget()
         title_first = true,
         separator = " 󰞇  ",
         state_playing = "󰎈", -- 󰆥
-        state_paused = "󰏤",
+        state_paused = markup.fg.color("#cd241c", "󰏤"),
         max_chars = -1,
         scroll = {
             enabled = true,
