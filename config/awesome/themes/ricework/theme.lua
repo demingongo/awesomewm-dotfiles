@@ -59,6 +59,8 @@ theme.titlebar_bg_focus                         = theme.bg_focus
 theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
 
+theme.hotkeys_modifiers_fg                      = theme.fg_normal
+
 -- awful wibar properties
 theme.wibar_position                            = "top"
 theme.wibar_height                              = dpi(25)
