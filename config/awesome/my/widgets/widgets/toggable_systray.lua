@@ -49,10 +49,7 @@ local function init_toggable_systray(args)
 
     -- wibox.container.margin
     local systray_container = wibox.widget {
-        {
-            systray,
-            widget = wibox.container.place
-        },
+        systray,
         visible = true,
         bottom = props.margin_bottom,
         top = props.margin_top,
@@ -60,6 +57,10 @@ local function init_toggable_systray(args)
         right = props.margin_right,
         widget = wibox.container.margin
     }
+
+    if type(props.create_systray_box) == "function" then
+        systray_container = props.create_systray_box(systray_container)
+    end
 
     local widget_layout = {
         layout = wibox.layout.align.horizontal
