@@ -49,7 +49,10 @@ local function init_toggable_systray(args)
 
     -- wibox.container.margin
     local systray_container = wibox.widget {
-        systray,
+        {
+            systray,
+            widget = wibox.container.place
+        },
         visible = true,
         bottom = props.margin_bottom,
         top = props.margin_top,
