@@ -269,7 +269,7 @@ theme.wibar_expand                              = "none"
 theme.wibar_bg                                  = COLORS.transparent
 theme.wibar_opacity                             = 1
 theme.wibar_border_width                        = dpi(9)
-theme.wibar_ontop                               = true
+theme.wibar_ontop                               = false
 
 
 -- Tasklist
@@ -294,11 +294,12 @@ local tag_names = {
     terminal = " ",
     browser = " ",
     music = "󰌳 ",
-    bash = " ",
+    video = "󰨜 ",
     image = "󰋹 ",
     communication = " ",
     tools = "󰺾 ",
-    video = " "
+    film = "󰿎 ",
+    bash = " "
 }
 
 theme.taglist_tags = { }
@@ -333,7 +334,7 @@ theme.init_tags_for_screen = function(screen)
         },
         {
             -- 6
-            tag_name = tag_names.bash,
+            tag_name = tag_names.video,
             layout = awful.layout.suit.tile
         },
         {
@@ -543,9 +544,13 @@ theme.additional_rules = {
         properties = { tag = tag_names.communication }
     },
     {
+        rule = { class = "Lxappearance" },
+        properties = { tag = tag_names.tools }
+    },
+    {
         rule = { class = "obs" },
         properties = { new_tag = {
-            name     = tag_names.video, -- The tag name.
+            name     = tag_names.film, -- The tag name.
             layout   = awful.layout.suit.max, -- Set the tag layout.
             volatile = true, -- Remove the tag when the client is closed.
         } }
