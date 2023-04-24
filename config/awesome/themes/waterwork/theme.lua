@@ -12,7 +12,7 @@ local wibox                                     = require("wibox")
 local awful                                     = require("awful")
 
 local mpris_widget                              = require("awesomewm-mpris-widget")
-local calendar_widget                           = require("awesome-wm-widgets.calendar-widget.calendar")
+local calendar_widget_f                           = require("awesome-wm-widgets.calendar-widget.calendar")
 local mytinytasklist                            = require('my.screens.tiny-tasklist')
 local tasklist_popup                            = require("my.popups.tasklist-popup")
 
@@ -363,7 +363,7 @@ theme.create_middle_widgets = function(s, widgets)
         }
     }
     -- Calendar widget
-    local calendar_widget = calendar_widget({
+    local calendar_widget = calendar_widget_f({
         theme = "naughty",
         placement = "bottom_right",
         start_sunday = false,
