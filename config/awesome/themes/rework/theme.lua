@@ -749,7 +749,7 @@ theme.additional_rules = {
         properties = { tag = tag_names.communication }
     },
     {
-        rule = { class = "Lxappearance" },
+        rule_any = { class = { "Lxappearance", "Studio 3T" } },
         properties = { tag = tag_names.tools }
     },
     {
