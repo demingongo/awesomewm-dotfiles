@@ -43,6 +43,27 @@ else
 	[[ " ${ALL_THEMES[*]} " =~ " $1 " ]] && theme=$1 || exit 1	
 fi
 
+# Handle config files
+Load_config()
+{
+	source_file=$1
+	dest_file=$2
+	default_content=$3
+
+	# remove old backup file (to avoid overwriting symbolic link)
+	rm -f "$dest_file~"
+
+	if [ -f "$source_file" ]; then
+		ln -s -b "$source_file" "$dest_file"		
+	else
+		if [ -f "$dest_file" ]; then
+			cp "$dest_file" "$dest_file~"
+		fi
+		rm -f "$dest_file"
+		echo "$default_content" > "$dest_file"
+	fi
+}
+
 if [[ -n "$theme" ]] then
 	[ "$is_interactive" = true ] && gum spin --spinner line --title "$theme" -- sleep 1
 
@@ -54,18 +75,26 @@ if [[ -n "$theme" ]] then
 	mkdir -p "$CONFIG_DIR"
 
 	# load zsh config
-	ZSH_THEME_CONF="$HOME/.config/awesome/themes/$theme/config/zshrc.conf"
-	ZSH_CONF="$CONFIG_DIR/zshrc.conf"
-	rm -f "$ZSH_CONF~" # remove old backup file (to avoid overwriting symbolic link)
-	if [ -f "$ZSH_THEME_CONF" ]; then
-		ln -s -b "$ZSH_THEME_CONF" "$ZSH_CONF"		
-	else
-		if [ -f "$ZSH_CONF" ]; then
-			cp "$ZSH_CONF" "$ZSH_CONF~"
-		fi
-		rm -f "$ZSH_CONF"
-		echo "# User configuration" > "$ZSH_CONF"
-	fi
+	ZSH_CONF=(
+    		# source
+		"$HOME/.config/awesome/themes/$theme/config/zshrc.conf"
+		# destination
+		"$CONFIG_DIR/zshrc.conf"
+		# default content
+		"# User configuration"
+	)
+	Load_config "${ZSH_CONF[0]}" "${ZSH_CONF[1]}" "${ZSH_CONF[2]}"
+	
+	# load nvim config
+	NVIM_CONF=(
+		# source
+		"$HOME/.config/awesome/themes/$theme/config/nvim-theme.vim"
+		# destination
+		"$CONFIG_DIR/nvim-theme.vim"
+		# default content
+		"\"\"\" Load theme"
+	)
+	Load_config "${NVIM_CON[0]}" "${NVIM_CONF[1]}" "${NVIM_CONF[2]}"
 
 	# restart wm
 	awesome-client 'awesome.restart()' > /dev/null 2>&1 &
