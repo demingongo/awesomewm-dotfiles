@@ -69,8 +69,6 @@ theme.terminal                                  = "kitty --config " .. theme.dir
 
 local wallpapers_dir                            = theme.dir .. "/wallpapers"
 
-local current_wallpaper_index = 0
-
 local wallpaper_list = {
     {
         wallpaper = wallpapers_dir .. "/pastel-purple-background.jpg",
@@ -99,11 +97,14 @@ local wallpaper_list = {
 ---@param s any screen
 ---@return string | nil
 theme.wallpaper = function (s)
+    s.current_wallpaper_index = s.current_wallpaper_index or 0
+    local current_wallpaper_index = s.current_wallpaper_index
     current_wallpaper_index = current_wallpaper_index + 1
 
     if current_wallpaper_index > #wallpaper_list then
         current_wallpaper_index = 1
     end
+    s.current_wallpaper_index = current_wallpaper_index
 
     local elem = wallpaper_list[current_wallpaper_index]
     local wallpaper_path = nil
