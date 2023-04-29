@@ -165,6 +165,7 @@ theme.clients_icons                             = {
     ["kitty"] = theme.dir .. "/icons/clients/kitty.svg",
     ["firefox"] = theme.dir .. "/icons/clients/firefox-neon.png",
     ["org.gnome.Nautilus"] = theme.dir .. "/icons/clients/folder.svg",
+    ["org.wezfurlong.wezterm"] = theme.dir .. "/icons/clients/wezterm.svg",
     ["Rhythmbox"] = theme.dir .. "/icons/clients/rhythmbox-neon.png",
 }
 
