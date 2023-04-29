@@ -5,6 +5,8 @@ local timer   = require("gears.timer")
 local naughty = require("naughty")
 local tasklist_popup = require("my.popups.tasklist-popup")
 
+-- TODO: destroy "connect_signal" when screen gets destroyed
+
 -- useful to debug
 local function notify_now(text)
     --[[
