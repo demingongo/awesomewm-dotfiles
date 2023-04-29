@@ -4,13 +4,12 @@
 
 local theme_name                                = "fancywork"
 
-local theme_assets                              = require("beautiful.theme_assets")
+local beautiful                                 = require("beautiful")
 local xresources                                = require("beautiful.xresources")
 local dpi                                       = xresources.apply_dpi
 local gears                                     = require("gears")
 local wibox                                     = require("wibox")
 local awful                                     = require("awful")
-local naughty                                   = require("naughty")
 
 local markup                                    = require("lain").util.markup
 local mpris_widget                              = require("awesomewm-mpris-widget")
@@ -27,10 +26,8 @@ local COLORS                                    = {
     pink = "#ffafcc",
     light_pink = "#ffc8dd",
     blue = "#a2d2ff",
+    blue_2 = "#cedde2",
     light_blue = "#bde0fe",
-    light_green = "#bde0fe",
-
-    gradient_1 = "radial:50,50,10:55,55,30:0,#ff0000:0.5,#00ff00:1,#0000ff",
 
     background = "#ffffff",
     normal = "#959CB7",
@@ -72,12 +69,55 @@ theme.terminal                                  = "kitty --config " .. theme.dir
 
 local wallpapers_dir                            = theme.dir .. "/wallpapers"
 
-theme.wallpaper_list                            = {
-    wallpapers_dir .. "/pastel-purple-background.jpg",
-    wallpapers_dir .. "/leaves-background.jpg",
-    wallpapers_dir .. "/lava-design.jpg",
-    wallpapers_dir .. "/lava-design-2.jpg",
+local current_wallpaper_index = 0
+
+local wallpaper_list = {
+    {
+        wallpaper = wallpapers_dir .. "/pastel-purple-background.jpg",
+        action = function(s)
+            beautiful.taglist_fg_empty = COLORS.normal
+            beautiful.taglist_fg_occupied = COLORS.pink
+        end
+    },
+    {
+        wallpaper = wallpapers_dir .. "/lava-design.jpg",
+        action = function(s)
+            beautiful.taglist_fg_empty = COLORS.background
+            beautiful.taglist_fg_occupied = COLORS.normal
+        end
+    },
+    {
+        wallpaper = wallpapers_dir .. "/lava-design-2.jpg",
+        action = function(s)
+            beautiful.taglist_fg_empty = COLORS.background
+            beautiful.taglist_fg_occupied = COLORS.normal
+        end
+    }
 }
+
+---comment
+---@param s any screen
+---@return string | nil
+theme.wallpaper = function (s)
+    current_wallpaper_index = current_wallpaper_index + 1
+
+    if current_wallpaper_index > #wallpaper_list then
+        current_wallpaper_index = 1
+    end
+
+    local elem = wallpaper_list[current_wallpaper_index]
+    local wallpaper_path = nil
+    if type(elem) == "table" then
+        wallpaper_path = elem.wallpaper or ""
+        if type(elem.action) == "function" then
+            elem.action(s)
+        end
+    elseif type(elem) == "string" then
+        wallpaper_path = elem
+    end
+
+    return wallpaper_path
+end
 
 theme.font                                      = "Terminus 13"
 
@@ -113,8 +153,8 @@ theme.systray_icon_spacing                      = dpi(6)
 -- Example:
 theme.taglist_fg_focus                          = COLORS.secondary
 theme.taglist_fg_urgent                         = theme.fg_urgent
-theme.taglist_fg_empty                          = theme.bg_normal
-theme.taglist_fg_occupied                       = theme.fg_normal
+theme.taglist_fg_empty                          = COLORS.normal
+theme.taglist_fg_occupied                       = COLORS.pink
 theme.taglist_bg_occupied                       = COLORS.transparent
 theme.taglist_bg_focus                          = COLORS.transparent
 theme.taglist_bg_urgent                         = COLORS.transparent

@@ -1,6 +1,28 @@
 local gears = require("gears")
 local beautiful = require("beautiful")
 
+
+--[[
+TODO: set a wallpaper with gradient
+
+e.g. of gradient values
+- "radial:50,50,10:55,55,30:0,#ff0000:0.5,#00ff00:1,#0000ff"
+- {
+    type  = "linear" ,
+    from  = { 0, 0  },
+    to    = { 0, 700 },
+    stops = {
+        { 0, "#0000ff" },
+        { 1, "#ff0000" }
+    }
+ }
+
+how to set:
+
+gears.wallpaper.set(gradient_value)
+--]]
+
+
 local helpers = {}
 
 helpers.wallpaper = nil
@@ -60,6 +82,8 @@ helpers.set_next_wallpaper = function()
             next_wallpaper_index = 1
         end
         helpers.change_wallpaper(list[next_wallpaper_index])
+    elseif type(beautiful.wallpaper) == "function" then
+        helpers.change_wallpaper(beautiful.wallpaper)
     end
 end
 
