@@ -271,6 +271,7 @@ theme.clients_icons                             = {
     ["Rhythmbox"] = theme.dir .. "/icons/clients/rhythmbox.svg",
     ["kitty"] = theme.dir .. "/icons/clients/kitty.svg",
     ["firefox"] = theme.dir .. "/icons/clients/firefox.png",
+    ["mpv"] = theme.dir .. "/icons/clients/mpv.svg",
 }
 
 -- Generate Awesome icon:
@@ -526,6 +527,7 @@ theme.create_middle_widgets = function(s, widgets)
             spotify     = theme.dir .. "/icons/clients/spotify-client.svg",
             rhythmbox   = theme.dir .. "/icons/clients/rhythmbox.svg",
             firefox     = theme.dir .. "/icons/clients/firefox.png",
+            mpv         = theme.dir .. "/icons/clients/mpv.svg",
         },
         max_chars = -1,
         popup_maximum_width = dpi(400),
@@ -593,6 +595,14 @@ theme.additional_rules = {
     {
         rule = { class = "Gimp" },
         properties = { tag = tag_names.image }
+    },
+    {
+        rule_any = { class = { "mpv", "vlc" } },
+        properties = { tag = tag_names.video }
+    },
+    {
+        rule = { class = "mpv" },
+        properties = { sticky = true, floating = true }
     },
     {
         rule = { class = "Skype" },
