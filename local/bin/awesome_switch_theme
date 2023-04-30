@@ -49,9 +49,11 @@ Load_config()
 	source_file=$1
 	dest_file=$2
 	default_content=$3
+	default_content_file=$4
 
 	# remove old backup file (to avoid overwriting symbolic link)
 	rm -f "$dest_file~"
+
 
 	if [ -f "$source_file" ]; then
 		ln -s -b "$source_file" "$dest_file"		
@@ -60,7 +62,11 @@ Load_config()
 			cp "$dest_file" "$dest_file~"
 		fi
 		rm -f "$dest_file"
-		echo "$default_content" > "$dest_file"
+		if [ -f "$default_content_file" ]; then
+			ln -s -b "$default_content_file" "$dest_file"
+		else
+			echo "$default_content" > "$dest_file"
+		fi
 	fi
 }
 
@@ -82,8 +88,10 @@ if [[ -n "$theme" ]] then
 		"$CONFIG_DIR/zshrc.conf"
 		# default content
 		"# User configuration"
+		# default content file
+		"$CONFIG_DIR/zshrc.default.conf"
 	)
-	Load_config "${ZSH_CONF[0]}" "${ZSH_CONF[1]}" "${ZSH_CONF[2]}"
+	Load_config "${ZSH_CONF[0]}" "${ZSH_CONF[1]}" "${ZSH_CONF[2]}" "${ZSH_CONF[3]}"
 	
 	# load nvim config
 	NVIM_CONF=(
@@ -93,8 +101,10 @@ if [[ -n "$theme" ]] then
 		"$CONFIG_DIR/nvim-theme.vim"
 		# default content
 		"\"\"\" Load theme"
+		# default content file
+		"$CONFIG_DIR/nvim-theme.default.vim"
 	)
-	Load_config "${NVIM_CON[0]}" "${NVIM_CONF[1]}" "${NVIM_CONF[2]}"
+	Load_config "${NVIM_CONF[0]}" "${NVIM_CONF[1]}" "${NVIM_CONF[2]}" "${NVIM_CONF[3]}"
 
 	# restart wm
 	awesome-client 'awesome.restart()' > /dev/null 2>&1 &
