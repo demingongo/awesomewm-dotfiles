@@ -166,7 +166,8 @@ theme.clients_default_icon                      = theme.dir .. "/icons/clients/m
 theme.clients_icons                             = {
     ["Spotify"] = theme.dir .. "/icons/clients/spotify_512x512.png",
     ["kitty"] = theme.dir .. "/icons/clients/kitty.svg",
-    ["firefox"] = theme.dir .. "/icons/clients/firefox.svg"
+    ["firefox"] = theme.dir .. "/icons/clients/firefox.svg",
+    ["mpv"] = theme.dir .. "/icons/clients/mpv_512x512.png",
 }
 
 -- Generate Awesome icon:
@@ -201,6 +202,7 @@ local function create_media_player_widget()
             rhythmbox = theme.dir .. "/icons/mpris/rhythmbox3d.png",
             firefox = theme.dir .. "/icons/mpris/firefox3d.png",
             spotify = theme.dir .. "/icons/mpris/spotify3d.png",
+            mpv = theme.dir .. "/icons/clients/mpv_512x512.png",
         },
         max_chars = -1,
         scroll = {
