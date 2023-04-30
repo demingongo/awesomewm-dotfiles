@@ -529,7 +529,7 @@ theme.setup_wibar = setup_wibar
 
 
 theme.autostart_shell_cmds = {
-    os.getenv("HOME") .. "/.local/bin/spice_on_rice Ziro rose-pine-moon"
+    os.getenv("HOME") .. "/.local/bin/spice_on_rice Ziro purple-dark"
 }
 
 return theme
