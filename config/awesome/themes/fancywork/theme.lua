@@ -75,6 +75,13 @@ local wallpaper_list = {
         action = function(s)
             beautiful.taglist_fg_empty = COLORS.normal
             beautiful.taglist_fg_occupied = COLORS.pink
+
+            -- trick to refresh taglist
+            local tag = s.selected_tag
+            if tag then
+                awful.tag.viewtoggle(tag)
+                awful.tag.viewtoggle(tag)
+            end
         end
     },
     {
@@ -82,6 +89,13 @@ local wallpaper_list = {
         action = function(s)
             beautiful.taglist_fg_empty = COLORS.background
             beautiful.taglist_fg_occupied = COLORS.normal
+
+            -- trick to refresh taglist
+            local tag = s.selected_tag
+            if tag then
+                awful.tag.viewtoggle(tag)
+                awful.tag.viewtoggle(tag)
+            end
         end
     },
     {
