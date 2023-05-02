@@ -4,10 +4,8 @@
 
 local theme_name                                = "waterwork"
 
-local theme_assets                              = require("beautiful.theme_assets")
 local xresources                                = require("beautiful.xresources")
 local dpi                                       = xresources.apply_dpi
-local gears                                     = require("gears")
 local wibox                                     = require("wibox")
 local awful                                     = require("awful")
 

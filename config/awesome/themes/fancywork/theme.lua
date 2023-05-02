@@ -406,16 +406,6 @@ theme.init_tags_for_screen = function(screen)
     }
 end
 
-local function taglist_update_callback(widget, t, idx)
-    --[[
-    if t.activated and #t:clients() > 0 then
-        t.name = " "
-    elseif t.name ~= theme.taglist_tags[idx] then
-        t.name = theme.taglist_tags[idx];
-    end
-    --]]
-end
-
 theme.taglist_template = {
     {
         {
@@ -427,9 +417,7 @@ theme.taglist_template = {
         widget = wibox.container.margin
     },
     id              = 'background_role',
-    widget          = wibox.container.background,
-    create_callback = taglist_update_callback,
-    update_callback = taglist_update_callback
+    widget          = wibox.container.background
 }
 
 
@@ -538,8 +526,10 @@ theme.create_middle_widgets = function(s, widgets)
             margin_top = dpi(6),
             margin_bottom = dpi(6)
         },
-        updated_main_player_callback = function (metadata)
-            icon_box.image = metadata.icon
+        updated_callback = function (metadata)
+            if metadata then
+                icon_box.image = metadata.icon
+            end
         end,
         clients_running = function()
             if not wrapped_container.visible then
