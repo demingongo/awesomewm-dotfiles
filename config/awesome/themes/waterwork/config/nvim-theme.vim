@@ -1,2 +1,2 @@
 """ Load theme
-source $HOME/.config/nvim/plugins/themes/solarized.lua.vim
+source $HOME/.config/nvim/plugins/themes/neosolarized.lua.vim
