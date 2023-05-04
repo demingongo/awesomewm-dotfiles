@@ -5,8 +5,6 @@ local timer          = require("gears.timer")
 local naughty        = require("naughty")
 local tasklist_popup = require("my.popups.tasklist-popup")
 
--- TODO: destroy "connect_signal" when screen gets destroyed
-
 -- useful to debug
 local function notify_now(text)
     --[[
@@ -135,18 +133,26 @@ local function create_mini_tasklist(s, args)
         end
     end)
 
-    client.connect_signal("focus", function(c)
+    local function client_focus_callback(c)
         -- the newly focused tag is on this screen
         if c.screen.index == s.index then
             timer.delayed_call(update_widget, c)
         end
-    end)
+    end
 
-    client.connect_signal("unfocus", function(c)
-        -- the newly focused tag is on this screen
+    local function client_unfocus_callback(c)
+        -- the newly unfocused tag is on this screen
         if c.screen.index == s.index then
             timer.delayed_call(hide_widget)
         end
+    end
+
+    client.connect_signal("focus", client_focus_callback)
+    client.connect_signal("unfocus", client_unfocus_callback)
+
+    s:connect_signal("removed", function ()
+        client.disconnect_signal("focus", client_focus_callback)
+        client.disconnect_signal("unfocus", client_unfocus_callback)
     end)
 
     return mini_tasklist
