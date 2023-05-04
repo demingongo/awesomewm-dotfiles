@@ -78,8 +78,8 @@ if [[ "$c_answer_dep" == "y" ]]; then
     #
     # Install
     #
-    sudo dnf install lxappearance gmic-gimp ImageMagick nsxiv \
-    lame musikcube cava \
+    sudo dnf install lxappearance gmic-gimp ImageMagick \
+    lame cava \
     neofetch xdotool
 
     ## Some dev tools often used to compile apps locally
