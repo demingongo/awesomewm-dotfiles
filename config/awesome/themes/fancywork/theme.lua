@@ -614,7 +614,7 @@ theme.additional_rules = {
 
 
 theme.autostart_shell_cmds = {
-    --os.getenv("HOME") .. "/.local/bin/spice_on_rice Ziro rose-pine-dawn"
+    os.getenv("HOME") .. "/.local/bin/spice_on_rice Ziro rose-pine-dawn"
 }
 
 return theme

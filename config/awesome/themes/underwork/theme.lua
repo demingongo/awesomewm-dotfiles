@@ -53,7 +53,7 @@ local primary_bg_wrapper                        = "#689d6a"
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name
 
---theme.terminal                                  = "kitty --config " .. theme.dir .. "/config/kitty.conf"
+theme.terminal                                  = "kitty --config " .. theme.dir .. "/config/kitty.conf"
 
 local wallpapers_dir                            = theme.dir .. "/wallpapers"
 
@@ -633,7 +633,7 @@ theme.additional_rules = {
 
 
 theme.autostart_shell_cmds = {
-    --os.getenv("HOME") .. "/.local/bin/spice_on_rice Onepunch Dark"
+    os.getenv("HOME") .. "/.local/bin/spice_on_rice Onepunch Dark"
 }
 
 return theme

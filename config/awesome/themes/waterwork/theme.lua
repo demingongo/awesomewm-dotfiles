@@ -33,6 +33,8 @@ local COLORS                                    = {
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name
 
+theme.terminal                                  = "kitty --config " .. theme.dir .. "/config/kitty.conf"
+
 local wallpapers_dir                            = theme.dir .. "/wallpapers"
 
 theme.wallpaper_list                            = {
@@ -174,6 +176,7 @@ theme.clients_icons                             = {
     ["Spotify"] = theme.dir .. "/icons/clients/spotify-client.svg",
     ["kitty"] = theme.dir .. "/icons/clients/kitty.svg",
     ["firefox"] = theme.dir .. "/icons/clients/firefox.png",
+    ["mpv"] = theme.dir .. "/icons/clients/mpv.svg",
 }
 
 -- Generate Awesome icon:
@@ -194,7 +197,7 @@ theme.calendar_start_sunday                     = false
 theme.batteryarc_main_color                     = theme.fg_normal
 theme.batteryarc_size                           = dpi(28)
 theme.batteryarc_arc_thickness                  = dpi(3)
-theme.batteryarc_notification_position          = "bottom_right"
+theme.batteryarc_notification_position          = "top_left"
 
 theme.volume_widget_type                        = "icon"
 
@@ -321,6 +324,7 @@ theme.create_middle_widgets = function(s, widgets)
             musikcube   = theme.dir .. "/icons/clients/musikcube3d.png",
             spotify     = theme.dir .. "/icons/clients/spotify-client.svg",
             firefox     = theme.dir .. "/icons/clients/firefox.png",
+            mpv         = theme.dir .. "/icons/clients/mpv.svg",
         },
         max_chars = -1,
         popup_maximum_width = dpi(400)
@@ -363,7 +367,7 @@ theme.create_middle_widgets = function(s, widgets)
     -- Calendar widget
     local calendar_widget = calendar_widget_f({
         theme = "naughty",
-        placement = "bottom_right",
+        placement = "top_left",
         start_sunday = false,
         radius = dpi(8),
         previous_month_button = 5,
@@ -395,7 +399,7 @@ end
 
 
 theme.autostart_shell_cmds = {
-    --os.getenv("HOME") .. "/.local/bin/spice_on_rice Dreary Deeper"
+    os.getenv("HOME") .. "/.local/bin/spice_on_rice Dreary Deeper"
 }
 
 return theme
