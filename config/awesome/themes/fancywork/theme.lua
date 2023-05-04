@@ -270,7 +270,7 @@ theme.clients_icons                             = {
     ["Spotify"] = theme.dir .. "/icons/clients/spotify-client.svg",
     ["Rhythmbox"] = theme.dir .. "/icons/clients/rhythmbox.svg",
     ["kitty"] = theme.dir .. "/icons/clients/kitty.svg",
-    ["firefox"] = theme.dir .. "/icons/clients/firefox.png",
+    ["firefox"] = theme.dir .. "/icons/clients/firefox.svg",
     ["mpv"] = theme.dir .. "/icons/clients/mpv.svg",
 }
 
@@ -514,7 +514,7 @@ theme.create_middle_widgets = function(s, widgets)
             musikcube   = theme.dir .. "/icons/clients/musikcube3d.png",
             spotify     = theme.dir .. "/icons/clients/spotify-client.svg",
             rhythmbox   = theme.dir .. "/icons/clients/rhythmbox.svg",
-            firefox     = theme.dir .. "/icons/clients/firefox.png",
+            firefox     = theme.dir .. "/icons/clients/firefox.svg",
             mpv         = theme.dir .. "/icons/clients/mpv.svg",
         },
         max_chars = -1,
