@@ -1,9 +1,15 @@
+--- my/screens/helpers.lua
+---
+--- Author: demingongo
+--- Link: https://github.com/demingongo
+--- Availability: https://github.com/demingongo/awesomewm-dotfiles
+
 local gears = require("gears")
 local beautiful = require("beautiful")
 
 
 --[[
-TODO: set a wallpaper with gradient
+TODO: enable set a wallpaper with gradient
 
 e.g. of gradient values
 - "radial:50,50,10:55,55,30:0,#ff0000:0.5,#00ff00:1,#0000ff"

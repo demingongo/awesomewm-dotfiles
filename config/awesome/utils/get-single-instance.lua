@@ -1,3 +1,9 @@
+--- utils/get-single-instance.lua
+---
+--- Author: demingongo
+--- Link: https://github.com/demingongo
+--- Availability: https://github.com/demingongo/awesomewm-dotfiles
+
 ---Returns a function that will return the result of the function parameter.
 ---If the result is not nil, it will always return that same result without executing
 ---the function parameter.

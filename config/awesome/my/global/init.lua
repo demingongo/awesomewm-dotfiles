@@ -1,3 +1,9 @@
+--- my/global/init.lua
+---
+--- Author: demingongo
+--- Link: https://github.com/demingongo
+--- Availability: https://github.com/demingongo/awesomewm-dotfiles
+
 local myglobalkeybindings = require('my.global.keybindings')
 local myglobalbuttonbindings = require('my.global.buttonbindings')
 

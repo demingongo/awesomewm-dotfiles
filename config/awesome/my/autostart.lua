@@ -1,3 +1,9 @@
+--- my/autostart.lua
+---
+--- Author: demingongo
+--- Link: https://github.com/demingongo
+--- Availability: https://github.com/demingongo/awesomewm-dotfiles
+
 local awful = require("awful")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
@@ -7,7 +13,9 @@ local naughty = require("naughty")
 require("awful.hotkeys_popup.keys")
 
 -- compositor (default)
---awful.spawn.once("picom")
+awful.spawn.once("picom")
+-- compositor (animations)
+--awful.spawn.once(os.getenv("HOME") .. "/Programs/local/bin/picom --config " .. os.getenv("HOME") .. "/.config/picom/picom-animations.conf")
 -- compositor (xrender backend) (VMs, ...)
 -- uncomment this one for your VM and comment the default one 
 --awful.spawn.once("picom --config " .. os.getenv("HOME") .. "/.config/picom/picom-vm.conf")

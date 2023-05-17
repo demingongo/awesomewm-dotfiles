@@ -1,3 +1,9 @@
+--- my/screens/tasklist.lua
+---
+--- Author: demingongo
+--- Link: https://github.com/demingongo
+--- Availability: https://github.com/demingongo/awesomewm-dotfiles
+
 local awful = require("awful")
 local beautiful = require("beautiful")
 local tasklist_buttons = require('my.screens.tasklist-buttons')

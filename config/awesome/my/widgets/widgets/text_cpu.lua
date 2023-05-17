@@ -1,3 +1,9 @@
+--- my/widgets/widgets/text_cpu.lua
+---
+--- Author: demingongo
+--- Link: https://github.com/demingongo
+--- Availability: https://github.com/demingongo/awesomewm-dotfiles
+
 local watch = require("awful.widget.watch")
 local wibox = require("wibox")
 

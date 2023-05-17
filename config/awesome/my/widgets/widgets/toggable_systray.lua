@@ -1,3 +1,9 @@
+--- my/widgets/widgets/toggable_systray.lua
+---
+--- Author: demingongo
+--- Link: https://github.com/demingongo
+--- Availability: https://github.com/demingongo/awesomewm-dotfiles
+
 local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")

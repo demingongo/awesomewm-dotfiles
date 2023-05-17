@@ -1,3 +1,9 @@
+--- my/screens/tasklist-buttons.lua
+---
+--- Author: demingongo
+--- Link: https://github.com/demingongo
+--- Availability: https://github.com/demingongo/awesomewm-dotfiles
+
 local gears = require("gears")
 local awful = require("awful")
 

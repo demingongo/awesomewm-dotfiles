@@ -1,3 +1,9 @@
+--- utils/list-themes.lua
+---
+--- Author: demingongo
+--- Link: https://github.com/demingongo
+--- Availability: https://github.com/demingongo/awesomewm-dotfiles
+
 local function file_exists(file)
   local f = io.open(file, "rb")
   if f then f:close() end
