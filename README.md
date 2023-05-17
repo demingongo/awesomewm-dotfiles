@@ -61,10 +61,11 @@ My awesome wm config
 
 ### Automation
 
-Each theme can update themes of the following applications:
+Switching between themes can also change the theme of the following apps:
 
 (Todo: describe how to proceed to automate for each one)
 
+- [kitty](https://sw.kovidgoyal.net/kitty/)
 - zsh:
   - [zthxxx/jovial](https://github.com/zthxxx/jovial)
 - neovim:
