@@ -31,6 +31,7 @@ if [[ "$c_answer_awesome" == "y" ]]; then
     cp -r config/awesome ~/.config/
     cp -r config/kitty ~/.config/
     cp -r config/picom ~/.config/
+    cp -r config/cava ~/.config/
 
     ./install_fonts.sh
 
