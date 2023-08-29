@@ -68,10 +68,10 @@ Switching between themes can also change the theme of the following apps:
 - [kitty](https://sw.kovidgoyal.net/kitty/)
 - zsh:
   - [zthxxx/jovial](https://github.com/zthxxx/jovial)
-- neovim:
-  - [nvim dots](https://github.com/demingongo/nvim-config)
 - spotify:
   - [spicetify-themes](https://github.com/spicetify/spicetify-themes)
+- neovim:
+  - [nvim dots](https://github.com/demingongo/nvim-config)
 
 ## References
 

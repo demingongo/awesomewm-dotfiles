@@ -72,22 +72,27 @@ client.connect_signal("request::titlebars", function(c)
         end)
     )
 
-    awful.titlebar(c):setup {
+    local titlebar_extra_args = type(beautiful.titlebar_extra_args) == "table" and 
+        beautiful.titlebar_extra_args or {}
+
+    local is_horizontal_titlebar = not (titlebar_extra_args.position == 'left' or titlebar_extra_args.position == 'right')
+
+    awful.titlebar(c, titlebar_extra_args):setup {
         {
             -- Left
             awful.titlebar.widget.iconwidget(c),
             buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
+            layout  = is_horizontal_titlebar and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical
         },
         {
             -- Middle
-            {
+            is_horizontal_titlebar and {
                 -- Title
                 align  = "center",
                 widget = awful.titlebar.widget.titlewidget(c)
-            },
+            } or nil,
             buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
+            layout  = is_horizontal_titlebar and wibox.layout.flex.horizontal or wibox.layout.flex.vertical
         },
         {
             -- Right
@@ -96,9 +101,9 @@ client.connect_signal("request::titlebars", function(c)
             awful.titlebar.widget.stickybutton(c),
             awful.titlebar.widget.ontopbutton(c),
             awful.titlebar.widget.closebutton(c),
-            layout = wibox.layout.fixed.horizontal()
+            layout = is_horizontal_titlebar and wibox.layout.fixed.horizontal() or wibox.layout.fixed.vertical()
         },
-        layout = wibox.layout.align.horizontal
+        layout = is_horizontal_titlebar and wibox.layout.align.horizontal or wibox.layout.align.vertical
     }
 end)
 
