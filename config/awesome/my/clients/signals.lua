@@ -24,6 +24,11 @@ client.connect_signal("manage", function(c)
 
         if type(beautiful.clients_icons) == "table" and beautiful.clients_icons[c.class] then
             client_icon = beautiful.clients_icons[c.class]
+            c._client_icon = client_icon
+        end
+
+        if type(beautiful.clients_focused_icons) == "table" and beautiful.clients_focused_icons[c.class] then
+            c._client_focused_icon = client_focused_icon
         end
 
         -- Set icon for client
