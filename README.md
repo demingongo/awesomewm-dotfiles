@@ -51,6 +51,18 @@ My awesome wm config
 ### rework
 
 ![Image](config/awesome/themes/rework/screenshot.png)
+
+### bywork
+
+![Image](config/awesome/themes/bywork/screenshot.png)
+
+### guesswork
+
+![Image](config/awesome/themes/guesswork/screenshot.png)
+
+### donkeywork
+
+![Image](config/awesome/themes/donkeywork/screenshot.png)
 </details>
 
 ### Apps to install manually
@@ -63,15 +75,23 @@ My awesome wm config
 
 Switching between themes can also change the theme of the following apps:
 
-(Todo: describe how to proceed to automate for each one)
-
 - [kitty](https://sw.kovidgoyal.net/kitty/)
 - zsh:
   - [zthxxx/jovial](https://github.com/zthxxx/jovial)
+  
+  Update your file `~/.zshrc` to add the following line (after the line `source $ZSH/oh-my-zsh.sh`):
+  ```sh
+  source $HOME/.config/awesome/config/zshrc.conf
+  ```
 - spotify:
   - [spicetify-themes](https://github.com/spicetify/spicetify-themes)
 - neovim:
   - [nvim dots](https://github.com/demingongo/nvim-config)
+  
+  Update the file `~/.config/nvim/theme.vim` to only have the following line:
+  ```vim
+  source $HOME/.config/awesome/config/nvim-theme.vim
+  ```
 
 ## References
 
