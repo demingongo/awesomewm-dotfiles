@@ -4,7 +4,6 @@
 
 local theme_name                                = "donkeywork"
 
-local theme_assets                              = require("beautiful.theme_assets")
 local xresources                                = require("beautiful.xresources")
 local dpi                                       = xresources.apply_dpi
 local gears                                     = require("gears")
@@ -254,10 +253,14 @@ theme.layout_cornerse                           = themes_path .. "default/layout
 -- Client icons used in tasklist
 theme.clients_default_icon                      = theme.dir .. "/icons/clients/undertale-flowey.svg"
 theme.clients_icons                             = {
-    ["Spotify"] = theme.dir .. "/icons/clients/undertale-flowey-up.svg",
+    ["Spotify"] = theme.dir .. "/icons/clients/undertale-flowey-up-orange.svg",
     ["rhythmbox"] = theme.dir .. "/icons/clients/rhythmbox.svg",
-    ["kitty"] = theme.dir .. "/icons/clients/undertale-flowey.svg",
+    ["kitty"] = theme.dir .. "/icons/clients/undertale-flowey-orange.svg",
     ["firefox"] = theme.dir .. "/icons/clients/undertale-papyrus.svg"
+}
+theme.clients_focused_icons                             = {
+    ["Spotify"] = theme.dir .. "/icons/clients/undertale-flowey-up-yellow.svg",
+    ["kitty"] = theme.dir .. "/icons/clients/undertale-flowey-yellow.svg",
 }
 
 -- Define the icon theme for application icons. If not set then the icons
@@ -410,7 +413,27 @@ local function create_tasklist(args, s)
             widget = wibox.container.margin
         },
         id = "background_role",
-        widget = wibox.container.background
+        widget = wibox.container.background,
+        update_callback = function(self, c, index, objects)
+            if c._client_icon and c._client_focused_icon then
+                local changed_icon = c._client_icon
+                if c == client.focus then
+                    changed_icon = c._client_focused_icon
+                end
+
+                -- change taskbar's icon
+                -- The reason why I don't change client's icon is because
+                -- it is extremely heavy. Memory load keeps increasing
+                gears.timer ({
+                    callback = function()
+                        self:get_children_by_id('icon_role')[1].image = changed_icon
+                    end,
+                    timeout = 0.1,
+                    autostart = true,
+                    single_shot = true
+                })
+            end
+        end,
     }
 
     return awful.widget.tasklist(args)
@@ -638,7 +661,7 @@ end
 theme.setup_wibar = setup_wibar
 
 theme.autostart_shell_cmds = {
-    --os.getenv("HOME") .. "/.local/bin/spice_on_rice Glaze Blase"
+    os.getenv("HOME") .. "/.local/bin/spice_on_rice Glaze Blase"
 }
 
 return theme
