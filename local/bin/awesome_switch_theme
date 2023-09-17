@@ -70,7 +70,7 @@ Load_config()
 	fi
 }
 
-if [[ -n "$theme" ]] then
+if [[ -n "$theme" ]]; then
 	[ "$is_interactive" = true ] && gum spin --spinner line --title "$theme" -- sleep 1
 
 	# load theme
